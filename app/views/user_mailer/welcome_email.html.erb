@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <a href="<%= authenticate_url(token: @user.token,expiry_time: Time.current.localtime + 5.minute ) %>">
+        Log in
+      </a>
+      <p>Link is valid for 5 minutes</p>
+  </body>
+</html>
+ 

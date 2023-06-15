@@ -1,0 +1,27 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+<%= form_with model: user do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :email %><br>
+    <%= form.text_area :email %><br>
+  </div>
+
+  <div>
+    <%= form.label :status %><br>
+   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]])) %>
+  </div>
+   <div>
+    <%= form.label :admin %><br>
+    <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]])) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<h1>Issues</h1>
+
+<ul>
+  <%@issues.each do |issue| %>
+    <li><%= issue.item_id %></li>
+    <li><%= issue.description %></li>
+    <li><%= issue.status ? 'resolve' : 'pending' %></li>
+    <% if authenticate_user %> 
+      <li><%= issue.user_id %></li> 
+      <li><%= link_to "Edit", edit_issue_path(issue) %></li>
+      <li><%= link_to "Delete", issue_path(issue), method: :delete %></li>
+    <% end %>
+    <hr>
+  <%end%>
+</ul>
+<% if !authenticate_user%>
+  <%= link_to "Add Issue", new_issue_path %>
+<% end %>

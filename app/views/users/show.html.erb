@@ -1,0 +1,13 @@
+<h3><%= @user.name %></h3>
+<h3><%= @user.email %></h3>
+<h3><%= @user.status ? "Active" : "Inactive" %></h3>
+<% if !current_user == @user %>
+  <ul>
+    <li><%= link_to "Edit", edit_user_path(@user) %></li>
+    <li><%= link_to "Delete", user_path(@user), method: :delete %></li>
+  </ul>
+<% end %>
+<h3>Allocated items</h3>
+
+<%= render "shared/items", items: @items %>
+

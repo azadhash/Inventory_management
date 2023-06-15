@@ -1,0 +1,17 @@
+<%= form_with model: category do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :required_quantity %><br>
+    <%= form.text_field :required_quantity %>
+  </div>
+  <div>
+    <%= form.label :buffer_quantity %><br>
+    <%= form.text_field :buffer_quantity %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

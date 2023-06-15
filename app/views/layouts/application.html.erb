@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>InventoryManagement</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">InventoryManagement</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <% if current_user %>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <% if authenticate_user %>  
+              <li class="nav-item">
+                <%= link_to "Dashboard", dashboard_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                 <%= link_to "Users", users_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                 <%= link_to "Brands", brands_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                 <%= link_to "Category", categories_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Items", items_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Issues", issues_path , class: 'nav-link text-light'%>
+              </li>
+            <% else %>  
+              <li class="nav-item">
+                <%= link_to "Items", items_path , class: 'nav-link text-light'%>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Issues", issues_path , class: 'nav-link text-light'%>
+              </li>
+            <% end %> 
+              <li class="nav-item">
+                  <%= link_to "Logout", logout_path , class: 'nav-link text-light' %>
+              </li> 
+          </ul>
+        </div>
+        <% if authenticate_user %>
+          <span class="navbar-text text-light"> <%= current_user.name.capitalize %> || Admin </span>
+        <% else %>
+          <span class="navbar-text text-light"> <%= current_user.name.capitalize %> || Employee </span>
+        <% end %>
+      <% end %>
+    </nav>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<%= form_with model: issue do |form| %>
+  <div>
+    <%= form.label :item_id %><br>
+    <%= form.text_field :item_id %>
+  </div>
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <% if authenticate_user %>
+      <%= form.label :status %><br>
+      <%= form.select(:status, options_for_select([['solved', true],['Pending', false]])) %>
+    <% end %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

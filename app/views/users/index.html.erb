@@ -1,0 +1,26 @@
+<h1>Users</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%@users.each do |user| %>
+    <tr class="table-info">
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.status ? 'Active' : 'Inactive' %></td>
+      <td>
+        <%= link_to "Show", user_path(user), class: 'btn btn-primary' %>
+        <%= link_to "Edit", edit_user_path(user), class: 'btn btn-warning' %>
+        <%= link_to "Delete", user_path(user), method: :delete, class: 'btn btn-danger' %></li>
+      </td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+<%= link_to "Add user", new_user_path, class: 'btn btn-primary'%>

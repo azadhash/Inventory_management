@@ -1,0 +1,4 @@
+<%= render "shared/items", items: @items %>
+<% if authenticate_user %>
+  <%= link_to "Add Item", new_item_path, class: 'btn btn-primary'%>
+<% end %>
