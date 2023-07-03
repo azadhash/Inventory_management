@@ -1,5 +1,10 @@
-<h1>Issues</h1>
-
+<%= render 'partials/search', search: search_issues_path %>
+<% if !authenticate_user%>
+  <%= link_to "Raise Issue", new_issue_path, class: 'btn btn-lg text-light custom-bg-color' %>
+<% end %>
+<% if @issues.length == 0 %>
+  <h3 class="text-center mt-4">No issues found</h3>
+<% else %>
 <ul>
   <%@issues.each do |issue| %>
     <li><%= issue.item_id %></li>
@@ -13,6 +18,4 @@
     <hr>
   <%end%>
 </ul>
-<% if !authenticate_user%>
-  <%= link_to "Add Issue", new_issue_path %>
 <% end %>

@@ -41,6 +41,9 @@ class IssuesController < ApplicationController
     if @issue.update(issue_params)
       if @issue.status 
         UserMailer.issue_status_email(@issue).deliver_now
+        user = @issue.user
+        notification = Notification.create(recipient: user,priority: "normal",message: "your issue with id #{@issue.id} is resolved")
+        ActionCable.server.broadcast("NotificationsChannel_#{user.id}", { notification: notification})
       end
       redirect_to issues_path
     else
@@ -48,6 +51,14 @@ class IssuesController < ApplicationController
     end
   end
 
+  def search
+    query = params[:search_categories].presence && params[:search_categories][:query]
+    query.to_i.to_s == query ? query.to_i : query
+    if query
+      @issue = Issue.search(query)
+    end
+  end    
+  
   def destroy
     @issue = Issue.find(params[:id])
     @issue.destroy

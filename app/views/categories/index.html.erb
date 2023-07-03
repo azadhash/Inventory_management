@@ -1,12 +1,6 @@
 <h1>Categories</h1>
-
-<ul>
-  <%@categories.each do |category| %>
-    <li><%= category.name %></li>
-    <li><%= link_to "Edit", edit_category_path(category) %></li>
-    <li><%= link_to "Delete", category_path(category), method: :delete %></li>
-    <hr>
-  <%end%>
-</ul>
-
-<%= link_to "Add category", new_category_path %>
+<%= render 'partials/search', search: search_categories_path %>
+<%= link_to "Add category", new_category_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
+<div>
+      <%= render 'list', categories: @categories %>
+</div>

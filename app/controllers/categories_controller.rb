@@ -44,6 +44,25 @@ class CategoriesController < ApplicationController
     redirect_to categories_path, status: :see_other
   end
 
+  def storage
+    @categories = Category.all
+  end
+  
+  def search
+    query = params[:search_categories].presence && params[:search_categories][:query]
+    # query.to_i.to_s == query ? query.to_i : query
+    if query
+     @category = Category.search_name(query)
+     
+    end
+  end    
+  
+  def fetch_data
+   category = Category.find(params[:category_id])
+   storage = category.required_quantity - category.items.count
+   render json: { storage: storage }
+  end
+  private
   def category_params
     params.require(:category).permit(:name,:required_quantity,:buffer_quantity)
   end 

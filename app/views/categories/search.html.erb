@@ -1,0 +1,9 @@
+<%= render 'partials/search', search: search_categories_path  %>
+<% unless @category.nil? %>
+  <% if @category.empty? %>
+    <h2>No category found</h2>
+  <% else %>
+    <h2>Search results</h2>
+    <%= render 'list', categories: @category %>
+  <% end %>
+<% end %>

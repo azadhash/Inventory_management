@@ -38,6 +38,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    query = params[:search_categories].presence && params[:search_categories][:query]
+       query.to_i.to_s == query ? query.to_i : query
+    if query
+      @user = User.search_user(query)
+    end
+  end  
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy

@@ -1,0 +1,40 @@
+<table class="table table-bordered">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <% if limit == 0 %>
+        <th scope="col">Actions</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% if limit == 0 %>
+    <% type.all.each do |type_name| %>
+      <tr class="table-info">
+        <td><%= type_name.id %></td>
+        <% if type == Issue %>
+          <td><%= type_name.description %></td>
+        <% else %>
+          <td><%= type_name.name %></td>
+        <% end %>
+        <td>
+          <%= link_to "Edit", send("edit_#{type_name.class.to_s.downcase}_path", type_name), class: 'btn btn-warning' %>
+          <%= link_to "Delete", send("#{type_name.class.to_s.downcase}_path", type_name), method: :delete, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <% type.limit(limit).each do |type_name| %>
+      <tr class="table-info">
+        <td><%= type_name.id %></td>
+        <% if type == Issue%>
+          <td><%= type_name.description %></td>
+        <% else %>
+          <td><%= type_name.name %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

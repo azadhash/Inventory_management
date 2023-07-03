@@ -2,26 +2,26 @@
   <div class="alert alert-<%= key %>"><%= value %></div>
 <% end %>
 <%= form_with model: user do |form| %>
+<div class="mx-auto col-4">
   <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= form.label :name, class: 'form-label' %><br>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
-
   <div>
-    <%= form.label :email %><br>
-    <%= form.text_area :email %><br>
+    <%= form.label :email, class: 'form-label mt-3' %><br>
+    <%= form.text_field :email, class: 'form-control' %><br>
   </div>
-
   <div>
-    <%= form.label :status %><br>
-   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]])) %>
+    <%= form.label :status, class: 'form-label' %><br>
+   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]]),{},class: 'form-select') %>
   </div>
    <div>
-    <%= form.label :admin %><br>
-    <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]])) %>
+    <%= form.label :admin, class: 'form-label mt-3' %><br>
+    <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]]),{},class: 'form-select' )%>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="d-flex justify-content-center">
+    <%= form.submit class: 'btn custom-bg-color text-light mt-5' %>
   </div>
+</div>
 <% end %>

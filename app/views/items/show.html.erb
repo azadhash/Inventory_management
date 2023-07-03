@@ -8,6 +8,15 @@
 <h3><%= @item.user.name %></h3>
 <h3><%= link_to "Edit", edit_item_path(@item), class: 'btn btn-warning' %></h3>
 <h3><%= link_to "Delete", item_path(@item), method: :delete, class: 'btn btn-danger' %></h3>
-<h3><%= link_to "Download document",rails_blob_path(@item.document, disposition: "attachment"), class: 'btn btn-warning' %></h3>
+<% if @item.documents.attached? %>
+  <div class="field">
+    <strong>Download documents:</strong>
+    <% @item.documents.each do |document| %>
+      <%= link_to document.filename, url_for(document), class: 'btn btn-warning', target: '_blank' %>
+      <br>
+    <% end %>
+  </div>
+<% end %>
+
 <h3><%= link_to "Back", items_path, class: 'btn btn-primary' %></h3>
 

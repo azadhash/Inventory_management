@@ -15,3 +15,24 @@
  */
 //  @import 'bootstrap.css';
 
+
+.navbar-coustom-bg {
+  background-color: #343a40;
+}
+.btn:first-child:active, .btn.btn.show{
+  border-color: transparent !important;
+}
+
+.btn:first-child:active{
+  border-color: transparent !important;
+}
+.custom-bg-color{
+  background-color: #3b5998 !important;
+}
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}

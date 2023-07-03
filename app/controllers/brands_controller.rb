@@ -37,6 +37,15 @@ class BrandsController < ApplicationController
     end
   end
 
+  def search
+    query = params[:search_categories].presence && params[:search_categories][:query]
+       query.to_i.to_s == query ? query.to_i : query
+    if query
+      @brand = Brand.search(query)
+    end
+  end    
+  
+
   def destroy
     @brand = Brand.find(params[:id])
     @brand.destroy

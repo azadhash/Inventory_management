@@ -30,7 +30,10 @@ gem 'pry'
 # Bootstrap
 # gem 'bootstrap-sass', '~> 3.2.0'
 # gem 'bootstrap'
-# gem 'jquery-rails'
+gem 'jquery-rails'
+#elastic search
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

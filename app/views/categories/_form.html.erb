@@ -1,17 +1,19 @@
 <%= form_with model: category do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </div>
-  <div>
-    <%= form.label :required_quantity %><br>
-    <%= form.text_field :required_quantity %>
-  </div>
-  <div>
-    <%= form.label :buffer_quantity %><br>
-    <%= form.text_field :buffer_quantity %>
-  </div>
-  <div>
-    <%= form.submit %>
+  <div class="mx-auto col-4">
+    <div>
+      <%= form.label :name, class: 'form-label' %><br>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+    <div>
+      <%= form.label :required_quantity, class: 'form-label' %><br>
+      <%= form.text_field :required_quantity , class: 'form-control'%>
+    </div>
+    <div>
+      <%= form.label :buffer_quantity, class: 'form-label' %><br>
+      <%= form.text_field :buffer_quantity, class: 'form-control' %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <%= form.submit class: 'btn btn-primary mt-5  custom-bg-color' %>
+    </div>
   </div>
 <% end %>

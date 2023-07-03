@@ -1,0 +1,9 @@
+<%= render 'partials/search', search: search_items_path  %>
+<% unless @items.nil? %>
+  <% if @items.empty? %>
+    <h2>No Item Found</h2>
+  <% else %>
+    <h2>Search results</h2>
+    <%= render 'list',items: @items %>
+  <% end %>
+<% end %>

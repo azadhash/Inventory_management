@@ -6,4 +6,10 @@ module ApplicationHelper
   def authenticate_user
     current_user&.admin
   end
+
+  # def submit_button
+  #   <div class="d-flex justify-content-center">
+  #   <%= form.submit class: 'btn btn-primary mt-5  custom-bg-color' %>
+  #   </div>
+  # end
 end

@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'notification', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'storage', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/e79d88cb25.js" crossorigin="anonymous"></script>
+    <style>
+    .notification-dropdown {
+      min-width: 300px;
+    }
+    </style>
   </head>
 
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-coustom-bg">
       <a class="navbar-brand" href="#">InventoryManagement</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,6 +48,9 @@
               <li class="nav-item">
                 <%= link_to "Issues", issues_path , class: 'nav-link text-light'%>
               </li>
+              <li class="nav-item">
+                <%= link_to "Storage", storage_categories_path , class: 'nav-link text-light'%>
+              </li>
             <% else %>  
               <li class="nav-item">
                 <%= link_to "Items", items_path , class: 'nav-link text-light'%>
@@ -53,13 +64,34 @@
               </li> 
           </ul>
         </div>
+        <div class="dropdown">
+          <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+             <i class="fa-regular fa-bell text-light"></i>
+             <span class="badge bg-danger" id="notificationCounter"></span>
+          </a>
+          <ul class="dropdown-menu  notification-dropdown dropdown-menu-end" aria-labelledby="dropdownMenuLink" id="notification">
+          <li><%= button_to 'Mark All as Read',notifications_mark_read_path, class: 'text-light btn custom-bg-color mb-3' %></li>
+              <% current_user.notifications.where(read: false).each do |notification| %>
+              <% priority_class = '' %>
+              <% case notification.priority %>
+                <% when 'warning' %>
+                  <% priority_class = 'text-warning' %>
+                <% when 'danger' %>
+                  <% priority_class = 'text-danger' %>
+                <% else %>
+                  <% priority_class = 'text-info' %>
+              <% end %>
+              <li><%= link_to notification.message, notification_path(notification), class: priority_class %></li>
+            <% end %>
+          </ul>
+        </div>
         <% if authenticate_user %>
           <span class="navbar-text text-light"> <%= current_user.name.capitalize %> || Admin </span>
         <% else %>
           <span class="navbar-text text-light"> <%= current_user.name.capitalize %> || Employee </span>
         <% end %>
       <% end %>
-    </nav>
+    </nav>  
     <%= yield %>
   </body>
 </html>

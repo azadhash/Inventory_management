@@ -1,12 +1,6 @@
 <h1>Brands</h1>
-
-<ul>
-  <%@brands.each do |brand| %>
-    <li><%= brand.name %></li>
-    <li><%= link_to "Edit", edit_brand_path(brand) %></li>
-    <li><%= link_to "Delete", brand_path(brand), method: :delete %></li>
-    <hr>
-  <%end%>
-</ul>
-
-<%= link_to "Add Brand", new_brand_path %>
+<%= render 'partials/search', search_type: "Brands", search: search_brands_path%>
+<%= link_to "Add Brand", new_brand_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
+<div class="col-lg-3 w-50 m-auto">
+      <%= render 'list', brands: @brands %>
+</div>

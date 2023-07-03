@@ -1,9 +1,9 @@
 class CreateCategories < ActiveRecord::Migration[6.1]
   def change
     create_table :categories do |t|
-      t.string :name
-      t.integer :required_quantity
-      t.integer :buffer_quantity
+      t.string :name, null: false, unique: true
+      t.integer :required_quantity, null: false
+      t.integer :buffer_quantity, null: false
       t.timestamps
     end
   end

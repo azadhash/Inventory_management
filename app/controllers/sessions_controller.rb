@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user
       @user.update(token: generate_token)
-      UserMailer.with(user: @user).welcome_email.deliver_now
+      UserMailer.welcome_email(@user).deliver_now
       flash[:notice] = 'Magic link sent to your email!'
       render :new
     else
@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
    
     if user && expiry_time > Time.now
       session[:user_id] = user.id
+      cookies.signed[:user_id] = user.id 
       redirect_to dashboard_path
     else
       user.update(token: nil)
@@ -41,6 +42,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: request.env['omniauth.auth'][:info][:email]) 
     if user
       session[:user_id] = user.id
+      cookies.signed[:user_id] = user.id 
       redirect_to dashboard_path
     else
       redirect_to login_path
