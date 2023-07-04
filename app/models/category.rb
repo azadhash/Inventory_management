@@ -22,7 +22,7 @@ class Category < ApplicationRecord
     buffer_quantity: buffer_quantity,
     }
   end
-  def self.search_name(query)
+  def self.search_category(query)
     self.search({
       "query": {
         "bool": {

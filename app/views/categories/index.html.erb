@@ -2,5 +2,12 @@
 <%= render 'partials/search', search: search_categories_path %>
 <%= link_to "Add category", new_category_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
 <div>
-      <%= render 'list', categories: @categories %>
+  <table class="table table-bordered">
+    <%= render 'partials/categories', sort: categories_path %>
+    <tbody>
+      <%@categories.each do |category| %>
+        <%= render 'list', category: category %>
+      <%end%>
+    </tbody>
+  </table>
 </div>

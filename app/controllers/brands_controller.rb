@@ -2,7 +2,10 @@ class BrandsController < ApplicationController
   before_action :has_current_user
   before_action :user_type
   def index
+    session[:query] = nil
     @brands = Brand.all
+    sort_param = params[:sort_by]
+    @brands = sort_obj(sort_param,@brands)
   end
 
   def new
@@ -39,10 +42,15 @@ class BrandsController < ApplicationController
 
   def search
     query = params[:search_categories].presence && params[:search_categories][:query]
-       query.to_i.to_s == query ? query.to_i : query
+    #  query.to_i.to_s == query ? query.to_i : query
     if query
-      @brand = Brand.search(query)
+      session[:query] = query
+      @brands = Brand.search_brand(query).records 
+    elsif session[:query]
+      @brands = Brand.search_brand(session[:query]).records
     end
+    sort_param = params[:sort_by]
+    @brands = sort_obj(sort_param,@brands)
   end    
   
 

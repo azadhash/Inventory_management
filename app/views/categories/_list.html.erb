@@ -1,26 +1,10 @@
-<table class="table table-bordered">
-      <thead>
-         <tr class="table-primary">
-           <th scope="col">id</th>
-           <th scope="col">name</th>
-           <th scope="col">required_quantity</th>
-           <th scope="col">buffer_quantity</th>
-           <th scope="col">Actions</th>
-         </tr>
-      </thead>
-
-      <tbody>
-      <% categories.each do |category| %>
-          <tr class="table-info"> 
-            <td><%= category.id %></td> 
-            <td><%= category.name %></td>
-            <td><%= category.required_quantity %></td>
-            <td><%= category.buffer_quantity   %></td>
-            <td>
-              <%= link_to "Edit",edit_category_path(category.id), class: 'btn btn-warning' %>
-              <%= link_to "Delete",category_path(category.id), method: :delete, class: 'btn btn-danger' %>
-            </td>
-          </tr>
-          <%end%>
-      <tbody>
-    </table>
+<tr class="table-info"> 
+  <td><%= category.id %></td> 
+  <td><%= category.name %></td>
+  <td><%= category.required_quantity %></td>
+  <td><%= category.buffer_quantity   %></td>
+  <td>
+    <%= link_to "Edit",edit_category_path(category.id), class: 'btn btn-warning' %>
+    <%= link_to "Delete",category_path(category.id), method: :delete, class: 'btn btn-danger' %>
+  </td>
+</tr>

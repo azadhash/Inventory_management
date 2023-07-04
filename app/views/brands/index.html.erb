@@ -1,6 +1,13 @@
 <h1>Brands</h1>
 <%= render 'partials/search', search_type: "Brands", search: search_brands_path%>
-<%= link_to "Add Brand", new_brand_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
+<%= link_to "Add Brand", new_brand_path, class: 'btn btn-lg text-light custom-bg-color' %>
 <div class="col-lg-3 w-50 m-auto">
-      <%= render 'list', brands: @brands %>
+  <table class="table table-bordered">
+    <%= render 'partials/brands', sort: brands_path %>
+    <tbody>
+      <%@brands.each do |brand| %>
+        <%= render 'list', brand: brand %>
+      <%end%>
+    </tbody>
+  </table>
 </div>

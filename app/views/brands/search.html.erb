@@ -1,11 +1,18 @@
 <%= render 'partials/search', search: search_brands_path  %>
-<% unless @brand.nil? %>
-  <% if @brand.empty? %>
+<% unless @brands.nil? %>
+  <% if @brands.empty? %>
     <h2>No Brand Found</h2>
   <% else %>
     <h2>Search results</h2>
     <div class="col-lg-3 w-50 m-auto">
-      <%= render 'list', brands: @brand %>
+    <table class="table table-bordered">
+      <%= render 'partials/brands', sort: search_brands_path %>
+      <tbody>
+        <%@brands.each do |brand| %>
+          <%= render 'list', brand: brand %>
+        <%end%>
+      </tbody>
+    </table>
     </div>
   <% end %>
 <% end %>

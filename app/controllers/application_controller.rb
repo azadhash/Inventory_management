@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
       redirect_to dashboard_path
     end
   end
+  def intialize_session
+    session[:category_id] = params[:category_id].presence || nil
+    session[:brand_id] = params[:brand_id].presence || nil
+    session[:status] = params[:status].presence || nil
+  end
 end

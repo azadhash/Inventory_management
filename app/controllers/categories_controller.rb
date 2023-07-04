@@ -2,17 +2,15 @@ class CategoriesController < ApplicationController
   before_action :has_current_user
   before_action :user_type
   def index
+    session[:query] = nil
     @categories = Category.all
+    sort_param = params[:sort_by]
+    @categories = sort_obj(sort_param,@categories)
   end
 
   def new
     @category = Category.new
   end
-  
-  # def show
-  #   @category = Category.find(params[:id])
-  # end
-
   def create
     @category = Category.new(category_params)
 
@@ -52,9 +50,13 @@ class CategoriesController < ApplicationController
     query = params[:search_categories].presence && params[:search_categories][:query]
     # query.to_i.to_s == query ? query.to_i : query
     if query
-     @category = Category.search_name(query)
-     
+      session[:query] = query
+      @categories = Category.search_category(query).records 
+    elsif  session[:query]
+      @categories = Category.search_category( session[:query]).records
     end
+    sort_param = params[:sort_by]
+    @categories = sort_obj(sort_param,@categories)
   end    
   
   def fetch_data

@@ -14,9 +14,17 @@ class Brand < ApplicationRecord
   def as_indexed_json(options = {}){
     id: id,
     name: name
-    # category_name: category.items,
-    # sub_category_name: sub_category.items,
   }
+  end
+  def self.search_brand(query)
+    self.search({
+      "query": {
+        "query_string": {
+          "query": "*#{query}*",
+          "fields": ["id","name"]
+        }
+      }
+    })
   end
   index_data
 end

@@ -1,21 +1,8 @@
-<table class="table table-bordered">
-  <thead>
-     <tr class="table-primary">
-       <th scope="col">id</th>
-       <th scope="col">name</th>
-       <th scope="col">Actions</th>
-     </tr>
-  </thead
-  <tbody>
-  <% brands.each do |brand| %>
-    <tr class="table-info"> 
-      <td><%= brand.id %></td> 
-      <td><%= brand.name %></td>
-      <td>
-        <%= link_to "Edit",edit_brand_path(brand.id), class: 'btn btn-warning' %>
-        <%= link_to "Delete",brand_path(brand.id), method: :delete, class: 'btn btn-danger' %>
-      </td>
-    </tr>
-  <%end%>
-  </tbody>
-</table>
+<tr class="table-info"> 
+  <td><%= brand.id %></td> 
+  <td><%= brand.name %></td>
+  <td>
+    <%= link_to "Edit",edit_brand_path(brand), class: 'btn btn-warning' %>
+    <%= link_to "Delete",brand_path(brand), method: :delete, class: 'btn btn-danger' %>
+  </td>
+</tr>

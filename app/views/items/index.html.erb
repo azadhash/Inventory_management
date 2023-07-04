@@ -1,16 +1,17 @@
 <%= render 'partials/search', search: search_items_path  %>
-<p>
-  Sort by:
-  <%= link_to "ID (asc)", items_path(sort_by: "id_asc") %>
-  <%= link_to "ID (desc)", items_path(sort_by: "id_desc") %>
-  <%= link_to "Name (asc)", items_path(sort_by: "name_asc") %>
-  <%= link_to "Name (desc)", items_path(sort_by: "name_desc") %>
-</p>
+<%= render 'filter' %>
 <% if authenticate_user %>
   <%= link_to "Add Item", new_item_path, class: 'btn btn-lg text-light custom-bg-color'%>
 <% end %>
 <% if @items.length == 0 %>
   <h3 class="text-center mt-4">No items found</h3>
 <% else %>
-<%= render "partials/items", items: @items %>
+  <table class="table table-bordered">
+    <%= render 'partials/items' %>
+    <tbody>
+      <%@items.each do |item| %>
+        <%= render 'list', item: item %>
+      <%end%>
+    </tbody>
+  </table>
 <% end %>

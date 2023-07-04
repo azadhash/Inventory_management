@@ -1,27 +1,17 @@
 class ItemsController < ApplicationController
   before_action :has_current_user
-  before_action :user_type, except: [:index,:show]
-  
+  before_action :user_type, except: [:index,:show,:search]
+ 
   def index
+    intialize_session
+    session[:query] = nil
     if authenticate_user
       @items = Item.all
     else
       @items = current_user.items
     end
     sort_param = params[:sort_by]
-    case sort_param
-    when "id_asc"
-      @items = @items.order(id: :asc)
-    when "id_desc"
-      @items = @items.order(id: :desc)
-    when "name_asc"
-      @items = @items.order(name: :asc)
-    when "name_desc"
-      @items = @items.order(name: :desc)
-    else
-      # Default sorting if no sort parameter is provided
-      @items = @items.order(id: :asc)
-    end
+    @items = sort_obj(sort_param,@items)
   end
 
   def new
@@ -71,17 +61,38 @@ class ItemsController < ApplicationController
     end
     redirect_to items_path, status: :see_other
   end
+
   def search
     query = params[:search_categories].presence && params[:search_categories][:query]
-    query.to_i.to_s == query ? query.to_i : query
+    # query.to_i.to_s == query ? query.to_i : query
     if query
-      @items = Item.search_item(query)
+      session[:query] = query
+      @items = Item.search_item(query).records 
+    elsif  session[:query]
+      @items = Item.search_item( session[:query]).records
+    else
+      @items = Item.all
     end
+    if params[:filter]
+      intialize_session
+    end 
+    @items = filter(@items)
+    sort_param = params[:sort_by]
+    @items = sort_obj(sort_param,@items)
   end
   
-  def sort_item
-
-  end 
+  def filter(obj)
+    if session[:category_id].present?
+      obj = obj.where(category_id: session[:category_id])
+    end
+    if session[:brand_id].present?
+      obj = obj.where(brand_id: session[:brand_id])
+    end
+    if session[:status].present?
+      obj = obj.where(status: session[:status])
+    end
+    obj
+  end
   def generate_unique_id
     loop do
       random_id = SecureRandom.random_number(10_000)
