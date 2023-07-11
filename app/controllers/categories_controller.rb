@@ -15,9 +15,9 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to categories_path
+      redirect_to categories_path, flash: { notice: "Category successfully created." }
     else
-      render :new 
+      render :new
     end
   end
 
@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
 
     if @category.update(category_params)
-      redirect_to categories_path
+      redirect_to categories_path, flash: { notice: "Category successfully updated." }
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,8 +38,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find(params[:id])
     @category.destroy
-
-    redirect_to categories_path, status: :see_other
+    render json: { success: "Catgeory was successfully deleted." }, status: :ok
   end
 
   def storage

@@ -1,14 +1,14 @@
 <%= render 'partials/search', search: search_items_path  %>
 <%= render 'filter' %>
 <% if authenticate_user %>
-  <%= link_to "Add Item", new_item_path, class: 'btn btn-lg text-light custom-bg-color'%>
+  <%= link_to "Add Item", new_item_path, class: 'btn btn-lg text-light custom-bg-color mt-4 mb-4'%>
 <% end %>
 <% if @items.length == 0 %>
   <h3 class="text-center mt-4">No items found</h3>
 <% else %>
-  <table class="table table-bordered">
-    <%= render 'partials/items' %>
-    <tbody>
+  <table class="table table-bordered items-list">
+    <%= render 'partials/items', sort: items_path %>
+    <tbody class="entities-list">
       <%@items.each do |item| %>
         <%= render 'list', item: item %>
       <%end%>

@@ -1,0 +1,8 @@
+<% if @brand.errors.any? %>
+  $('#error').html("<%= j show_errors(@brand, :name)%>")
+<% else %>
+  $('#brands-list').append('<%= j render "list", brand: @brand %>');
+  $('#error').html("")
+  $('#notFound').remove()
+<% end %>
+

@@ -2,11 +2,15 @@ class IssuesController < ApplicationController
   before_action :has_current_user
   before_action :user_type, except: [:index,:create,:new]
   def index
+    intialize_session
+    session[:query] = nil
     if authenticate_user
       @issues = Issue.all
     else
       @issues = current_user.issues
     end
+    sort_param = params[:sort_by]
+    @issues = sort_obj(sort_param,@issues)
   end
 
   def new
@@ -40,7 +44,7 @@ class IssuesController < ApplicationController
 
     if @issue.update(issue_params)
       if @issue.status 
-        UserMailer.issue_status_email(@issue).deliver_now
+        UserMailer.issue_status_email(@issue).deliver_later
         user = @issue.user
         notification = Notification.create(recipient: user,priority: "normal",message: "your issue with id #{@issue.id} is resolved")
         ActionCable.server.broadcast("NotificationsChannel_#{user.id}", { notification: notification})
@@ -52,11 +56,7 @@ class IssuesController < ApplicationController
   end
 
   def search
-    query = params[:search_categories].presence && params[:search_categories][:query]
-    query.to_i.to_s == query ? query.to_i : query
-    if query
-      @issue = Issue.search(query)
-    end
+    @issues = search_obj(params,Issue)
   end    
   
   def destroy

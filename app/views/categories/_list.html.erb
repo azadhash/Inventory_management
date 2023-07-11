@@ -1,10 +1,10 @@
-<tr class="table-info"> 
+<tr class="table-info" data-categories-id=<%= category.id %>> 
   <td><%= category.id %></td> 
   <td><%= category.name %></td>
   <td><%= category.required_quantity %></td>
   <td><%= category.buffer_quantity   %></td>
   <td>
     <%= link_to "Edit",edit_category_path(category.id), class: 'btn btn-warning' %>
-    <%= link_to "Delete",category_path(category.id), method: :delete, class: 'btn btn-danger' %>
+    <%= button_to "Delete", category_path(category.id), method: :delete, class: 'btn btn-danger delete-button', remote: true, data: { entity_id:  category.id, entity_type: "categories"  } %>
   </td>
 </tr>

@@ -1,27 +1,11 @@
 <%= render 'partials/search', search: search_issues_path  %>
-<% unless @issue.nil? %>
-  <% if @issue.empty? %>
+<%= render 'filter' %>
+<% unless @issues.nil? %>
+  <% if @issues.empty? %>
     <h2>No Issue Found</h2>
   <% else %>
     
     <h2>Search results</h2>
-
-    <table style="width: 100%;">
-      <thead>
-         <tr>
-           <th>id</th>
-           <th>description</th>
-         </tr>
-      </thead>
-
-      <tbody>
-      <% @issue.each do |issue| %>
-          <tr> 
-            <td><%= issue.id %></td> 
-            <td><%= issue.description %></td>
-          </tr>
-          <%end%>
-      <tbody>
-    </table>
+    <%= render 'list', issues: @issues, sort: search_issues_path %>
   <% end %>
 <% end %>

@@ -1,6 +1,8 @@
 class Brand < ApplicationRecord
   include Searchable
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   has_many :items, dependent: :destroy
+
   settings do
     mappings dynamic: false do
       indexes :name, type: :text

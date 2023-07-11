@@ -26,17 +26,19 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     # @item.id = generate_unique_id
     category = @item.category
-    if @item.category.required_quantity > category.items.count && @item.save
-      category_count = category.required_quantity - category.items.count
-      buffer_quantity = category.buffer_quantity
-      if category_count <= buffer_quantity
-        sent_notification_to_admin(category,'danger')
-      elsif  category_count < buffer_quantity + 5
-        sent_notification_to_admin(category,'warning')
-      end
-      redirect_to items_path
+    if @item.save
+      @item.update(uid: generate_unique_id)
+    # if category.present? && @item.category.required_quantity > category.items.count && @item.save
+    #   category_count = category.required_quantity - category.items.count
+    #   buffer_quantity = category.buffer_quantity
+    #   if category_count <= buffer_quantity
+    #     sent_notification_to_admin(category,'danger')
+    #   elsif  category_count < buffer_quantity + 5
+    #     sent_notification_to_admin(category,'warning')
+    #   end
+      redirect_to items_path, flash: { notice: "Item successfully created." }
     else
-      render :new 
+      render :new
     end
   end
 
@@ -58,41 +60,16 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if !@item.user_id?
       @item.destroy
+      render json: { success: "Item was successfully deleted." }, status: :ok
+    else
+      render json: { error: "Item was allocated to a user." }, status: :unprocessable_entity
     end
-    redirect_to items_path, status: :see_other
   end
 
   def search
-    query = params[:search_categories].presence && params[:search_categories][:query]
-    # query.to_i.to_s == query ? query.to_i : query
-    if query
-      session[:query] = query
-      @items = Item.search_item(query).records 
-    elsif  session[:query]
-      @items = Item.search_item( session[:query]).records
-    else
-      @items = Item.all
-    end
-    if params[:filter]
-      intialize_session
-    end 
-    @items = filter(@items)
-    sort_param = params[:sort_by]
-    @items = sort_obj(sort_param,@items)
+    @items = search_obj(params,Item)
   end
-  
-  def filter(obj)
-    if session[:category_id].present?
-      obj = obj.where(category_id: session[:category_id])
-    end
-    if session[:brand_id].present?
-      obj = obj.where(brand_id: session[:brand_id])
-    end
-    if session[:status].present?
-      obj = obj.where(status: session[:status])
-    end
-    obj
-  end
+
   def generate_unique_id
     loop do
       random_id = SecureRandom.random_number(10_000)

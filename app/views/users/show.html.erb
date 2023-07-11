@@ -32,4 +32,11 @@
 </div>
 <h4 class="text-center mb-3">Allocated items</h4>
 
-<%= render "partials/items", items: @items %>
+<table class="table table-bordered">
+  <%= render 'partials/items',sort: user_path(@user)%>
+  <tbody>
+    <%@items.each do |item| %>
+      <%= render 'items/list', item: item %>
+    <%end%>
+  </tbody>
+</table>

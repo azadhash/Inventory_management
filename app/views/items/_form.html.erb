@@ -1,29 +1,33 @@
 <%= form_with model: item do |form| %>
   <div class="mx-auto col-4">
     <div>
-      <%= form.label :name, class: 'form-label'%><br>
+      <%= form.label :name, class: 'form-label'%>
       <%= form.text_field :name, class: 'form-control' %>
+      <p class='text-danger'><%= show_errors(@item, :name) %></p>
     </div>
     <div>
-      <%= form.label :brand_id, class: 'form-label' %><br>
-      <%= form.select :brand_id, options_for_select(Brand.all.map { |brand| [brand.name, brand.id] }), { prompt: 'Select brand' }, { class: 'form-select' } %>
-    </div>
-    <div>
-      <%= form.label :category_id, class: 'form-label' %><br>
-      <%= form.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }), { prompt: 'Select category' }, { class: 'form-select' } %>
+      <%= form.label :brand_id, class: 'form-label' %>
+      <%= form.select :brand_id, options_for_select(Brand.all.map { |brand| [brand.name, brand.id] }, item.brand_id), { prompt: 'Select brand' }, { class: 'form-select' } %>
+      <p class='text-danger'><%= show_errors(@item, :brand_id) %></p>
 
     </div>
     <div>
-      <%= form.label :user_id, class: 'form-label' %><br>
+      <%= form.label :category_id, class: 'form-label' %>
+      <%= form.select :category_id, options_for_select(Category.all.map { |category| [category.name, category.id] }, item.category_id), { prompt: 'Select category' }, { class: 'form-select' } %>
+      <p class='text-danger'><%= show_errors(@item, :category_id) %></p>
+    </div>
+    <div>
+      <%= form.label :user_id, class: 'form-label' %>
       <%= form.text_field :user_id, class: 'form-control'  %>
+      <p class='text-danger'><%= show_errors(@item, :user_id) %></p>
     </div>
     <div>
-      <%= form.label :notes, class: 'form-label' %><br>
-      <%= form.text_field :notes, class: 'form-control'  %>
+      <%= form.label :notes, class: 'form-label' %>
+      <%= form.text_field :notes, class: 'form-control'  %>      
     </div>
     <div>
-      <%= form.label :status, class: 'form-label' %><br>
-      <%= form.select(:status, options_for_select([['working', true],['not working', false]]),{},class: 'form-select') %>
+      <%= form.label :status, class: 'form-label' %>
+      <%= form.select(:status, options_for_select([['working', true],['not working', false]], item.status), {}, class: 'form-select') %>
     </div>
     <div class="field mt-4">
       <%= form.label :documents %>

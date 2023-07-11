@@ -18,9 +18,10 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
     a.textContent = data.notification['message'];
 
     li.appendChild(a);
-
-      document.getElementById('notification').appendChild(li);
-
-    // Called when there's incoming data on the websocket for this channel
+    document.getElementById('notification').appendChild(li);
+    var counterElement = document.getElementById('notificationCounter');
+    var counter = parseInt(counterElement.textContent);
+    counter += 1;
+    counterElement.textContent = counter;
   }
 });

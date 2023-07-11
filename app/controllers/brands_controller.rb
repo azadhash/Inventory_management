@@ -6,39 +6,35 @@ class BrandsController < ApplicationController
     @brands = Brand.all
     sort_param = params[:sort_by]
     @brands = sort_obj(sort_param,@brands)
+    @brand = Brand.new
   end
 
   def new
     @brand = Brand.new
   end
   
-  # def show
-  #   @brand = Brand.find(params[:id])
-  # end
-
   def create
     @brand = Brand.new(brand_params)
-
-    if @brand.save
-      redirect_to brands_path
-    else
-      render :new 
+    @brand.save
+    respond_to do |format|
+      format.js
     end
   end
-
+  
   def edit
     @brand = Brand.find(params[:id])
   end
 
   def update
     @brand = Brand.find(params[:id])
-
+  
     if @brand.update(brand_params)
-      redirect_to brands_path
+      render json: { success: "Brand was successfully updated." }, status: :ok
     else
-      render :edit, status: :unprocessable_entity
+      render json: { error: "Failed to update brand." }, status: :unprocessable_entity
     end
   end
+  
 
   def search
     query = params[:search_categories].presence && params[:search_categories][:query]
@@ -57,8 +53,7 @@ class BrandsController < ApplicationController
   def destroy
     @brand = Brand.find(params[:id])
     @brand.destroy
-
-    redirect_to brands_path, status: :see_other
+    render json: { success: "Brand was successfully deleted." }, status: :ok
   end
 
   def brand_params

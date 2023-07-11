@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#omniauth'
   get '/logout', to: 'sessions#destroy'
   get '/authenticate', to: 'sessions#authenticate'
-  get '/notifications/count', to: 'notification#count'
+  # get '/notifications/count', to: 'notification#count'
   get '/categories/fetch', to: 'categories#fetch_data'
-  post '/notifications/mark_read', to: 'notification#mark_read' 
+  patch '/notifications/mark_read', to: 'notification#mark_read' 
+
   resources :users do
     collection do
       get :search

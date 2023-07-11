@@ -1,17 +1,10 @@
 $(document).ready(function() {
- 
-  fetchData();
-
-  
+  fetchData(); 
   $('#category-select').on('change', function() {
     fetchData();
   });
-
- 
   function fetchData() {
     var selectedCategoryId = $('#category-select').val();
-
-   
     $.ajax({
       url: '/categories/fetch',
       type: 'GET',
@@ -19,6 +12,9 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(response) {
         $('#result-container').text(response.storage);
+      },
+      error: function() {
+        $('#result-container').empty();
       }
     });
   }

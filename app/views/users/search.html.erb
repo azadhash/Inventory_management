@@ -1,29 +1,10 @@
 <%= render 'partials/search', search: search_users_path  %>
-<% unless @user.nil? %>
-  <% if @user.empty? %>
+<%= render 'filter', filter: search_users_path %>
+<% unless @users.nil? %>
+  <% if @users.empty? %>
     <h2>No User found</h2>
   <% else %>
-    
     <h2>Search results</h2>
-
-    <table style="width: 100%;">
-      <thead>
-         <tr>
-           <th>id</th>
-           <th>name</th>
-           <th>email</th>
-         </tr>
-      </thead>
-
-      <tbody>
-      <% @user.each do |user| %>
-          <tr> 
-            <td><%= user.id %></td> 
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-          </tr>
-          <%end%>
-      <tbody>
-    </table>
+    <%= render 'list', users: @users, search: search_users_path%>
   <% end %>
 <% end %>

@@ -3,7 +3,8 @@
     <div class="col-md-6">
       <%= form_for :search_categories, url: search, method: :get do |form| %>
         <div class="input-group">
-          <%= form.text_field :query, value: params[:search_categories].presence && params[:search_categories ][:query], class: "form-control" %>
+          <% previous_search = session[:query].presence %>
+          <%= form.text_field :query, value: previous_search, class: "form-control" %>
           <div class="input-group-append">
             <%= form.submit 'Search', class: "btn btn-outline-secondary custom-bg-color text-light" %>
           </div>

@@ -1,21 +1,12 @@
+<%= javascript_pack_tag 'status_update', 'data-turbolinks-track': 'reload' %>
 <%= render 'partials/search', search: search_issues_path %>
-<% if !authenticate_user%>
+<%= render 'filter' %>
+<% if !authenticate_user %>
   <%= link_to "Raise Issue", new_issue_path, class: 'btn btn-lg text-light custom-bg-color' %>
 <% end %>
-<% if @issues.length == 0 %>
+<% if @issues.length.zero? %>
   <h3 class="text-center mt-4">No issues found</h3>
 <% else %>
-<ul>
-  <%@issues.each do |issue| %>
-    <li><%= issue.item_id %></li>
-    <li><%= issue.description %></li>
-    <li><%= issue.status ? 'resolve' : 'pending' %></li>
-    <% if authenticate_user %> 
-      <li><%= issue.user_id %></li> 
-      <li><%= link_to "Edit", edit_issue_path(issue) %></li>
-      <li><%= link_to "Delete", issue_path(issue), method: :delete %></li>
-    <% end %>
-    <hr>
-  <%end%>
-</ul>
+  <%= render 'list', issues: @issues, sort: issues_path %>
 <% end %>
+

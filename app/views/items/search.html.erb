@@ -6,64 +6,7 @@
   <% else %>
     <h2>Search results</h2>
     <table class="table table-bordered">
-      <thead>
-        <tr class="table-primary">
-          <th scope="col">id 
-            <%= link_to(items_path(sort_by: "id_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "id_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-          <th scope="col">name 
-            <%= link_to(search_items_path(sort_by: "name_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "name_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-          <th scope="col">Brand name 
-            <%= link_to(search_items_path(sort_by: "brand_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "brand_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-          <th scope="col">Category name 
-            <%= link_to(search_items_path(sort_by: "category_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "category_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-          <th scope="col">Notes</th>
-          <th scope="col">Status</th>
-          <% if authenticate_user %>
-            <th scope="col">User id 
-            <%= link_to(search_items_path(sort_by: "user_id_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "user_id_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-              <% end %>
-            </th>
-            <th scope="col">User name 
-            <%= link_to(search_items_path(sort_by: "user_name_asc")) do %>
-              <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to(search_items_path(sort_by: "user_name_desc")) do %>
-              <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-            <th scope="col">Actions</th>
-           <% end %>
-          <th scope="col">Downloads</th>
-        </tr>
-      </thead>
+      <%= render 'partials/items', sort: search_items_path %>
       <tbody>
       <%@items.each do |item| %>
         <% if !authenticate_user && item.user != current_user %>

@@ -1,8 +1,12 @@
 class User < ApplicationRecord
   include Searchable
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :email, presence: true, length: { maximum: 100 }, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX , message: "must be a valid email address"} 
   has_many :items
-  has_many :issues
-  has_many :notifications, foreign_key: "recipient_id"
+  has_many :issues, dependent: :destroy
+  has_many :notifications, foreign_key: "recipient_id",dependent: :destroy
   
   scope :get_admins, -> { where(admin: true) }
   settings do
@@ -16,12 +20,10 @@ class User < ApplicationRecord
     id: id,
     name: name,
     email: email
-    # category_name: category.items,
-    # sub_category_name: sub_category.items,
   }
   end
 
-  def self.search_user(query)
+  def self.search_result(query)
     self.search({
       "query": {
         "query_string": {

@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
   include Searchable
-
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
+  validates :required_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :buffer_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   has_many :items, dependent: :destroy 
   
   settings do

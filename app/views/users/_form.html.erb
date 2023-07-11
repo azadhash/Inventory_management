@@ -1,23 +1,22 @@
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key %>"><%= value %></div>
-<% end %>
 <%= form_with model: user do |form| %>
 <div class="mx-auto col-4">
   <div>
-    <%= form.label :name, class: 'form-label' %><br>
+    <%= form.label :name, class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control' %>
+    <p class='text-danger'><%= show_errors(@user, :name) %></p>
   </div>
   <div>
-    <%= form.label :email, class: 'form-label mt-3' %><br>
-    <%= form.text_field :email, class: 'form-control' %><br>
+    <%= form.label :email, class: 'form-label mt-2' %>
+    <%= form.text_field :email, class: 'form-control' %>
+    <p class='text-danger'><%= show_errors(@user, :email) %></p>
   </div>
   <div>
-    <%= form.label :status, class: 'form-label' %><br>
-   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]]),{},class: 'form-select') %>
+    <%= form.label :status, class: 'form-label' %>
+   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]], user.status),{},class: 'form-select') %>
   </div>
    <div>
-    <%= form.label :admin, class: 'form-label mt-3' %><br>
-    <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]]),{},class: 'form-select' )%>
+    <%= form.label :admin, class: 'form-label mt-3' %>
+    <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]], user.admin),{},class: 'form-select' )%>
   </div>
 
   <div class="d-flex justify-content-center">
