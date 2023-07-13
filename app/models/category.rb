@@ -1,10 +1,18 @@
+# frozen_string_literal: true
+
+# this is the Category model
 class Category < ApplicationRecord
   include Searchable
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
-  validates :required_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :buffer_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  has_many :items, dependent: :destroy 
-  
+  validates :required_quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :buffer_quantity, presence: true,
+                              numericality: {
+                                only_integer: true,
+                                greater_than: 0,
+                                less_than: ->(category) { category.required_quantity }
+                              }
+  has_many :items, dependent: :destroy
+
   settings do
     mappings dynamic: false do
       indexes :name, type: :text
@@ -14,41 +22,37 @@ class Category < ApplicationRecord
     end
   end
   def self.index_data
-    self.__elasticsearch__.create_index! force: true
-    self.__elasticsearch__.import
+    __elasticsearch__.create_index! force: true
+    __elasticsearch__.import
   end
-  def as_indexed_json(options = {}){
-    id: id,
-    name: name,
-    required_quantity: required_quantity,
-    buffer_quantity: buffer_quantity,
-    }
+
+  # rubocop:disable Metrics/MethodLength
+
+  def self.search_result(query)
+    search({
+             "query": {
+               "bool": {
+                 "should": [
+                   {
+                     "query_string": {
+                       "query": "*#{query}*",
+                       "fields": ['name'],
+                       "default_operator": 'AND'
+                     }
+                   },
+                   {
+                     "multi_match": {
+                       "query": query,
+                       "fields": %w[required_quantity buffer_quantity id],
+                       "operator": 'or'
+                     }
+                   }
+                 ]
+               }
+             }
+           })
   end
-  def self.search_category(query)
-    self.search({
-      "query": {
-        "bool": {
-          "should": [
-            {
-              "query_string": {
-              "query": "*#{query}*",
-              "fields": ["name"],
-              "default_operator": "AND"
-            }
-            },
-            {
-              "multi_match": {
-              "query": query,
-              "fields": ["required_quantity", "buffer_quantity", "id"],
-              "operator": "or"
-            }
-            }
-          ]
-        }
-      }
-    })
-  end
-  
-  # Index the data before performing the search
-  index_data  
+  # rubocop:enable Metrics/MethodLength
+
+  index_data
 end

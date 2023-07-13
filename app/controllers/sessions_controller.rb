@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
+# this is the Sessions controller
 class SessionsController < ApplicationController
-   
   def new
     logged_in
   end
@@ -9,20 +11,20 @@ class SessionsController < ApplicationController
     if @user
       @user.update(token: generate_token)
       UserMailer.welcome_email(@user).deliver_later
-      render :new, flash: { notice: 'Magic link sent to your email.' }
+      flash[:notice] = 'Magic link sent to your email.'
     else
-      render :new, flash: { alert: 'User not found.' }
+      flash[:notice] = 'User not found.'
     end
+    render :new
   end
 
   def authenticate
     token = params[:token]
     expiry_time = params[:expiry_time]
-    user = User.find_by(token: token)
-   
+    user = User.find_by_token(token)
+
     if expiry_time > Time.now && user
-      session[:user_id] = user.id
-      cookies.signed[:user_id] = user.id 
+      self.current_user = user
       redirect_to dashboard_path, flash: { notice: 'Logged in successfully.' }
     else
       redirect_to login_path, flash: { alert: 'Magic link expired' }
@@ -36,18 +38,23 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    user = User.find_by(email: request.env['omniauth.auth'][:info][:email]) 
-    if user && user.status
-      session[:user_id] = user.id
-      cookies.signed[:user_id] = user.id 
+    user = User.find_by(email: request.env['omniauth.auth'][:info][:email])
+    if user&.status
+      self.current_user = user
       redirect_to dashboard_path, flash: { notice: 'Logged in successfully.' }
     else
       redirect_to login_path, flash: { alert: 'User not found.' }
     end
   end
+
+  def current_user=(user)
+    session[:user_id] = user.id
+    cookies.signed[:user_id] = user.id
+  end
+
   private
+
   def generate_token
     SecureRandom.hex(16)
   end
-
 end

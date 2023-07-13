@@ -81,6 +81,7 @@ GEM
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
+    diff-lcs (1.5.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -99,6 +100,11 @@ GEM
       faraday (~> 1)
       multi_json
     erubi (1.12.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faraday (1.10.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -243,6 +249,23 @@ GEM
       ffi (~> 1.0)
     regexp_parser (2.8.0)
     rexml (3.2.5)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-rails (4.1.2)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (~> 3.10)
+      rspec-expectations (~> 3.10)
+      rspec-mocks (~> 3.10)
+      rspec-support (~> 3.10)
+    rspec-support (3.12.1)
     rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -326,6 +349,7 @@ DEPENDENCIES
   dotenv-rails
   elasticsearch-model
   elasticsearch-rails
+  factory_bot_rails (~> 6.0)
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
@@ -336,6 +360,7 @@ DEPENDENCIES
   pry
   puma (~> 5.0)
   rails (~> 6.1.7, >= 6.1.7.3)
+  rspec-rails (~> 4.0)
   rubocop
   sass-rails (~> 6.0.0)
   selenium-webdriver (>= 4.0.0.rc1)

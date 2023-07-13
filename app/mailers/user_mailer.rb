@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this is the UserMailer
 class UserMailer < ApplicationMailer
   default from: 'workazadsingh@gmail.com'
 
@@ -5,6 +8,7 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')
   end
+
   def issue_status_email(issue)
     @issue = issue
     @user = @issue.user

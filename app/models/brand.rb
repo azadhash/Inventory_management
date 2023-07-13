@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this is the Brand model
 class Brand < ApplicationRecord
   include Searchable
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
@@ -10,23 +13,19 @@ class Brand < ApplicationRecord
     end
   end
   def self.index_data
-    self.__elasticsearch__.create_index! force: true
-    self.__elasticsearch__.import
+    __elasticsearch__.create_index! force: true
+    __elasticsearch__.import
   end
-  def as_indexed_json(options = {}){
-    id: id,
-    name: name
-  }
-  end
-  def self.search_brand(query)
-    self.search({
-      "query": {
-        "query_string": {
-          "query": "*#{query}*",
-          "fields": ["id","name"]
-        }
-      }
-    })
+
+  def self.search_result(query)
+    search({
+             "query": {
+               "query_string": {
+                 "query": "*#{query}*",
+                 "fields": %w[id name]
+               }
+             }
+           })
   end
   index_data
 end

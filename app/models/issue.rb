@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this is the Issue model
 class Issue < ApplicationRecord
   include Searchable
   belongs_to :user
@@ -11,25 +14,30 @@ class Issue < ApplicationRecord
     end
   end
   def self.index_data
-    self.__elasticsearch__.create_index! force: true
-    self.__elasticsearch__.import
+    __elasticsearch__.create_index! force: true
+    __elasticsearch__.import
   end
-  def as_indexed_json(options = {}){
-    id: id,
-    description: description,
-    item_id: item.id,
-    user_id: user.id
-  }
+  # rubocop:disable Metrics/Style/HashSyntax
+
+  def as_indexed_json(_options = {})
+    {
+      id: id,
+      description: description,
+      item_id: item.id,
+      user_id: user.id
+    }
   end
+  # rubocop:enable Metrics/Style/HashSyntax
+
   def self.search_result(query)
-    self.search({
-      "query": {
-        "query_string": {
-          "query": "*#{query}*",
-          "fields": ["id","description","item_id","user_id"]
-        }
-      }
-    })
+    search({
+             "query": {
+               "query_string": {
+                 "query": "*#{query}*",
+                 "fields": %w[id description item_id user_id]
+               }
+             }
+           })
   end
   index_data
 end

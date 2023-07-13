@@ -10,7 +10,7 @@ $(document).ready(function() {
         statusCell.html('<span class="text-warning">Pending</span>');
       }
     } else {
-      // Handle error or unexpected response
+      console.log('Error: invalid response');
     }
   });
 });
