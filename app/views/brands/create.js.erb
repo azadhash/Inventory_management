@@ -1,8 +1,13 @@
 <% if @brand.errors.any? %>
-  $('#error').html("<%= j show_errors(@brand, :name)%>")
+  $('#error').html("<%= j show_errors(@brand, :name) %>");
 <% else %>
   $('#brands-list').append('<%= j render "list", brand: @brand %>');
-  $('#error').html("")
-  $('#notFound').remove()
+  $('#error').html("");
+  $('#notFound').remove();
+  <% if flash[:notice] %>
+    $('#flash-messages').append('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+      '<%= j flash[:notice] %>' +
+      '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+      '</div>');
+    <% end %>
 <% end %>
-

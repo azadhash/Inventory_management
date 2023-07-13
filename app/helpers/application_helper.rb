@@ -38,7 +38,6 @@ module ApplicationHelper
     when "item_id_desc"
       obj = obj.order(item_id: :desc)   
     else
-      # Default sorting if no sort parameter is provided
       obj = obj.order(id: :asc)
     end
   end 

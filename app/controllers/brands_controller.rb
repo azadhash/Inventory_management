@@ -17,9 +17,9 @@ class BrandsController < ApplicationController
     @brand = Brand.new(brand_params)
     @brand.save
     respond_to do |format|
-      format.js
+      format.js { flash.now[:notice] = "Brand was successfully created." }
     end
-  end
+  end  
   
   def edit
     @brand = Brand.find(params[:id])
@@ -27,13 +27,14 @@ class BrandsController < ApplicationController
 
   def update
     @brand = Brand.find(params[:id])
-  
     if @brand.update(brand_params)
-      render json: { success: "Brand was successfully updated." }, status: :ok
+      redirect_to brands_path, flash: { notice: "Brand was successfully updated." }
     else
-      render json: { error: "Failed to update brand." }, status: :unprocessable_entity
+      flash.now[:alert] = "Brand was not updated."
+      render 'edit'
     end
   end
+  
   
 
   def search

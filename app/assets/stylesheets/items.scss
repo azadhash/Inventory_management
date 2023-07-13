@@ -1,3 +1,9 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.required label:after {
+  content: "*";
+  color: red;
+  font-size: 16px;
+  margin-left: 4px;
+}

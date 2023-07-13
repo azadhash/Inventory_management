@@ -28,7 +28,7 @@
       <% issues.each do |issue| %>
         <tr>
           <td><%= issue.item_id %></td>
-          <td><%= issue.description %></td>
+          <td class="description"><%= issue.description %></td>
           <td id="status-cell-<%= issue.id %>">
             <% if issue.status %>
               <span class="text-success">Resolved</span>

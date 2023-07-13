@@ -1,17 +1,17 @@
 <%= form_with model: category do |form| %>
   <div class="mx-auto col-4">
     <div> 
-      <%= form.label :name, class: 'form-label' %>
+      <%= form.label :name, class: 'form-label required' %>
       <%= form.text_field :name, class: 'form-control' %>
       <p class='text-danger'><%= show_errors(@category, :name) %></p>
     </div>
     <div>
-      <%= form.label :required_quantity, class: 'form-label' %>
+      <%= form.label :required_quantity, class: 'form-label required' %>
       <%= form.text_field :required_quantity , class: 'form-control'%>
       <p class='text-danger'><%= show_errors(@category, :required_quantity) %></p> 
     </div>
     <div>
-      <%= form.label :buffer_quantity, class: 'form-label' %>
+      <%= form.label :buffer_quantity, class: 'form-label required' %>
       <%= form.text_field :buffer_quantity, class: 'form-control' %>
       <p class='text-danger'><%= show_errors(@category, :buffer_quantity) %></p> 
     </div>

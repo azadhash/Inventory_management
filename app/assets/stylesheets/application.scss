@@ -36,3 +36,12 @@ flex: 1;
 height: 1px;
 background: #eee;
 }
+label.required:after { content: '*';color:red; }
+.notification-dropdown {
+  min-width: 300px;
+}
+
+
+.description {
+  width: 50%;
+}

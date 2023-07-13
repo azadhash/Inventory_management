@@ -14,7 +14,7 @@ $(document).on('click', '.delete-button', function(e) {
         'X-CSRF-Token': csrfToken
       },
       success: function(data) {
-        if (data.success) {
+        if (data.hasOwnProperty('success')) {
           $(`tr[data-${entityType}-id="${entityId}"]`).remove();
           if ($('.table-info').length === 0) {
             var numCols = $('thead tr.table-primary th').length;
@@ -25,8 +25,18 @@ $(document).on('click', '.delete-button', function(e) {
             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
             '</div>');
         } else {
-          alert(data.error);
-        }
+          $('#flash-messages').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+            'An error occurred while deleting ' + entityType + '. Please try again.' +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+            '</div>');
+        } 
+      },
+      error: function(xhr, status, error) {
+        var errorMessage = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : 'An error occurred while deleting ' + entityType + '. Please try again.';
+        $('#flash-messages').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+          errorMessage +
+          '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+          '</div>');
       }
     });
   }
