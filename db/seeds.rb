@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #   rubocop:disable all
 
-User.create(name: 'Azad Singh', email: 'azads5275@gmail.com', status: 'Active', admin: true)
+User.create(name: 'Azad Singh', email: 'azads5275@gmail.com', status: true, admin: true)
 
 # Create Brands
 brand1 = Brand.create(name: 'Hp')
