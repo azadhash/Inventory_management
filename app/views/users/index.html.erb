@@ -6,4 +6,4 @@
 <% else %>
   <%= render 'list', users: @users, search: users_path %>
 <% end %>
-
+<%= render 'partials/paginate', obj: @users%>

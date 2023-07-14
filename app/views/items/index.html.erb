@@ -6,7 +6,7 @@
 <% if @items.length == 0 %>
   <h3 class="text-center mt-4">No items found</h3>
 <% else %>
-  <table class="table table-bordered items-list">
+  <table class="table table-bordered table-striped items-list">
     <%= render 'partials/items', sort: items_path %>
     <tbody class="entities-list">
       <%@items.each do |item| %>
@@ -15,3 +15,5 @@
     </tbody>
   </table>
 <% end %>
+<%= render 'partials/paginate', obj: @items %>
+

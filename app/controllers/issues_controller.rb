@@ -2,8 +2,10 @@
 
 # this is the Issues controller
 class IssuesController < ApplicationController
+  include IssuesHelper
   before_action :current_user?
   before_action :user_type, except: %i[index create new]
+  before_action :fetch_issue, only: %i[edit update destroy]
   def index
     intialize_session
     session[:query] = nil
@@ -14,6 +16,7 @@ class IssuesController < ApplicationController
               end
     sort_param = params[:sort_by]
     @issues = sort_obj(sort_param, @issues)
+    @issues = @issues.page(params[:page]).per(7)
   end
 
   def new
@@ -34,13 +37,9 @@ class IssuesController < ApplicationController
     end
   end
 
-  def edit
-    @issue = Issue.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @issue = Issue.find(params[:id])
-
     if @issue.update(issue_params)
       send_mail_and_notification if @issue.status
       redirect_to issues_path
@@ -49,23 +48,21 @@ class IssuesController < ApplicationController
     end
   end
 
-  def send_mail_and_notification
-    UserMailer.issue_status_email(@issue).deliver_later
-    user = @issue.user
-    notification = Notification.create(recipient: user, priority: 'normal',
-                                       message: "your issue with id #{@issue.id} is resolved")
-    ActionCable.server.broadcast("NotificationsChannel_#{user.id}", { notification: })
-  end
-
   def search
     @issues = search_obj(params, Issue)
+    @issues = @issues.page(params[:page]).per(7)
   end
 
   def destroy
-    @issue = Issue.find(params[:id])
     @issue.destroy
 
     redirect_to issues_path, status: :see_other
+  end
+
+  private
+
+  def fetch_issue
+    @issue = Issue.find(params[:id])
   end
 
   def issue_params

@@ -4,11 +4,13 @@
 class CategoriesController < ApplicationController
   before_action :current_user?
   before_action :user_type
+  before_action :fetch_category, only: %i[edit update destroy]
   def index
     session[:query] = nil
     @categories = Category.all
     sort_param = params[:sort_by]
     @categories = sort_obj(sort_param, @categories)
+    @categories = @categories.page(params[:page]).per(5)
   end
 
   def new
@@ -25,13 +27,9 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit
-    @category = Category.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @category = Category.find(params[:id])
-
     if @category.update(category_params)
       redirect_to categories_path, flash: { notice: 'Category successfully updated.' }
     else
@@ -51,6 +49,7 @@ class CategoriesController < ApplicationController
 
   def search
     @categories = search_obj(params, Category)
+    @categories = @categories.page(params[:page]).per(5)
   end
 
   def fetch_data
@@ -60,6 +59,10 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+  def fetch_category
+    @category = Category.find(params[:id])
+  end
 
   def category_params
     params.require(:category).permit(:name, :required_quantity, :buffer_quantity)

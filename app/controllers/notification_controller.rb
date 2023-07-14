@@ -4,6 +4,6 @@
 class NotificationController < ApplicationController
   before_action :current_user?
   def mark_read
-    Notification.where(read: false, recipient_id: current_user.id).update(read: true)
+    Notification.update_unread(current_user.id)
   end
 end

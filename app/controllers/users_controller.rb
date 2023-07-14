@@ -4,12 +4,14 @@
 class UsersController < ApplicationController
   before_action :current_user?
   before_action :user_type
+  before_action :fetch_user, only: %i[show edit update destroy]
   def index
     intialize_session
     session[:query] = nil
     @users = User.where.not(id: current_user.id)
     sort_param = params[:sort_by]
     @users = sort_obj(sort_param, @users)
+    @users = @users.page(params[:page]).per(7)
   end
 
   def new
@@ -17,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @items = @user.items
     sort_param = params[:sort_by]
     @items = sort_obj(sort_param, @items)
@@ -33,13 +34,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(user_params)
       redirect_to @user, flash: { notice: 'User was successfully updated.' }
     else
@@ -50,15 +47,19 @@ class UsersController < ApplicationController
   def search
     @users = search_obj(params, User)
     @users = @users.where.not(id: current_user.id)
+    @users = @users.page(params[:page]).per(7)
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     render json: { success: 'User was successfully deleted.' }, status: :ok
   end
 
   private
+
+  def fetch_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :status, :admin)

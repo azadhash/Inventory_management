@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   validates :notes, length: { maximum: 100 }
   validates :category_id, presence: true
   validates :brand_id, presence: true
+  validates :documents, content_type: ['image/png', 'image/jpeg', 'application/pdf', 'application/msword', 'text/plain']
   validate :validate_user_id_exists, if: -> { user_id.present? }
-
   def validate_user_id_exists
     return if User.exists?(user_id)
 

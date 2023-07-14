@@ -7,4 +7,3 @@ FactoryBot.define do
     buffer_quantity { rand(0..100) }
   end
 end
-

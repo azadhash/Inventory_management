@@ -1,7 +1,7 @@
 <div class="container mt-3">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <%= form_for :search_categories, url: search, method: :get do |form| %>
+      <%= form_for :search_category, url: search, method: :get do |form| %>
         <div class="input-group">
           <% previous_search = session[:query].presence %>
           <%= form.text_field :query, value: previous_search, class: "form-control" %>

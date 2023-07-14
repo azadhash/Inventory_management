@@ -1,6 +1,6 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-striped">
   <thead>
-    <tr class="table-primary">
+    <tr class="text-center">
       <%= render 'partials/sort', sort: search %>
       <th scope="col">Email</th>
       <th scope="col">Status</th>
@@ -9,12 +9,12 @@
   </thead>
   <tbody class="entities-list">
   <% users.each do |user| %>
-    <tr class="table-info" data-users-id=<%= user.id %>>
+    <tr class="text-center" data-users-id=<%= user.id %>>
       <td><%= user.id %></td>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
       <td><%= user.status ? 'Active' : 'Inactive' %></td>
-      <td>
+      <td class="d-flex gap-2">
         <%= link_to "Show", user_path(user), class: 'btn btn-primary' %>
         <%= link_to "Edit", edit_user_path(user), class: 'btn btn-warning' %>
         <%= button_to "Delete", user_path(user), method: :delete, class: 'btn btn-danger delete-button', remote: true, data: { entity_id:  user.id, entity_type: "users"  } %>

@@ -2,7 +2,7 @@
 <%= render 'partials/search', search: search_categories_path %>
 <%= link_to "Add category", new_category_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
 <div>
-  <table class="table table-bordered categories-list">
+  <table class="table table-bordered table-striped categories-list">
     <%= render 'partials/categories', sort: categories_path %>
     <tbody class="entities-list">
       <%@categories.each do |category| %>
@@ -11,3 +11,4 @@
     </tbody>
   </table>
 </div>
+<%= render 'partials/paginate', obj: @categories%>

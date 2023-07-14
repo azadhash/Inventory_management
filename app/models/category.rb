@@ -12,7 +12,6 @@ class Category < ApplicationRecord
                                 less_than: ->(category) { category.required_quantity }
                               }
   has_many :items, dependent: :destroy
-
   settings do
     mappings dynamic: false do
       indexes :name, type: :text

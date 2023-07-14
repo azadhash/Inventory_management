@@ -9,4 +9,4 @@
 <% else %>
   <%= render 'list', issues: @issues, sort: issues_path %>
 <% end %>
-
+<%= render 'partials/paginate', obj: @issues%>

@@ -9,3 +9,4 @@
     <%= render 'list', issues: @issues, sort: search_issues_path %>
   <% end %>
 <% end %>
+<%= render 'partials/paginate', obj: @issues%>

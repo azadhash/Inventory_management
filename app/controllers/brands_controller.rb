@@ -4,12 +4,14 @@
 class BrandsController < ApplicationController
   before_action :current_user?
   before_action :user_type
+  before_action :fetch_brand, only: %i[edit update destroy]
   def index
     session[:query] = nil
     @brands = Brand.all
     sort_param = params[:sort_by]
     @brands = sort_obj(sort_param, @brands)
     @brand = Brand.new
+    @brands = @brands.page(params[:page]).per(5)
   end
 
   def new
@@ -24,12 +26,9 @@ class BrandsController < ApplicationController
     end
   end
 
-  def edit
-    @brand = Brand.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @brand = Brand.find(params[:id])
     if @brand.update(brand_params)
       redirect_to brands_path, flash: { notice: 'Brand was successfully updated.' }
     else
@@ -40,15 +39,19 @@ class BrandsController < ApplicationController
 
   def search
     @brands = search_obj(params, Brand)
+    @brands = @brands.page(params[:page]).per(5)
   end
 
   def destroy
-    @brand = Brand.find(params[:id])
     @brand.destroy
     render json: { success: 'Brand was successfully deleted.' }, status: :ok
   end
 
   private
+
+  def fetch_brand
+    @brand = Brand.find(params[:id])
+  end
 
   def brand_params
     params.require(:brand).permit(:name)

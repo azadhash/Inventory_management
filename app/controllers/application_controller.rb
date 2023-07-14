@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_query(params)
-    query = params.dig(:search_categories, :query)
+    query = params.dig(:search_category, :query)
     session[:query] = query if query.present?
     query || session[:query]
   end

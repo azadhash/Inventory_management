@@ -7,6 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#   rubocop:disable all
 
 User.create(name: 'Azad Singh', email: 'azads5275@gmail.com', status: 'Active', admin: true)
 

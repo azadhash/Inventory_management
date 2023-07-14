@@ -5,4 +5,3 @@ FactoryBot.define do
     sequence(:name) { |n| "Brand #{n}" }
   end
 end
-
