@@ -16,10 +16,6 @@ $(document).on('click', '.delete-button', function(e) {
       success: function(data) {
         if (data.hasOwnProperty('success')) {
           $(`tr[data-${entityType}-id="${entityId}"]`).remove();
-          if ($('.table-info').length === 0) {
-            var numCols = $('thead tr.table-primary th').length;
-            $('.entities-list').append('<tr id="notFound"><td colspan="' + numCols + '" class="text-center">No ' + entityType + ' found.</td></tr>');                        
-          }
           $('#flash-messages').html('<div class="alert alert-success alert-dismissible fade show" role="alert">' +
             data.success +
             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +

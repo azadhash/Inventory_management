@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/auth/:provider/callback', to: 'sessions#omniauth'
-  get '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
   get '/authenticate', to: 'sessions#authenticate'
   get '/categories/fetch', to: 'categories#fetch_data'
   patch '/notifications/mark_read', to: 'notification#mark_read'

@@ -20,9 +20,9 @@ brand5 = Brand.create(name: 'Asus')
 brand6 = Brand.create(name: 'Acer')
 
 # Create Categories
-category1 = Category.create(name: 'Laptop', required_quantity: 10, buffer_quantity: 5)
-category2 = Category.create(name: 'Mouse', required_quantity: 8, buffer_quantity: 3)
-category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quantity: 2)
+category1 = Category.create(name: 'Laptop', required_quantity: 10, buffer_quantity: 1)
+category2 = Category.create(name: 'Mouse', required_quantity: 8, buffer_quantity: 1)
+category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quantity: 1)
 category4 = Category.create(name: 'Monitor', required_quantity: 3, buffer_quantity: 1)
 
 # Create Users
@@ -32,17 +32,17 @@ user3 = User.create(name: 'User 3', email: 'user3@example.com', status: true, ad
 user4 = User.create(name: 'User 4', email: 'user4@example.com', status: true, admin: false)
 
 # Create Items
-item1 = Item.create(uid: '5672', name: 'Item 1', status: true, brand: brand1, category: category1, user: user2)
+item1 = Item.create(uid: '5672', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
 item2 = Item.create(uid: '7292', name: 'Item 2', status: false, brand: brand2, category: category2, user: user2)
-item3 = Item.create(uid: '1234', name: 'Item 3', status: true, brand: brand3, category: category3, user: user3)
-item4 = Item.create(uid: '578', name: 'Item 4', status: false, brand: brand3, category: category2, user: user4)
+item3 = Item.create(uid: '1234', name: 'Item 3', status: true, brand: brand3, category: category3, user: nil)
+item4 = Item.create(uid: '578', name: 'Item 4', status: false, brand: brand3, category: category2, user: nil)
 item5 = Item.create(uid: '568', name: 'Item 5', status: true, brand: brand4, category: category1, user: user4)
 item6 = Item.create(uid: '567', name: 'Item 6', status: false, brand: brand5, category: category4, user: user4)
 item7 = Item.create(uid: '5627', name: 'Item 7', status: true, brand: brand6, category: category3, user: user3)
 item8 = Item.create(uid: '5627', name: 'Item 8', status: false, brand: brand6, category: category4, user: nil)
 # Create Issues
-issue1 = Issue.create(description: 'Issue 1', status: false, user: user2, item: item1)
-issue2 = Issue.create(description: 'Issue 2', status: false, user: user2, item: item2)
-issue3 = Issue.create(description: 'Issue 3', status: false, user: user3, item: item3)
-issue4 = Issue.create(description: 'Issue 4', status: false, user: user4, item: item4)
-issue5 = Issue.create(description: 'Issue 5', status: false, user: user4, item: item5)
+issue1 = Issue.create(description: 'Issue_1', status: false, user: user2, item: item1)
+issue2 = Issue.create(description: 'Issue_2', status: false, user: user2, item: item2)
+issue3 = Issue.create(description: 'Issue_3', status: false, user: user3, item: item3)
+issue4 = Issue.create(description: 'Issue_4', status: false, user: user4, item: item4)
+issue5 = Issue.create(description: 'Issue_5', status: false, user: user4, item: item5)
