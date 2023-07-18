@@ -8,12 +8,12 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:email])
-    if @user
+    if @user&.status
       @user.update(token: generate_token)
       UserMailer.welcome_email(@user).deliver_later
       flash[:notice] = 'Magic link sent to your email.'
     else
-      flash[:notice] = 'User not found.'
+      flash[:alert] = 'User not found / your account is not active.'
     end
     render :new
   end
@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       self.current_user = user
       redirect_to dashboard_path, flash: { notice: 'Logged in successfully.' }
     else
-      redirect_to login_path, flash: { alert: 'User not found.' }
+      redirect_to login_path, flash: { alert: 'User not found / account is not active' }
     end
   end
 
