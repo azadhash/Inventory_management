@@ -20,6 +20,11 @@ class User < ApplicationRecord
       indexes :email, type: :keyword
     end
   end
+  def self.index_data
+    __elasticsearch__.create_index! force: true
+    __elasticsearch__.import
+  end
+
   # rubocop:disable Metrics/Style/HashSyntax
   def as_indexed_json(_options = {})
     {
@@ -40,4 +45,5 @@ class User < ApplicationRecord
              }
            })
   end
+  index_data
 end
