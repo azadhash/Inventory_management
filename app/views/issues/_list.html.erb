@@ -43,9 +43,7 @@
               <div class="d-inline">
                <%= form_with model: issue, url: issue_path(issue), method: :put, data: { remote: true , issue_id: issue.id }, authenticity_token: true do |form| %>
                 <%= hidden_field_tag 'issue[status]', !issue.status, data: { issue_id: issue.id } %>
-                <% if issue.status %>
-                  <%= form.submit 'Mark as Pending', class: 'btn btn-sm btn-warning', data: { confirm: 'Are you sure you want to mark this issue as pending?' } %>
-                <% else %>
+                <% if !issue.status %>
                   <%= form.submit 'Mark as Resolved', class: 'btn btn-sm btn-info', data: { confirm: 'Are you sure you want to mark this issue as resolved?' } %>
                 <% end %>
               <% end %>
