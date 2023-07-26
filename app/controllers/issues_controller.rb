@@ -13,7 +13,7 @@ class IssuesController < ApplicationController
     fetch_issues_of_employee
     sort_param = params[:sort_by]
     @issues = sort_obj(sort_param, @issues)
-    @issues = @issues.page(params[:page]).per(7)
+    @issues = @issues.page(params[:page]).per(5)
   end
 
   def new
@@ -48,7 +48,7 @@ class IssuesController < ApplicationController
   def search
     @issues = search_obj(params, Issue)
     fetch_issues_of_employee
-    @issues = @issues.page(params[:page]).per(7)
+    @issues = @issues.page(params[:page]).per(5)
   end
 
   def destroy

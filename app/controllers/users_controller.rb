@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @users = User.where.not(id: current_user.id)
     sort_param = params[:sort_by]
     @users = sort_obj(sort_param, @users)
-    @users = @users.page(params[:page]).per(7)
+    @users = @users.page(params[:page]).per(5)
   end
 
   def new
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def search
     @users = search_obj(params, User)
     @users = @users.where.not(id: current_user.id)
-    @users = @users.page(params[:page]).per(7)
+    @users = @users.page(params[:page]).per(5)
   end
 
   def destroy
