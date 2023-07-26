@@ -33,7 +33,7 @@ gem 'rspec-rails', '~> 4.0'
 gem 'rubocop'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6.0.0'
-gem 'simplecov', require: false, group: :test
+# gem 'simplecov', require: false, group: :test
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
