@@ -64,7 +64,49 @@ RSpec.describe Category, type: :model do
                               required_quantity: 10,
                               buffer_quantity: 15)
       expect(category).not_to be_valid
-      expect(category.errors[:buffer_quantity]).to include("must be less than #{category.required_quantity}")
+      expect(category.errors[:buffer_quantity]).to include("must be less than or equal to #{category.required_quantity}")
+    end
+    it 'is valid when buffer_quantity is less than required_quantity' do
+      category = Category.new(name: 'Example Category',
+                              required_quantity: 10,
+                              buffer_quantity: 5)
+      expect(category).to be_valid
+    end
+    it 'is valid when buffer_quantity is equal to required_quantity' do
+      category = Category.new(name: 'Example Category',
+                              required_quantity: 5,
+                              buffer_quantity: 5)
+      expect(category).to be_valid
+    end
+    it 'is invalid when updating required_quantity to be less than the number of associated items' do
+      category = Category.create(name: 'Example Category',
+                                 required_quantity: 10,
+                                 buffer_quantity: 5)
+      brand1 = Brand.create(name: 'Hp')
+      8.times { |n| category.items.create(name: "Item #{n + 1}",brand: brand1) }
+      category.required_quantity = 7
+      expect(category).not_to be_valid
+      expect(category.errors[:required_quantity]).to include("should be greater than the total number of items in this category (#{category.items.count})")
+    end
+
+    it 'is valid when updating required_quantity to be greater than the number of associated items' do
+      category = Category.create(name: 'Example Category',
+                                 required_quantity: 10,
+                                 buffer_quantity: 5)
+      brand1 = Brand.create(name: 'Hp')
+      8.times { |n| category.items.create(name: "Item #{n + 1}",brand: brand1) }
+      category.required_quantity = 12
+      expect(category).to be_valid
+    end
+
+    it 'is valid when updating required_quantity to be equal to the number of associated items' do
+      category = Category.create(name: 'Example Category',
+                                 required_quantity: 10,
+                                 buffer_quantity: 5)
+      brand1 = Brand.create(name: 'Hp')
+      10.times { |n| category.items.create(name: "Item #{n + 1}", brand: brand1) }
+      category.required_quantity = 10
+      expect(category).to be_valid
     end
   end
 end

@@ -54,7 +54,7 @@ class IssuesController < ApplicationController
   def destroy
     @issue.destroy
 
-    redirect_to issues_path, flash: { notice: 'Issue was successfully deleted.' } ,status: :see_other
+    redirect_to issues_path, flash: { notice: 'Issue was successfully deleted.' }, status: :see_other
   end
 
   private

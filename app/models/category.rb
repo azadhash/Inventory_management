@@ -14,7 +14,7 @@ class Category < ApplicationRecord
                               }
   validate :required_quantity_greater_than_total_items, on: :update
   def required_quantity_greater_than_total_items
-    return unless required_quantity.present? && items.present? && required_quantity <= items.count
+    return unless required_quantity.present? && items.present? && required_quantity < items.count
 
     errors.add(:required_quantity,
                "should be greater than the total number of items in this category (#{items.count})")

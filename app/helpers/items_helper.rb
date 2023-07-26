@@ -10,7 +10,7 @@ module ItemsHelper
       send_notification
       redirect_to items_path, flash: { notice: 'Item successfully created.' }
     else
-      flash[:alert] = 'Cannot create new item. Category required quantity is already met.'
+      flash.now[:alert] = 'Cannot create new item. Category required quantity is already met.'
       render :new
     end
   end

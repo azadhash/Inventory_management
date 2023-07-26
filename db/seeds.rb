@@ -9,7 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 #   rubocop:disable all
 
-User.create(name: 'Azad Singh', email: 'azads5275@gmail.com', status: true, admin: true)
+User.create(name: 'Azad Singh', email: 'azads5275@gmail.com', active: true, admin: true)
 
 # Create Brands
 brand1 = Brand.create(name: 'Hp')
@@ -26,10 +26,10 @@ category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quant
 category4 = Category.create(name: 'Monitor', required_quantity: 3, buffer_quantity: 1)
 
 # Create Users
-user1 = User.create(name: 'User 1', email: 'user1@example.com', status: true, admin: true)
-user2 = User.create(name: 'User 2', email: 'user2@example.com', status: true, admin: false)
-user3 = User.create(name: 'User 3', email: 'user3@example.com', status: true, admin: false)
-user4 = User.create(name: 'User 4', email: 'user4@example.com', status: true, admin: false)
+user1 = User.create(name: 'User 1', email: 'user1@example.com', active: true, admin: true)
+user2 = User.create(name: 'User 2', email: 'user2@example.com', active: true, admin: false)
+user3 = User.create(name: 'User 3', email: 'user3@example.com', active: true, admin: false)
+user4 = User.create(name: 'User 4', email: 'user4@example.com', active: true, admin: false)
 
 # Create Items
 item1 = Item.create(uid: '5672', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
