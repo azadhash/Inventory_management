@@ -1,6 +1,6 @@
 <%= render 'partials/search', search: search_users_path %>
 <%= render 'filter', filter: users_path %>
-<%= link_to "Add user", new_user_path, class: 'btn btn-primary custom-bg-color mb-3'%>
+<%= link_to "Add user", new_user_path, class: 'btn btn-lg text-light custom-bg-color mt-4 mb-4'%>
 <% if @users.length == 0 %>
   <h3 class="text-center mt-4">No users found</h3>
 <% else %>

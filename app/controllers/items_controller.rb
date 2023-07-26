@@ -6,9 +6,8 @@ class ItemsController < ApplicationController
   before_action :current_user?
   before_action :user_type, except: %i[index show search]
   before_action :fetch_item, only: %i[show edit update destroy]
-
   def index
-    intialize_session
+    initialize_session
     session[:query] = nil
     @items = if authenticate_user
                Item.all
@@ -51,18 +50,15 @@ class ItemsController < ApplicationController
 
   def destroy
     if !@item.user_id?
-      if @item.destroy
-        render json: { success: 'Item was successfully deleted.' }, status: :ok
-      else
-        render json: { error: 'An error occurred while deleting the item.' }, status: :unprocessable_entity
-      end
+      redirect_to items_path, flash: { notice: 'Item was successfully deleted.' } if @item.destroy
     else
-      render json: { error: 'Item was allocated to a user.' }, status: :unprocessable_entity
+      redirect_to items_path, flash: { alert: 'Item was allocated to a user.' }
     end
   end
 
   def search
     @items = search_obj(params, Item)
+    fetch_item_of_employee
     @items = @items.page(params[:page]).per(5)
   end
 

@@ -5,8 +5,14 @@ module IssuesHelper
   def send_mail_and_notification
     UserMailer.issue_status_email(@issue).deliver_later
     user = @issue.user
-    notification = Notification.create(recipient: user, priority: 'normal',
+    notification = Notification.create(recipient: user, priority: 'info',
                                        message: "your issue with id #{@issue.id} is resolved")
     ActionCable.server.broadcast("NotificationsChannel_#{user.id}", { notification: })
+  end
+
+  def fetch_issues_of_employee
+    return if authenticate_user
+
+    @issues = @issues.where(user_id: current_user.id)
   end
 end

@@ -4,16 +4,13 @@
 class IssuesController < ApplicationController
   include IssuesHelper
   before_action :current_user?
-  before_action :user_type, except: %i[index create new]
+  before_action :user_type, except: %i[index create new search]
   before_action :fetch_issue, only: %i[edit update destroy]
   def index
-    intialize_session
+    initialize_session
     session[:query] = nil
-    @issues = if authenticate_user
-                Issue.all
-              else
-                current_user.issues
-              end
+    @issues = Issue.all
+    fetch_issues_of_employee
     sort_param = params[:sort_by]
     @issues = sort_obj(sort_param, @issues)
     @issues = @issues.page(params[:page]).per(7)
@@ -50,13 +47,14 @@ class IssuesController < ApplicationController
 
   def search
     @issues = search_obj(params, Issue)
+    fetch_issues_of_employee
     @issues = @issues.page(params[:page]).per(7)
   end
 
   def destroy
     @issue.destroy
 
-    redirect_to issues_path, status: :see_other
+    redirect_to issues_path, flash: { notice: 'Issue was successfully deleted.' } ,status: :see_other
   end
 
   private

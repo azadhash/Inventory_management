@@ -1,22 +1,18 @@
 <h1>Brands</h1>
 <%= render 'partials/search', search_type: "Brands", search: search_brands_path %>
+<%= link_to "Add brand", new_brand_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
 <div class="col-lg-3 w-50 m-auto">
-  <%= form_with(model: @brand,local: false) do |form| %>
-    <div class="form-group mb-2">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: 'form-control', maxlength: 50,  required: true  %>
-      <p id='error' class= "text-danger"></p>
-    </div>
-    <%= form.submit 'Add Brand', class: 'btn btn-primary mb-2' %>
-  <% end %>
-
-  <table class="table table-bordered table-striped">
-    <%= render 'partials/brands', sort: brands_path %>
-    <tbody class="entities-list" id="brands-list"> 
-      <% @brands.each do |brand| %>
-        <%= render 'list', brand: brand %>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @brands.length == 0 %>
+    <h3 class="text-center mt-4">No brand found</h3>
+  <% else %>
+    <table class="table table-bordered table-striped">
+      <%= render 'partials/brands', sort: brands_path %>
+      <tbody class="entities-list" id="brands-list"> 
+        <% @brands.each do |brand| %>
+          <%= render 'list', brand: brand %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>  
 </div>
 <%= render 'partials/paginate', obj: @brands %>

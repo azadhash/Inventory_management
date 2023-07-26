@@ -11,8 +11,8 @@
     <p class='text-danger'><%= show_errors(@user, :email) %></p>
   </div>
   <div>
-    <%= form.label :status, class: 'form-label required' %>
-   <%= form.select(:status, options_for_select([['Active', true],['Inactive', false]], user.status),{},class: 'form-select') %>
+    <%= form.label :active, class: 'form-label required' %>
+   <%= form.select(:active, options_for_select([['Yes', true],['No', false]], user.active),{},class: 'form-select') %>
   </div>
    <div>
     <%= form.label :admin, class: 'form-label mt-3 required' %>

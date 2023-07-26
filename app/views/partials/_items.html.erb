@@ -35,22 +35,7 @@
     <th scope="col">Notes</th>
     <th scope="col">Status</th>
     <% if authenticate_user %>
-      <th scope="col">User id 
-      <%= link_to url: sort, sort_by: "user_id_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to url: sort, sort_by: "user_id_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-        <% end %>
-      </th>
-      <th scope="col">User name 
-      <%= link_to url: sort, sort_by: "user_name_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to url: sort, sort_by: "user_name_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-      <% end %>
-    </th>
+      <th scope="col">Email</th>
       <th scope="col">Actions</th>
      <% end %>
     <th scope="col">Downloads</th>

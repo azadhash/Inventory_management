@@ -7,13 +7,12 @@
         </div>
         <div class="card-body">
           <p class="card-text">
-            <strong>ID:</strong> <%= @item.id %><br>
+            <strong>ID:</strong> <%= @item.uid %><br>
             <strong>Brand:</strong> <%= @item.brand.name %><br>
             <strong>Category:</strong> <%= @item.category.name %><br>
             <strong>Notes:</strong> <%= @item.notes %><br>
             <strong>Status:</strong> <%= @item.status ? 'Working' : 'Not Working' %><br>
-            <strong>User ID:</strong> <%= @item.user_id %><br>
-            <strong>User:</strong> <%= @item.user&.name %><br>
+            <strong>User Email:</strong> <%= @item.user&.email %><br>
           </p>
           <% if @item.documents.attached? %>
             <div class="mt-4">

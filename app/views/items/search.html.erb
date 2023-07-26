@@ -2,21 +2,19 @@
 <%= render 'filter' %>
 <% unless @items.nil? %>
   <% if @items.empty? %>
-    <h2>No Item Found</h2>
+    <h3 class="text-center mt-4">No Item Found</h3>
   <% else %>
     <h2>Search results</h2>
-    <table class="table table-bordered">
-      <%= render 'partials/items', sort: search_items_path %>
-      <tbody>
-      <%@items.each do |item| %>
-        <% if !authenticate_user && item.user != current_user %>
-          <p>No item found</p>
-        <% else %>
-        <%= render 'list', item: item %>
-        <% end %>
-      <%end%>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <%= render 'partials/items', sort: search_items_path %>
+        <tbody>
+        <%@items.each do |item| %>
+          <%= render 'list', item: item %>
+        <%end%>
+        </tbody>
+      </table>
+    </div>  
   <% end %>
 <% end %>
 <%= render 'partials/paginate', obj: @items%>

@@ -20,9 +20,10 @@ class BrandsController < ApplicationController
 
   def create
     @brand = Brand.new(brand_params)
-    @brand.save
-    respond_to do |format|
-      format.js { flash.now[:notice] = 'Brand was successfully created.' }
+    if @brand.save
+      redirect_to brands_path, flash: { notice: 'Brand successfully created.' }
+    else
+      render :new
     end
   end
 
@@ -44,7 +45,7 @@ class BrandsController < ApplicationController
 
   def destroy
     @brand.destroy
-    render json: { success: 'Brand was successfully deleted.' }, status: :ok
+    redirect_to brands_path, flash: { notice: 'Brand was successfully deleted.' }
   end
 
   private

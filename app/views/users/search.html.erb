@@ -2,7 +2,7 @@
 <%= render 'filter', filter: search_users_path %>
 <% unless @users.nil? %>
   <% if @users.empty? %>
-    <h2>No User found</h2>
+  <h3 class="text-center mt-4">No users found</h3>
   <% else %>
     <h2>Search results</h2>
     <%= render 'list', users: @users, search: search_users_path%>

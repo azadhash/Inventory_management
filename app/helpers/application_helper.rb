@@ -49,6 +49,8 @@ module ApplicationHelper
     obj = obj.where(category_id: session[:category_id]) if session[:category_id].present?
     obj = obj.where(brand_id: session[:brand_id]) if session[:brand_id].present?
     obj = obj.where(status: session[:status]) if session[:status].present?
+    obj = obj.where(active: session[:active]) if session[:active].present?
+
     obj
   end
 

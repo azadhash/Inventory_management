@@ -3,7 +3,6 @@
 # This is the application controller
 class ApplicationController < ActionController::Base
   include ApplicationHelper
-
   def current_user?
     return if current_user
 
@@ -22,10 +21,15 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path, flash: { alert: 'You are not an admin' }
   end
 
-  def intialize_session
-    session[:category_id] = params[:category_id].presence || nil
-    session[:brand_id] = params[:brand_id].presence || nil
-    session[:status] = params[:status].presence || nil
+  def initialize_session_param(key)
+    session[key] = params[key].presence || nil
+  end
+
+  def initialize_session
+    initialize_session_param(:category_id)
+    initialize_session_param(:brand_id)
+    initialize_session_param(:status)
+    initialize_session_param(:active)
   end
 
   def search_obj(params, model)
@@ -36,8 +40,8 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_query(params)
-    query = params.dig(:search_category, :query)
-    session[:query] = query if query.present?
+    query = params[:search_category].presence && params[:search_category][:query]
+    session[:query] = query unless query.nil?
     query || session[:query]
   end
 
@@ -46,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def apply_filters(results, params)
-    intialize_session if params[:filter]
+    initialize_session if params[:filter]
     filter(results)
   end
 

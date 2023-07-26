@@ -3,16 +3,17 @@
 # this is the User model
 class User < ApplicationRecord
   include Searchable
+  has_many :items
+  has_many :issues, dependent: :destroy
+  has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 60 }, uniqueness: { case_sensitive: false },
                     format: { with: EMAIL_REGEX, message: 'must be a valid email address' }
-  has_many :items
-  has_many :issues, dependent: :destroy
-  has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
 
   scope :get_admins, -> { where(admin: true) }
+  scope :get_employees, -> { where(admin: false) }
   settings do
     mappings dynamic: false do
       indexes :name, type: :text

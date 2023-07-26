@@ -8,12 +8,12 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(email: params[:email])
-    if @user&.status
+    if @user&.active
       @user.update(token: generate_token)
       UserMailer.welcome_email(@user).deliver_later
       flash[:notice] = 'Magic link sent to your email.'
     else
-      flash[:alert] = 'User not found / your account is not active.'
+      flash_for_invalid_login
     end
     render :new
   end
@@ -38,12 +38,13 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    user = User.find_by(email: request.env['omniauth.auth'][:info][:email])
-    if user&.status
-      self.current_user = user
+    @user = User.find_by(email: request.env['omniauth.auth'][:info][:email])
+    if @user&.active
+      self.current_user = @user
       redirect_to dashboard_path, flash: { notice: 'Logged in successfully.' }
     else
-      redirect_to login_path, flash: { alert: 'User not found / account is not active' }
+      flash_for_invalid_login
+      redirect_to login_path
     end
   end
 
@@ -53,6 +54,14 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def flash_for_invalid_login
+    flash[:alert] = if @user&.active == false
+                      'Account is not active.'
+                    else
+                      'User not found.'
+                    end
+  end
 
   def generate_token
     SecureRandom.hex(16)

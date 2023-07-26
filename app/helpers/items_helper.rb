@@ -34,6 +34,12 @@ module ItemsHelper
     end
   end
 
+  def fetch_item_of_employee
+    return if authenticate_user
+
+    @items = @items.where(user_id: current_user.id)
+  end
+
   def generate_unique_id
     loop do
       random_id = SecureRandom.random_number(10_000)

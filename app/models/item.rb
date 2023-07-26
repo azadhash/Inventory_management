@@ -3,23 +3,31 @@
 # this is the Item model
 class Item < ApplicationRecord
   include Searchable
+  has_many_attached :documents, dependent: :destroy
+  belongs_to :user, optional: true
+  belongs_to :brand
+  belongs_to :category
+  has_many :issues, dependent: :destroy
+
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   validates :notes, length: { maximum: 100 }
   validates :category_id, presence: true
   validates :brand_id, presence: true
-  validates :documents, content_type: ['image/png', 'image/jpeg', 'application/pdf', 'application/msword', 'text/plain']
+  validates :documents,
+            content_type: {
+              in: ['image/png', 'image/jpeg', 'application/pdf', 'application/msword', 'text/plain'],
+              message: 'File must be of type png, jpeg, pdf, doc or txt'
+            },
+            size: {
+              less_than: 5.megabytes,
+              message: 'File size should be less than 5 MB'
+            }
   validate :validate_user_id_exists, if: -> { user_id.present? }
   def validate_user_id_exists
     return if User.exists?(user_id)
 
     errors.add(:user_id, 'is not a valid user')
   end
-
-  has_many_attached :documents, dependent: :destroy
-  belongs_to :user, optional: true
-  belongs_to :brand
-  belongs_to :category
-  has_many :issues, dependent: :destroy
 
   def self.index_data
     __elasticsearch__.create_index! force: true
@@ -29,7 +37,7 @@ class Item < ApplicationRecord
   settings do
     mappings dynamic: 'true' do
       indexes :name, type: :text
-      indexes :id, type: :keyword
+      indexes :uid, type: :keyword
       indexes :user_name, type: :text
       indexes :brand_name, type: :text
       indexes :category_name, type: :text
@@ -41,7 +49,7 @@ class Item < ApplicationRecord
 
   def as_indexed_json(_options = {})
     {
-      id: id,
+      uid: uid,
       name: name,
       notes: notes,
       status: status,
@@ -70,7 +78,7 @@ class Item < ApplicationRecord
                    {
                      "multi_match": {
                        "query": query,
-                       "fields": ['id'],
+                       "fields": ['uid'],
                        "operator": 'or'
                      }
                    }

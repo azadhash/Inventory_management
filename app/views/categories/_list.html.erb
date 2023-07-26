@@ -1,10 +1,9 @@
 <tr class="text-center" data-categories-id=<%= category.id %>> 
-  <td><%= category.id %></td> 
   <td><%= category.name %></td>
   <td><%= category.required_quantity %></td>
   <td><%= category.buffer_quantity   %></td>
   <td class="d-flex gap-2">
     <%= link_to "Edit",edit_category_path(category.id), class: 'btn btn-warning' %>
-    <%= button_to "Delete", category_path(category.id), method: :delete, class: 'btn btn-danger delete-button', remote: true, data: { entity_id:  category.id, entity_type: "categories"  } %>
+    <%= link_to 'Delete', category_path(category), method: :delete, data: { confirm: 'Are you sure you want to delete this category?' }, class: 'btn btn-danger' %>
   </td>
 </tr>

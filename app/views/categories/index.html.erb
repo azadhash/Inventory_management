@@ -1,14 +1,18 @@
 <h1>Categories</h1>
 <%= render 'partials/search', search: search_categories_path %>
-<%= link_to "Add category", new_category_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
+<%= link_to "Add category", new_category_path, class: 'btn btn-lg text-light custom-bg-color mb-3' %>
 <div>
-  <table class="table table-bordered table-striped categories-list">
-    <%= render 'partials/categories', sort: categories_path %>
-    <tbody class="entities-list">
-      <%@categories.each do |category| %>
-        <%= render 'list', category: category %>
-      <%end%>
-    </tbody>
-  </table>
+  <% if @categories.length == 0 %>
+    <h3 class="text-center mt-4">No category found</h3>
+  <% else %>
+    <table class="table table-bordered table-striped categories-list">
+      <%= render 'partials/categories', sort: categories_path %>
+      <tbody class="entities-list">
+        <%@categories.each do |category| %>
+          <%= render 'list', category: category %>
+        <%end%>
+      </tbody>
+    </table>
+  <% end %>
 </div>
 <%= render 'partials/paginate', obj: @categories%>

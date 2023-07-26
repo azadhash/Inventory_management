@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :user_type
   before_action :fetch_user, only: %i[show edit update destroy]
   def index
-    intialize_session
+    initialize_session
     session[:query] = nil
     @users = User.where.not(id: current_user.id)
     sort_param = params[:sort_by]
@@ -62,6 +62,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :status, :admin)
+    params.require(:user).permit(:name, :email, :active, :admin)
   end
 end

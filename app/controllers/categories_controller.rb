@@ -38,9 +38,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
     @category.destroy
-    render json: { success: 'Catgeory was successfully deleted.' }, status: :ok
+    redirect_to categories_path, flash: { notice: 'Category was successfully deleted.' }
   end
 
   def storage

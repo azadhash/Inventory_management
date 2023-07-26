@@ -2,8 +2,8 @@
   <%= form_tag(search_users_path, method: "get", class: "form-inline d-inline-block") do %>
     <div class="d-flex align-items-center">
       <div class="form-group mr-2">
-        <%= label_tag :status, "Status:", class: "mr-2" %>
-        <%= select_tag :status, options_for_select([["All", ""], ["Active", "true"], ["Inactive", "false"]], params[:status]), class: "form-control" %>
+        <%= label_tag :active, "Active:", class: "mr-2" %>
+        <%= select_tag :active, options_for_select([["All", ""], ["Yes", "true"], ["No", "false"]], params[:active]), class: "form-control" %>
       </div>
       <%= hidden_field_tag :filter, true %>
       <%= submit_tag "Filter", class: "btn btn-primary mt-4" %>

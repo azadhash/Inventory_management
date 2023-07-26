@@ -3,13 +3,12 @@
 # this is the Brand model
 class Brand < ApplicationRecord
   include Searchable
-  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   has_many :items, dependent: :destroy
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
 
   settings do
     mappings dynamic: false do
       indexes :name, type: :text
-      indexes :id, type: :keyword
     end
   end
   def self.index_data
@@ -22,7 +21,7 @@ class Brand < ApplicationRecord
              "query": {
                "query_string": {
                  "query": "*#{query}*",
-                 "fields": %w[id name]
+                 "fields": %w[name]
                }
              }
            })

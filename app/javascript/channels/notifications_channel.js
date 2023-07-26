@@ -10,13 +10,13 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
 
   received(data) {
     var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.className = 'dropdown-item';
-    a.href = '#';
-    a.textContent = data.notification['message'];
+    var priority = 'text-'+ data.notification['priority'];
+    li.classList.add('notification-item');
+    li.classList.add(priority);
+    li.innerHTML = data.notification['message'];
 
-    li.appendChild(a);
     document.getElementById('notification').appendChild(li);
+    
     var counterElement = document.getElementById('notificationCounter');
     var counter = parseInt(counterElement.textContent);
     counter += 1;

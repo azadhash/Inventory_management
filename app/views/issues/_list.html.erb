@@ -1,4 +1,5 @@
-<table class="table table-striped">
+<div class="table-responsive">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Item ID
@@ -12,7 +13,7 @@
         <th>Description</th>
         <th>Status</th>
         <% if authenticate_user %>
-          <th>User ID
+          <th>User
             <%= link_to url: sort, sort_by: "user_id_asc" do %>
             <i class="fa fa-sort-asc" aria-hidden="true"></i>
             <% end %>
@@ -27,7 +28,7 @@
     <tbody>
       <% issues.each do |issue| %>
         <tr>
-          <td><%= issue.item_id %></td>
+          <td><%= issue.item.uid %></td>
           <td class="description"><%= issue.description %></td>
           <td id="status-cell-<%= issue.id %>">
             <% if issue.status %>
@@ -37,7 +38,7 @@
             <% end %>
           </td>
           <% if authenticate_user %>
-            <td><%= issue.user_id %></td>
+            <td><%= issue.user.email %></td>
             <td>
               <div class="d-inline">
                <%= form_with model: issue, url: issue_path(issue), method: :put, data: { remote: true , issue_id: issue.id }, authenticity_token: true do |form| %>
@@ -56,3 +57,4 @@
       <% end %>
     </tbody>
   </table>
+</div>
