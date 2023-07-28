@@ -52,7 +52,9 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    render json: { success: 'User was successfully deleted.' }, status: :ok
+    redirect_to users_path, flash: { notice: 'User was successfully deleted.' }
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to users_path, flash: { alert: 'Some items are allocated to this user. User cannot be deleted.' }
   end
 
   private

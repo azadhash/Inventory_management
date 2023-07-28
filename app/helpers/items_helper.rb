@@ -29,9 +29,9 @@ module ItemsHelper
 
   def sent_notification_to_admin(_category, priority_msg, msg)
     User.get_admins.each do |admin|
-      notifications = Notification.create(recipient: admin, priority: priority_msg, message: msg)
-      ActionCable.server.broadcast('AdminChannel', { notification: notifications })
+      @notifications = Notification.create(recipient: admin, priority: priority_msg, message: msg)
     end
+    ActionCable.server.broadcast('AdminChannel', { notification: @notifications })
   end
 
   def fetch_item_of_employee

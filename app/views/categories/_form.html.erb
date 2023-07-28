@@ -1,5 +1,5 @@
 <%= form_with model: category do |form| %>
-  <div class="mx-auto col-4">
+  <div class="mx-auto col-md-6">
     <div> 
       <%= form.label :name, class: 'form-label required' %>
       <%= form.text_field :name, class: 'form-control' %>
@@ -16,7 +16,7 @@
       <p class='text-danger'><%= show_errors(@category, :buffer_quantity) %></p> 
     </div>
     <div class="d-flex justify-content-center">
-      <%= form.submit class: 'btn btn-primary mt-5  custom-bg-color' %>
+      <%= form.submit class: 'btn btn-primary mt-4 custom-bg-color' %>
     </div>
   </div>
 <% end %>

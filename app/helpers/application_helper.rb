@@ -60,4 +60,25 @@ module ApplicationHelper
 
     object.errors.messages[field_name].join(', ')
   end
+
+  def delete_link(path)
+    link_to ('<i class="fa fa-trash" title="Delete Details"></i> Delete').html_safe,
+              path,
+              method: :delete,
+              data: { confirm: "Are you sure?" },
+              class: 'btn btn-danger'
+  end
+  def edit_link(path)
+    link_to ('<i class="fa fa-edit" title="Edit Details"></i> Edit').html_safe,
+              path,
+              method: :get,
+              class: 'btn btn-warning'
+  end
+  def render_notifications(user_id)
+    notifications = Notification.unread(user_id)
+    notifications.map do |notification|
+      priority_class = 'text-'+ notification.priority
+      content_tag(:li, notification.message, class: "notification-item #{priority_class}")
+    end.join.html_safe
+  end
 end

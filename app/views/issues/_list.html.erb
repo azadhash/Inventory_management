@@ -49,7 +49,7 @@
               <% end %>
               </div>
             </td>
-            <td><%= link_to "Delete", issue_path(issue), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this issue?' } %></td>
+            <td><%= delete_link(issue_path(issue)) %></td>
           <% end %>
         </tr>
       <% end %>

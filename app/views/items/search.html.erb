@@ -6,7 +6,7 @@
   <% else %>
     <h2>Search results</h2>
     <div class="table-responsive">
-      <table class="table table-bordered">
+      <table class="table table-bordered table-striped">
         <%= render 'partials/items', sort: search_items_path %>
         <tbody>
         <%@items.each do |item| %>

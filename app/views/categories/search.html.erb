@@ -5,7 +5,7 @@
   <% else %>
     <h3>Search results</h3>
     <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
       <%= render 'partials/categories', sort: search_categories_path %>
       <tbody>
         <%@categories.each do |category| %>

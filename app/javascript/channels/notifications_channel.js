@@ -14,7 +14,7 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
     li.classList.add('notification-item');
     li.classList.add(priority);
     li.innerHTML = data.notification['message'];
-
+    console.log(data.notification['message']);
     document.getElementById('notification').appendChild(li);
     
     var counterElement = document.getElementById('notificationCounter');

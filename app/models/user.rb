@@ -40,7 +40,7 @@ class User < ApplicationRecord
     search({
              "query": {
                "query_string": {
-                 "query": "*#{query}",
+                 "query": "#{query}*",
                  "fields": %w[id email name]
                }
              }

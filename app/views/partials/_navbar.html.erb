@@ -15,7 +15,7 @@
             <%= link_to "Brands", brands_path, class: 'nav-link text-light' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Category",  categories_path, class: 'nav-link text-light' %>
+            <%= link_to "Categories",  categories_path, class: 'nav-link text-light' %>
           </li>
           <li class="nav-item">
             <%= link_to "Items", items_path, class: 'nav-link text-light' %>
@@ -58,18 +58,7 @@
         </a>
         <ul class="dropdown-menu notification-dropdown dropdown-menu-end" aria-labelledby="dropdownMenuLink" id="notification">
           <li><%= button_to 'Mark All as Read', notifications_mark_read_path, remote: true, method: :patch, class: 'text-light btn custom-bg-color mb-3', id: 'markAllReadButton' %></li>
-          <% Notification.unread(current_user.id).each do |notification| %>
-            <% priority_class = '' %>
-            <% case notification.priority %>
-              <% when 'warning' %>
-                <% priority_class = 'text-warning' %>
-              <% when 'danger' %>
-                <% priority_class = 'text-danger' %>
-              <% else %>
-                <% priority_class = 'text-info' %>
-            <% end %>
-            <li class="notification-item <%= priority_class %>"><%= notification.message %></li>
-          <% end %>
+          <%= render_notifications(current_user.id) %>
         </ul>
       </div>
     <% end %> 

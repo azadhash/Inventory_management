@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def perform_search(query, model)
-    query.present? ? model.search_result(query).records : model.all
+    query.present? ? model.search_result(query.strip).records : model.all
   end
 
   def apply_filters(results, params)

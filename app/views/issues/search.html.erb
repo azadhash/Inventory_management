@@ -4,7 +4,6 @@
   <% if @issues.empty? %>
     <h3 class="text-center mt-4">No Issue Found</h3>
   <% else %>
-    
     <h2>Search results</h2>
     <%= render 'list', issues: @issues, sort: search_issues_path %>
   <% end %>

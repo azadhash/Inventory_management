@@ -26,10 +26,10 @@ category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quant
 category4 = Category.create(name: 'Monitor', required_quantity: 3, buffer_quantity: 1)
 
 # Create Users
-user1 = User.create(name: 'User 1', email: 'user1@example.com', active: true, admin: true)
-user2 = User.create(name: 'User 2', email: 'user2@example.com', active: true, admin: false)
-user3 = User.create(name: 'User 3', email: 'user3@example.com', active: true, admin: false)
-user4 = User.create(name: 'User 4', email: 'user4@example.com', active: true, admin: false)
+user1 = User.create(name: 'User_1', email: 'user1@example.com', active: true, admin: true)
+user2 = User.create(name: 'User_2', email: 'user2@example.com', active: true, admin: false)
+user3 = User.create(name: 'User_3', email: 'user3@example.com', active: true, admin: false)
+user4 = User.create(name: 'User_4', email: 'user4@example.com', active: true, admin: false)
 
 # Create Items
 item1 = Item.create(uid: '5672', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
