@@ -1,0 +1,61 @@
+<th scope="col">
+  <div class="d-flex align-items-center">
+    <div class="mr-2">
+      Id
+    </div>
+    <div class="btn-group d-flex">
+      <%= link_to url: sort, sort_by: "id_asc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to url: sort, sort_by: "id_desc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</th>
+<th scope="col">
+  <div class="d-flex align-items-center">
+    <div class="mr-2">
+      Name
+    </div>
+    <div class="btn-group d-flex">
+      <%= link_to url: sort, sort_by: "name_asc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to url: sort, sort_by: "name_desc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</th>
+<th scope="col">
+  <div class="d-flex align-items-center">
+    <div class="mr-2">
+      Brand Name
+    </div>
+    <div class="btn-group d-flex">
+      <%= link_to url: sort, sort_by: "brand_asc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to url: sort, sort_by: "brand_desc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</th>
+<th scope="col">
+  <div class="d-flex align-items-center">
+    <div class="mr-2">
+      Category Name
+    </div>
+    <div class="btn-group d-flex">
+      <%= link_to url: sort, sort_by: "category_asc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-asc" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to url: sort, sort_by: "category_desc", class: "btn btn-link btn-sm" do %>
+        <i class="fa fa-sort-desc" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</th>
+<th scope="col">Status</th>

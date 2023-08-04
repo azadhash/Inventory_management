@@ -1,0 +1,10 @@
+<%= form_tag(search_items_path, method: "get") do %>
+    <div class="col-md-1 align-self-end">
+      <div class="form-group">
+        <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <%= hidden_field_tag :filter, true %>
+<% end %>
+
+
