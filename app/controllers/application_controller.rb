@@ -3,10 +3,16 @@
 # This is the application controller
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found_method
+
+  def not_found_method
+    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
+  end
+
   def current_user?
     return if current_user
 
-    redirect_to login_path, flash: { alert: 'You must be logged in to access this page' }
+    redirect_to login_path, flash: { alert: 'You are not logged in please login to access this page.' }
   end
 
   def logged_in

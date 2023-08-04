@@ -3,22 +3,19 @@
 # this is the Category model
 class Category < ApplicationRecord
   include Searchable
-  has_many :items, dependent: :destroy
-  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
-  validates :required_quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :buffer_quantity, presence: true,
-                              numericality: {
-                                only_integer: true,
-                                greater_than: 0,
-                                less_than_or_equal_to: ->(category) { category.required_quantity }
-                              }
-  validate :required_quantity_greater_than_total_items, on: :update
-  def required_quantity_greater_than_total_items
-    return unless required_quantity.present? && items.present? && required_quantity < items.count
+  enum priority: { low: 'low', medium: 'medium', high: 'high' }
+  has_many :items
 
-    errors.add(:required_quantity,
-               "should be greater than the total number of items in this category (#{items.count})")
-  end
+  validates :name, presence: { message: 'Please write the name of the category' }, length: { maximum: 50 },
+                   uniqueness: { case_sensitive: false }
+  validates :required_quantity, presence: { message: 'Please write the number of required quantity' },
+                                numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :buffer_quantity, presence: { message: 'Please write the number of buffer quantity' },
+                              numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :priority, presence: { message: 'Please select the priority' }
+  validate :buffer_quantity_less_than_or_equal_to_required_quantity, on: :create
+  validate :check_buffer_quantity, on: :update
+
   settings do
     mappings dynamic: false do
       indexes :name, type: :text
@@ -26,6 +23,19 @@ class Category < ApplicationRecord
       indexes :buffer_quantity, type: :keyword
     end
   end
+
+  def buffer_quantity_less_than_or_equal_to_required_quantity
+    return if required_quantity.blank? || buffer_quantity.blank? || buffer_quantity <= required_quantity
+
+    errors.add(:buffer_quantity, 'Buffer quantity should be less than or equal to required quantity')
+  end
+
+  def check_buffer_quantity
+    return if buffer_quantity.blank? || required_quantity.blank? || buffer_quantity <= required_quantity + items.count
+
+    errors.add(:buffer_quantity, 'Buffer quantity should be less than or equal to total items in this category')
+  end
+
   def self.index_data
     __elasticsearch__.create_index! force: true
     __elasticsearch__.import

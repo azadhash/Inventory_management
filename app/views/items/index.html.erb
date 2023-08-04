@@ -1,5 +1,7 @@
 <%= render 'partials/search', search: search_items_path  %>
-<%= render 'filter' %>
+<div class="d-flex justify-content-center">
+  <%= render 'filter' %>
+</div>
 <% if authenticate_user %>
   <%= link_to "Add Item", new_item_path, class: 'btn btn-lg text-light custom-bg-color mt-2 mb-4'%>
 <% end %>
@@ -10,9 +12,9 @@
     <table class="table table-bordered table-striped items-list">
       <%= render 'partials/items', sort: items_path %>
       <tbody class="entities-list">
-        <%@items.each do |item| %>
+        <% @items.each do |item| %>
           <%= render 'list', item: item %>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
   </div>  

@@ -3,11 +3,11 @@
 # this is the Item model
 class Item < ApplicationRecord
   include Searchable
-  has_many_attached :documents, dependent: :destroy
   belongs_to :user, optional: true
   belongs_to :brand
   belongs_to :category
   has_many :issues, dependent: :destroy
+  has_many_attached :documents, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
   validates :notes, length: { maximum: 100 }
@@ -23,6 +23,7 @@ class Item < ApplicationRecord
               message: 'File size should be less than 5 MB'
             }
   validate :validate_user_id_exists, if: -> { user_id.present? }
+
   def validate_user_id_exists
     return if User.exists?(user_id)
 

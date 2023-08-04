@@ -17,20 +17,16 @@ class IssuesController < ApplicationController
   end
 
   def new
-    if !authenticate_user
-      @issue = Issue.new
-    else
-      redirect_to issues_path
-    end
+    @issue = Issue.new
   end
 
   def create
     @issue = Issue.new(issue_params)
     @issue.user_id = current_user.id
     if @issue.save
-      redirect_to issues_path, flash: { notice: 'Issue was successfully raised.' }
+      redirect_to issues_path, flash: { notice: 'Issue was raised successfully.' }
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

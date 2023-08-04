@@ -16,8 +16,8 @@
       <p class='text-danger'><%= show_errors(@item, :category_id) %></p>
     </div>
     <div>
-      <%= form.label :user_id, 'Email', class: 'form-label' %>
-      <%= form.select :user_id, options_for_select(User.get_employees.map { |user| [user.email, user.id] }.unshift(['No User', nil]), item.user_id), { prompt: 'Select email' }, { class: 'form-select' } %>
+      <%= form.label :user_id, 'Employee', class: 'form-label' %>
+      <%= form.select :user_id, options_for_select(User.get_employees.map { |user| [user.email, user.id] }.unshift(['No User', nil]), item.user_id), { prompt: 'Select Employee' }, { class: 'form-select' } %>
       <p class='text-danger'><%= show_errors(@item, :user_id) %></p>
     </div>
     <div>

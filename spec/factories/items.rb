@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
 FactoryBot.define do
   factory :item do
     sequence(:name) { |n| "Item #{n}" }
-    notes { 'Sample notes' }
-    association :category, factory: :category
-    association :brand, factory: :brand
+    status { true }
+    notes { "Some notes about the item" }
+    association :brand
+    association :category
 
-    after(:build) do |item|
-      item.category_id = item.category.id
-      item.brand_id = item.brand.id
+    trait :with_user do
+      association :user
     end
   end
 end

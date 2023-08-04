@@ -11,8 +11,8 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-# rubocop:disable Metrics/BlockLength
-ActiveRecord::Schema.define(version: 20_230_725_070_025) do
+#rubocop : disable all
+ActiveRecord::Schema.define(version: 20_230_803_073_735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20_230_725_070_025) do
     t.integer 'buffer_quantity', null: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.string 'priority'
   end
 
   create_table 'issues', force: :cascade do |t|
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(version: 20_230_725_070_025) do
   create_table 'users', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'email', null: false
-    t.boolean 'active', default: false
+    t.boolean 'active', default: true
     t.boolean 'admin', default: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
@@ -112,4 +113,3 @@ ActiveRecord::Schema.define(version: 20_230_725_070_025) do
   add_foreign_key 'items', 'categories'
   add_foreign_key 'items', 'users'
 end
-# rubocop:enable Metrics/BlockLength

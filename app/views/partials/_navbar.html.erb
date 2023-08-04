@@ -3,8 +3,8 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <%= link_to "InventoryManagement", dashboard_path, class: 'navbar-brand' %>
     <% if current_user %>
+      <%= link_to "InventoryManagement", dashboard_path, class: 'navbar-brand' %>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <% if authenticate_user %>
@@ -52,15 +52,42 @@
       </p>
       </div>
       <div class="dropdown">
-        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="modal" data-bs-target="#notificationModal" aria-expanded="false">
           <i class="fa-regular fa-bell text-light"></i>
-          <span class="badge bg-danger" id="notificationCounter"><%= current_user.notifications.where(read: false).count %></span>
+          <span class="badge bg-danger" id="notificationCounter"><%= Notification.unread(current_user).count %></span>
         </a>
-        <ul class="dropdown-menu notification-dropdown dropdown-menu-end" aria-labelledby="dropdownMenuLink" id="notification">
-          <li><%= button_to 'Mark All as Read', notifications_mark_read_path, remote: true, method: :patch, class: 'text-light btn custom-bg-color mb-3', id: 'markAllReadButton' %></li>
-          <%= render_notifications(current_user.id) %>
-        </ul>
+        <!-- Modal -->
+        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-top-right">
+           <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="modalBody">
+                <% Notification.unread(current_user).reverse_each do |notification| %>
+                  <div class="notification-item">
+                    <div class="row notification-priority-<%= notification.priority %>">
+                      <div class="col-10 ">
+                        <div class="notification-content">
+                          <p class="notification-text"><%= notification.message %></p>
+                          <small class="text-muted">Sent on <%= notification.created_at.strftime('%B %d, %Y at %H:%M') %></small>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+               <%= button_to 'Mark All as Read', notifications_mark_read_path, remote: true, method: :patch, class: 'text-light btn custom-bg-color', id: 'markAllReadButton' %></li>
+              </div>
+           </div>
+         </div>
+        </div> 
       </div>
+    <% else %>
+      <%= link_to "InventoryManagement", login_path, class: 'navbar-brand' %>
     <% end %> 
   </div>
 </nav>

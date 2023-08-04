@@ -1,12 +1,17 @@
-<div class="text-center">
-  <%= form_tag(search_issues_path, method: "get", class: "form-inline d-inline-block") do %>
-    <div class="d-flex align-items-center">
-      <div class="form-group mr-2">
+<%= form_tag(search_issues_path, method: "get") do %>
+  <div class="d-flex gap-2 justify-content-center mt-3 mb-3">
+    <div class="col-md-2 w-100">
+      <div class="form-group">
         <%= label_tag :status, "Status:", class: "mr-2" %>
         <%= select_tag :status, options_for_select([ ["All",""],["Resolved", "true"], ["Pending", "false"]], params[:status]), class: "form-control" %>
       </div>
-      <%= hidden_field_tag :filter, true %>
-      <%= submit_tag "Filter", class: "btn btn-primary mt-4" %>
     </div>
-  <% end %>
-</div>
+    <%= hidden_field_tag :filter, true %>
+    <div class="col-md-2 w-100 align-self-end">
+      <div class="form-group">
+        <%= submit_tag "Filter", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

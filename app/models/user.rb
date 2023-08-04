@@ -6,8 +6,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :issues, dependent: :destroy
   has_many :notifications, foreign_key: 'recipient_id', dependent: :destroy
-  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
+  EMAIL_REGEX = /\A[A-Za-z0-9]+[._-]{0,1}[a-zA-Z0-9]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 60 }, uniqueness: { case_sensitive: false },
                     format: { with: EMAIL_REGEX, message: 'must be a valid email address' }

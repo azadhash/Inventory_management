@@ -2,7 +2,8 @@
   <td><%= category.name %></td>
   <td><%= category.required_quantity %></td>
   <td><%= category.buffer_quantity   %></td>
-  <td class="d-flex gap-2">
+  <td><%= category.priority %></td>
+  <td class="d-flex gap-2 justify-content-center">
     <%= edit_link(edit_category_path(category)) %>
     <%= delete_link(category_path(category)) %>
   </td>

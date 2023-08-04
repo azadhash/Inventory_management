@@ -15,7 +15,6 @@
  */
 //  @import 'bootstrap.css';
 
-
 .navbar-coustom-bg {
   background-color: #343a40;
 }
@@ -50,7 +49,7 @@ td {
   min-width: 100px;
 }
 .description {
-  width: 50%;
+  width: 40%;
 }
 .user-info {
   background: #ffffffaf;
@@ -66,4 +65,39 @@ td {
 
 .user-info .user-type {
   font-size: small
+}
+
+.filter-form .form-group {
+  margin-bottom: 15px;
+}
+
+.filter-form label {
+  font-weight: bold;
+}
+
+
+.clear-filter-form .form-group {
+  margin-bottom: 10px;
+}
+.notification-item {
+  padding: 10px;
+}
+
+.notification-priority-high {
+  background-color: #e90d0d;
+  color: #FFFFFF;
+}
+
+.notification-priority-medium {
+  background-color: #a83636;
+  color: #FFFFFF;
+}
+
+.notification-priority-low {
+  background-color: #FFFF00;
+  color: #000000;
+}
+.modal-body {
+  max-height: 400px;
+  overflow-y: auto;
 }

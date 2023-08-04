@@ -1,12 +1,17 @@
-<div class="text-center">
-  <%= form_tag(search_users_path, method: "get", class: "form-inline d-inline-block") do %>
-    <div class="d-flex align-items-center">
-      <div class="form-group mr-2">
+<%= form_tag(search_users_path, method: "get") do %>
+  <div class="d-flex gap-2 justify-content-center mt-3 mb-3">
+    <div class="col-md-3 w-100">
+      <div class="form-group">
         <%= label_tag :active, "Active:", class: "mr-2" %>
-        <%= select_tag :active, options_for_select([["All", ""], ["Yes", "true"], ["No", "false"]], params[:active]), class: "form-control" %>
+        <%= select_tag :active, options_for_select([["All", ""], ["Yes", "true"], ["No", "false"]], session[:active]), class: "form-control ml-2 mr-2" %>
       </div>
-      <%= hidden_field_tag :filter, true %>
-      <%= submit_tag "Filter", class: "btn btn-primary mt-4" %>
     </div>
-  <% end %>
-</div>
+    <%= hidden_field_tag :filter, true %>
+    <div class="col-md-2 w-100 align-self-end">
+      <div class="form-group">
+        <%= submit_tag "Filter", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

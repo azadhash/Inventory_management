@@ -1,40 +1,105 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="card mb-4">
-        <div class="card-header">
-          <h3 class="card-title"><%= @item.name %></h3>
+<div class="col-lg-4 mt-4 m-auto w-30">
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Id</p>
         </div>
-        <div class="card-body">
-          <p class="card-text">
-            <strong>ID:</strong> <%= @item.uid %><br>
-            <strong>Brand:</strong> <%= @item.brand.name %><br>
-            <strong>Category:</strong> <%= @item.category.name %><br>
-            <strong>Notes:</strong> <%= @item.notes %><br>
-            <strong>Status:</strong> <%= @item.status ? 'Working' : 'Not Working' %><br>
-            <strong>User Email:</strong> <%= @item.user&.email %><br>
-          </p>
-          <% if @item.documents.attached? %>
-            <div class="mt-4">
-              <strong>Download Documents:</strong><br>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.uid %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Name</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.name %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Brand</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.brand.name %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Category</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.category.name %></p>
+        </div>
+      </div> 
+      <hr> 
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Status</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.status ? 'Working' : 'Not Working' %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Notes</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.notes? ? @item.notes : '-----'  %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Employee</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @item.user.present? ? @item.user&.email : '-----' %></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Files</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0">
+            <% if @item.documents.attached? %>
               <% @item.documents.each do |document| %>
-                <%= link_to document.filename, url_for(document), class: 'btn btn-primary btn-sm', target: '_blank' %><br>
+                <%= link_to document.filename, url_for(document), class: 'btn btn-primary btn-sm m-2', target: '_blank' %><br>
               <% end %>
-            </div>
-          <% end %>
-          <div class="mt-4">
-            <% if authenticate_user %>
-            <%= link_to "Edit", edit_item_path(@item), class: 'btn btn-warning' %>
-            <%= link_to "Delete", item_path(@item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% else %>
+              No File
             <% end %>
-            <button class="btn btn-primary" onclick="goBack()">Back</button>
-          </div>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Actions</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0">
+            <div>
+              <% if authenticate_user %>
+                <%= link_to "Edit", edit_item_path(@item), class: 'btn btn-warning' %>
+                <%= link_to "Delete", item_path(@item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              <% end %>
+              <button class="btn btn-primary" onclick="goBack()">Back</button>
+            </div>
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <script>
   function goBack() {
     window.history.back();

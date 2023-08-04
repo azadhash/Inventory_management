@@ -4,30 +4,34 @@
 module ItemsHelper
   def create_item
     category = @item.category
-    if category.present? && category.required_quantity > category.items.count
+    if category.present? && category.required_quantity.positive?
       @item.uid = generate_unique_id
       @item.save
-      send_notification
+      update_category
       redirect_to items_path, flash: { notice: 'Item successfully created.' }
     else
-      flash.now[:alert] = 'Cannot create new item. Category required quantity is already met.'
+      flash.now[:alert] = "Cannot create new item. We don't need more item in #{@item.category.name} category."
       render :new
     end
+  end
+
+  def update_category
+    @category = @item.category
+    @category.update(required_quantity: @category.required_quantity - 1)
+    send_notification
   end
 
   def send_notification
     category = @item.category
     category_count = category.items.where(user_id: nil).count
     buffer_quantity = category.buffer_quantity
-    msg = "you  have #{category_count} items in buffer in  #{category.name} category"
-    if category_count < buffer_quantity
-      sent_notification_to_admin(category, 'danger', msg)
-    elsif category_count == buffer_quantity
-      sent_notification_to_admin(category, 'warning', msg)
-    end
+    msg = "You  Have #{category_count} Items in Buffer in  #{category.name.capitalize} Category"
+    return unless category_count + category.required_quantity < buffer_quantity
+
+    sent_notification_to_admin(category.priority, msg)
   end
 
-  def sent_notification_to_admin(_category, priority_msg, msg)
+  def sent_notification_to_admin(priority_msg, msg)
     User.get_admins.each do |admin|
       @notifications = Notification.create(recipient: admin, priority: priority_msg, message: msg)
     end

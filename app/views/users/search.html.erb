@@ -1,11 +1,24 @@
 <%= render 'partials/search', search: search_users_path  %>
-<%= render 'filter', filter: search_users_path %>
+<div class="d-flex justify-content-center gap-3">
+  <%= render 'filter', filter: search_users_path %>
+  <%= form_tag(search_users_path, method: "get", class: "clear-filter-form") do %>
+    <div class="d-flex mt-3 mb-3">
+      <div class="align-self-end mt-4">
+        <div class="form-group">
+          <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <%= hidden_field_tag :active, '' %>
+    <%= hidden_field_tag :filter, true %>
+  <% end %>
+</div>
 <% unless @users.nil? %>
   <% if @users.empty? %>
   <h3 class="text-center mt-4">No users found</h3>
   <% else %>
     <h2>Search results</h2>
-    <%= render 'list', users: @users, search: search_users_path%>
+    <%= render 'list', users: @users, search: search_users_path %>
   <% end %>
 <% end %>
-<%= render 'partials/paginate', obj: @users%>
+<%= render 'partials/paginate', obj: @users %>

@@ -8,12 +8,12 @@
     <table class="table table-bordered table-striped">
       <%= render 'partials/categories', sort: search_categories_path %>
       <tbody>
-        <%@categories.each do |category| %>
+        <% @categories.each do |category| %>
           <%= render 'list', category: category %>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
     </div>
   <% end %>
 <% end %>
-<%= render 'partials/paginate', obj: @categories%>
+<%= render 'partials/paginate', obj: @categories %>

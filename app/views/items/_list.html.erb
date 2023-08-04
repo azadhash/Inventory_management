@@ -4,7 +4,16 @@
   <td><%= item.brand.name %></td>
   <td><%= item.category.name %></td>
   <td><%= item.notes.blank? ? "---" : item.notes %></td>
-  <td><%= item.status ? 'working' : 'not working' %></td>
+  <td><%= item.status ? 'Working' : 'Not Working' %></td>
+  <td>
+    <% if item.documents.attached? %>
+      <% item.documents.each do |document| %>
+        <%= link_to "File", url_for(document), class: 'btn btn-primary btn-sm', target: '_blank' %>
+      <% end %>
+    <% else %>
+      No File
+    <% end %>
+  </td>
   <% if authenticate_user %>
     <td><%= item.user ? item.user.email : "---" %></td>
     <td class="d-flex gap-2">
@@ -12,13 +21,4 @@
       <%= delete_link(item_path(item)) %>
     </td>
   <% end %>
-  <td>
-    <% if item.documents.attached? %>
-      <% item.documents.each do |document| %>
-        <%= link_to "file", url_for(document), class: 'btn btn-primary', target: '_blank' %>
-      <% end %>
-    <% else %>
-      No file
-    <% end %>
-  </td>
 </tr>

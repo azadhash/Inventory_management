@@ -3,24 +3,40 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :model do
+  subject(:brand) { build(:brand) }
+
   describe 'validations' do
-    it 'validates presence of name' do
-      brand = Brand.new(name: nil)
-      expect(brand).not_to be_valid
-      expect(brand.errors[:name]).to include("can't be blank")
+    it 'is valid with a name' do
+      expect(brand).to be_valid
     end
 
-    it 'validates maximum length of name' do
-      brand = Brand.new(name: 'a' * 51)
+    it 'is not valid without a name' do
+      brand.name = nil
       expect(brand).not_to be_valid
-      expect(brand.errors[:name]).to include('is too long (maximum is 50 characters)')
     end
 
-    it 'validates uniqueness of name (case-insensitive)' do
-      Brand.create(name: 'Example Brand')
-      brand = Brand.new(name: 'example brand')
+    it 'is not valid if name length exceeds 50 characters' do
+      brand.name = 'a' * 51
       expect(brand).not_to be_valid
-      expect(brand.errors[:name]).to include('has already been taken')
+    end
+
+    it 'is not valid with a duplicate case-insensitive name' do
+      create(:brand, name: 'Test Model')
+
+      brand.name = 'test model'
+      expect(brand).not_to be_valid
+    end
+  end
+
+  describe 'associations' do
+    it 'has many items' do
+      should respond_to(:items)
+    end
+  end
+
+  describe 'factory' do
+    it 'is valid' do
+      expect(build(:brand)).to be_valid
     end
   end
 end

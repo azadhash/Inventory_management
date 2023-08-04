@@ -4,6 +4,6 @@
 class NotificationController < ApplicationController
   before_action :current_user?
   def mark_read
-    Notification.update_unread(current_user.id)
+    current_user.notifications.delete_all
   end
 end

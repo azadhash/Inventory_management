@@ -33,7 +33,6 @@ class BrandsController < ApplicationController
     if @brand.update(brand_params)
       redirect_to brands_path, flash: { notice: 'Brand was successfully updated.' }
     else
-      flash.now[:alert] = 'Brand was not updated.'
       render 'edit'
     end
   end
@@ -44,8 +43,13 @@ class BrandsController < ApplicationController
   end
 
   def destroy
-    @brand.destroy
-    redirect_to brands_path, flash: { notice: 'Brand was successfully deleted.' }
+    if !@brand.items.present?
+      @brand.destroy
+      redirect_to brands_path, flash: { notice: 'Brand was successfully deleted.' }
+    else
+      redirect_to brands_path, flash: { alert: "#{@brand.name} brand cannot be deleted.
+                                        There are items in this brand." }
+    end
   end
 
   private

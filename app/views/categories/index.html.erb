@@ -7,11 +7,11 @@
     <table class="table table-bordered table-striped categories-list">
       <%= render 'partials/categories', sort: categories_path %>
       <tbody class="entities-list">
-        <%@categories.each do |category| %>
+        <% @categories.each do |category| %>
           <%= render 'list', category: category %>
         <%end%>
       </tbody>
     </table>
   <% end %>
 </div>
-<%= render 'partials/paginate', obj: @categories%>
+<%= render 'partials/paginate', obj: @categories %>

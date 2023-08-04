@@ -7,5 +7,4 @@ class Notification < ApplicationRecord
   validates :priority, presence: true
   validates :message, presence: true
   scope :unread, ->(user) { where(read: false, recipient_id: user) }
-  scope :update_unread, ->(user) { unread(user).update_all(read: true) }
 end

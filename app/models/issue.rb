@@ -5,6 +5,9 @@ class Issue < ApplicationRecord
   include Searchable
   belongs_to :user
   belongs_to :item
+  validates :item_id, presence: { message: 'Please select an item' }
+  validates :description, presence: { message: 'Please write some description' },
+                          length: { maximum: 250, message: 'Description should be less than 250 characters' }
   settings do
     mappings dynamic: true do
       indexes :description, type: :text

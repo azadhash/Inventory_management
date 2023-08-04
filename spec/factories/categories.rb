@@ -3,7 +3,8 @@
 FactoryBot.define do
   factory :category do
     sequence(:name) { |n| "Category #{n}" }
-    required_quantity { rand(0..100) }
-    buffer_quantity { rand(0..100) }
+    required_quantity { 10 }
+    buffer_quantity { 5 }
+    priority { 'low' }
   end
 end

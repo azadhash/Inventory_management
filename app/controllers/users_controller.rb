@@ -2,6 +2,7 @@
 
 # this is the Users controller
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :current_user?
   before_action :user_type
   before_action :fetch_user, only: %i[show edit update destroy]
@@ -37,10 +38,10 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user, flash: { notice: 'User was successfully updated.' }
+    if @user.items.present? && @user.admin == !user_params[:admin]
+      redirect_to @user, flash: { alert: "User cannot be made admin as items are allocated to  #{@user.name}" }
     else
-      render :edit, status: :unprocessable_entity
+      update_user
     end
   end
 
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_path, flash: { notice: 'User was successfully deleted.' }
   rescue ActiveRecord::InvalidForeignKey
-    redirect_to users_path, flash: { alert: 'Some items are allocated to this user. User cannot be deleted.' }
+    redirect_to @user, flash: { alert: 'Some items are allocated to this user. User cannot be deleted.' }
   end
 
   private

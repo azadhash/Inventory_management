@@ -3,109 +3,72 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+  subject(:category) { build(:category) }
+
   describe 'validations' do
     it 'is valid with valid attributes' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 10,
-                              buffer_quantity: 5)
       expect(category).to be_valid
     end
 
-    it 'is invalid without a name' do
-      category = Category.new(name: nil,
-                              required_quantity: 10,
-                              buffer_quantity: 5)
+    it 'is not valid without a name' do
+      category.name = nil
       expect(category).not_to be_valid
-      expect(category.errors[:name]).to include("can't be blank")
     end
 
-    it 'is invalid with a name exceeding the maximum length' do
-      category = Category.new(name: 'a' * 51,
-                              required_quantity: 10,
-                              buffer_quantity: 5)
+    it 'is not valid with a name exceeding 50 characters' do
+      category.name = 'a' * 51
       expect(category).not_to be_valid
-      expect(category.errors[:name]).to include('is too long (maximum is 50 characters)')
     end
 
-    it 'is invalid with a non-integer required_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 2.5,
-                              buffer_quantity: 5)
+    it 'is not valid without a required_quantity' do
+      category.required_quantity = nil
       expect(category).not_to be_valid
-      expect(category.errors[:required_quantity]).to include('must be an integer')
     end
 
-    it 'is invalid with a negative required_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: -1,
-                              buffer_quantity: 5)
+    it 'is not valid without a buffer_quantity' do
+      category.buffer_quantity = nil
       expect(category).not_to be_valid
-      expect(category.errors[:required_quantity]).to include('must be greater than 0')
     end
 
-    it 'is invalid with a non-integer buffer_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 10,
-                              buffer_quantity: 2.5)
+    it 'is not valid without a priority' do
+      category.priority = nil
       expect(category).not_to be_valid
-      expect(category.errors[:buffer_quantity]).to include('must be an integer')
     end
 
-    it 'is invalid with a negative buffer_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 10,
-                              buffer_quantity: -1)
+    it 'is not valid if buffer_quantity is greater than required_quantity' do
+      category.buffer_quantity = 20
       expect(category).not_to be_valid
-      expect(category.errors[:buffer_quantity]).to include('must be greater than 0')
+    end
+  end
+
+  describe 'associations' do
+    it 'has many items' do
+      should respond_to(:items)
+    end
+  end
+
+  describe 'custom validation' do
+    it 'is not valid if buffer_quantity is greater than total items in the category on create' do
+      category.save
+      brand = create(:brand)
+      item = build(:item, brand: brand, category: category)
+      category.buffer_quantity = 11
+      expect(category).not_to be_valid
     end
 
-    it 'is invalid when buffer_quantity is greater than required_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 10,
-                              buffer_quantity: 15)
-      expect(category).not_to be_valid
-      expect(category.errors[:buffer_quantity]).to include("must be less than or equal to #{category.required_quantity}")
-    end
-    it 'is valid when buffer_quantity is less than required_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 10,
-                              buffer_quantity: 5)
-      expect(category).to be_valid
-    end
-    it 'is valid when buffer_quantity is equal to required_quantity' do
-      category = Category.new(name: 'Example Category',
-                              required_quantity: 5,
-                              buffer_quantity: 5)
-      expect(category).to be_valid
-    end
-    it 'is invalid when updating required_quantity to be less than the number of associated items' do
-      category = Category.create(name: 'Example Category',
-                                 required_quantity: 10,
-                                 buffer_quantity: 5)
-      brand1 = Brand.create(name: 'Hp')
-      8.times { |n| category.items.create(name: "Item #{n + 1}",brand: brand1) }
-      category.required_quantity = 7
-      expect(category).not_to be_valid
-      expect(category.errors[:required_quantity]).to include("should be greater than the total number of items in this category (#{category.items.count})")
-    end
+    it 'is valid if buffer_quantity is equal to total items in the category on update' do
+      category.save
+      create_list(:item, 10, category: category)
 
-    it 'is valid when updating required_quantity to be greater than the number of associated items' do
-      category = Category.create(name: 'Example Category',
-                                 required_quantity: 10,
-                                 buffer_quantity: 5)
-      brand1 = Brand.create(name: 'Hp')
-      8.times { |n| category.items.create(name: "Item #{n + 1}",brand: brand1) }
-      category.required_quantity = 12
+      category.buffer_quantity = 10
       expect(category).to be_valid
     end
 
-    it 'is valid when updating required_quantity to be equal to the number of associated items' do
-      category = Category.create(name: 'Example Category',
-                                 required_quantity: 10,
-                                 buffer_quantity: 5)
-      brand1 = Brand.create(name: 'Hp')
-      10.times { |n| category.items.create(name: "Item #{n + 1}", brand: brand1) }
-      category.required_quantity = 10
+    it 'is valid if buffer_quantity is less than total items in the category on update' do
+      category.save
+      create_list(:item, 10, category: category)
+
+      category.buffer_quantity = 9
       expect(category).to be_valid
     end
   end

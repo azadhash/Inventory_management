@@ -1,43 +1,11 @@
 <thead>
   <tr class="table text-center">
-    <th scope="col">id 
-      <%= link_to url: sort, sort_by: "id_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %> 
-      <%= link_to url: sort, sort_by: "id_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-      <% end %>
-    </th>
-    <th scope="col">name 
-      <%= link_to url: sort, sort_by: "name_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to url: sort, sort_by: "name_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-      <% end %>
-    </th>
-    <th scope="col">Brand name 
-      <%= link_to url: sort, sort_by: "brand_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to url: sort, sort_by: "brand_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-      <% end %>
-    </th>
-    <th scope="col">Category name 
-      <%= link_to url: sort, sort_by: "category_asc" do %>
-        <i class="fa fa-sort-asc" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to url: sort, sort_by: "category_desc" do %>
-        <i class="fa fa-sort-desc" aria-hidden="true"></i>
-      <% end %>
-    </th>
+    <%= render 'partials/user_items', sort: sort %>
     <th scope="col">Notes</th>
-    <th scope="col">Status</th>
+    <th scope="col">Files</th>
     <% if authenticate_user %>
       <th scope="col">Email</th>
       <th scope="col">Actions</th>
-     <% end %>
-    <th scope="col">Downloads</th>
+    <% end %>
   </tr>
 </thead>

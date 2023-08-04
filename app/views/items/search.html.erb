@@ -1,5 +1,20 @@
 <%= render 'partials/search', search: search_items_path  %>
-<%= render 'filter' %>
+<div class="d-flex justify-content-center">
+  <%= render 'filter' %>
+  <%= form_tag(search_items_path, method: "get", class: "clear-filter-form") do %>
+    <div class="d-flex mt-3 mb-3">
+      <div class="align-self-end mt-4">
+        <div class="form-group">
+          <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <%= hidden_field_tag :category_id, '' %>
+    <%= hidden_field_tag :brand_id, '' %>
+    <%= hidden_field_tag :status, '' %>
+    <%= hidden_field_tag :filter, true %>
+  <% end %>
+</div>
 <% unless @items.nil? %>
   <% if @items.empty? %>
     <h3 class="text-center mt-4">No Item Found</h3>
@@ -9,7 +24,7 @@
       <table class="table table-bordered table-striped">
         <%= render 'partials/items', sort: search_items_path %>
         <tbody>
-        <%@items.each do |item| %>
+        <% @items.each do |item| %>
           <%= render 'list', item: item %>
         <%end%>
         </tbody>
@@ -17,4 +32,4 @@
     </div>  
   <% end %>
 <% end %>
-<%= render 'partials/paginate', obj: @items%>
+<%= render 'partials/paginate', obj: @items %>

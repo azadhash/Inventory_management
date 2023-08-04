@@ -38,8 +38,13 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy
-    redirect_to categories_path, flash: { notice: 'Category was successfully deleted.' }
+    if !@category.items.present?
+      @category.destroy
+      redirect_to categories_path, flash: { notice: 'Category was successfully deleted.' }
+    else
+      redirect_to categories_path, flash: { alert: "#{@category.name} category cannot be deleted.
+                                                    There are items in this category." }
+    end
   end
 
   def storage
@@ -53,7 +58,7 @@ class CategoriesController < ApplicationController
 
   def fetch_data
     category = Category.find(params[:category_id])
-    storage = category.items.where(user: nil).count
+    storage = category.items.where(user: nil).count + category.required_quantity
     render json: { storage: }
   end
 
@@ -64,6 +69,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :required_quantity, :buffer_quantity)
+    params.require(:category).permit(:name, :required_quantity, :buffer_quantity, :priority)
   end
 end

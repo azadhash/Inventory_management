@@ -1,6 +1,8 @@
 <%= javascript_pack_tag 'status_update', 'data-turbolinks-track': 'reload' %>
 <%= render 'partials/search', search: search_issues_path %>
-<%= render 'filter' %>
+<div class="d-flex justify-content-center">
+  <%= render 'filter' %>
+</div>
 <% if !authenticate_user %>
   <%= link_to "Raise Issue", new_issue_path, class: 'btn btn-lg text-light custom-bg-color' %>
 <% end %>

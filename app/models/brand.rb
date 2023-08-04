@@ -3,7 +3,7 @@
 # this is the Brand model
 class Brand < ApplicationRecord
   include Searchable
-  has_many :items, dependent: :destroy
+  has_many :items
   validates :name, presence: true, length: { maximum: 50 }, uniqueness: { case_sensitive: false }
 
   settings do
@@ -21,7 +21,7 @@ class Brand < ApplicationRecord
              "query": {
                "query_string": {
                  "query": "*#{query}*",
-                 "fields": %w[name]
+                 "fields": ['name']
                }
              }
            })

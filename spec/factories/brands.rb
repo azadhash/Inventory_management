@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :brand do
-    sequence(:name) { |n| "Brand #{n}" }
+    sequence(:name) { |n| "Model #{n}" }
   end
 end

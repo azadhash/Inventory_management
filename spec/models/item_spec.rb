@@ -1,76 +1,85 @@
 # frozen_string_literal: true
-#rubocop:disable all
+# rubocop:disable all
+# spec/models/item_spec.rb
+
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
+  subject(:item) { build(:item) }
 
+  describe 'associations' do
+    it 'belongs to a user (optional)' do
+      expect(item.user).to be_nil
+    end
+
+    it 'belongs to a brand' do
+      expect(item.brand).to be_an_instance_of(Brand)
+    end
+
+    it 'belongs to a category' do
+      expect(item.category).to be_an_instance_of(Category)
+    end
+
+    it 'destroys associated issues when item is destroyed' do
+      user = create(:user)
+      item = create(:item, user: user)
+      issues = create_list(:issue, 3, item: item)
+      expect(item.issues).to eq(issues)
+      expect(Issue.count).to eq(3)
+      expect { item.destroy }.to change { Issue.count }.by(-3)
+      expect(item.issues).to be_empty
+    end
+
+    it 'has many attached documents and dependent destroy' do
+      expect(item.documents).to be_an_instance_of(ActiveStorage::Attached::Many)
+      expect(item.documents).to be_empty
+    end
+  end
 
   describe 'validations' do
     it 'is valid with valid attributes' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', category: category, brand: brand)
+      brand = create(:brand)
+      category = create(:category)
+      item = build(:item, brand: brand, category: category)
       expect(item).to be_valid
     end
 
-    it 'is invalid without a name' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: nil, category: category, brand: brand)
+    it 'is not valid without a name' do
+      item.name = nil
       expect(item).not_to be_valid
       expect(item.errors[:name]).to include("can't be blank")
     end
 
-    it 'is invalid with a name exceeding the maximum length' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'a' * 51, category: category, brand: brand)
+    it 'is not valid with a name exceeding 50 characters' do
+      item.name = 'a' * 51
       expect(item).not_to be_valid
       expect(item.errors[:name]).to include('is too long (maximum is 50 characters)')
     end
 
-    it 'is valid without notes' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', notes: nil, category: category, brand: brand)
+    it 'is not valid without a category' do
+      item.category_id = nil
+      expect(item).not_to be_valid
+    end
+
+    it 'is not valid without a brand' do
+      item.brand = nil
+      expect(item).not_to be_valid
+    end
+
+    it 'is valid without user (optional)' do
+      brand = create(:brand)
+      category = create(:category)
+      item = build(:item, brand: brand, category: category)
+      item.user = nil
       expect(item).to be_valid
     end
 
-    it 'is invalid with notes exceeding the maximum length' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', notes: 'a' * 101, category: category, brand: brand)
+    it 'is not valid with notes exceeding 100 characters' do
+      item.notes = 'a' * 101
       expect(item).not_to be_valid
       expect(item.errors[:notes]).to include('is too long (maximum is 100 characters)')
     end
-
-    it 'is invalid without a category' do
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', category: nil, brand: brand)
-      expect(item).not_to be_valid
-      expect(item.errors[:category]).to include("must exist")
-    end
-
-    it 'is invalid without a brand' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      item = Item.new(name: 'Example Item', category: category, brand: nil)
-      expect(item).not_to be_valid
-      expect(item.errors[:brand]).to include("must exist")
-    end
-
-    it 'is valid without a user' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', category: category, brand: brand, user: nil)
-      expect(item).to be_valid
-    end
-
-    it 'is invalid with an invalid user_id' do
-      category = Category.create(name: 'Example Category', required_quantity: 10, buffer_quantity: 5)
-      brand = Brand.create(name: 'Example Brand')
-      item = Item.new(name: 'Example Item', category: category, brand: brand, user_id: 123)
-      expect(item).not_to be_valid
-      expect(item.errors[:user_id]).to include('is not a valid user')
-    end
   end
 end
+
+

@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 
 Rails.application.routes.draw do
-  root to: redirect('/login')
+  root 'sessions#new'
   get '/dashboard', to: 'homes#welcome'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -37,9 +37,14 @@ Rails.application.routes.draw do
   resources :items do
     collection do
       get :search
+      post :clear_filter
     end
   end
   resources :notification
+  match '*unmatched', to: 'application#not_found_method', via: :all,
+                      constraints: lambda { |req|
+                                     !req.path.match(%r{\A/rails/active_storage/})
+                                   }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
 

@@ -1,7 +1,7 @@
 <div class="container w-50">
 <%= form_with model: brand do |form| %>
   <div class="form-group mb-2">
-    <%= form.label :name %><br>
+    <%= form.label :name %>
     <%= form.text_field :name, class: 'form-control' %>
     <p class='text-danger'><%= show_errors(@brand, :name) %></p>
   </div>
