@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     else
       flash_for_invalid_login
     end
-    render :new
+    redirect_to login_path
   end
 
   def authenticate

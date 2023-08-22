@@ -8,7 +8,7 @@ module ItemsHelper
       @item.uid = generate_unique_id
       @item.save
       update_category
-      redirect_to items_path, flash: { notice: 'Item successfully created.' }
+      check_user
     else
       flash.now[:alert] = "Cannot create new item. We don't need more item in #{@item.category.name} category."
       render :new
@@ -23,10 +23,11 @@ module ItemsHelper
 
   def send_notification
     category = @item.category
-    category_count = category.items.where(user_id: nil).count
+    category_count = category.items.where(user_id: nil).count + category.required_quantity
     buffer_quantity = category.buffer_quantity
-    msg = "You  Have #{category_count} Items in Buffer in  #{category.name.capitalize} Category"
-    return unless category_count + category.required_quantity < buffer_quantity
+    msg = "In #{category.name.capitalize} category, items required is less than expected buffer by
+            #{buffer_quantity - category_count}"
+    return unless category_count < buffer_quantity
 
     sent_notification_to_admin(category.priority, msg)
   end
@@ -42,6 +43,21 @@ module ItemsHelper
     return if authenticate_user
 
     @items = @items.where(user_id: current_user.id)
+  end
+
+  def check_user
+    if @item.user_id.present?
+      redirect_to @item, flash: { notice: "#{@item.category.name} successfully allocated to #{@item.user.name}" }
+    else
+      redirect_to @item, flash: { notice: 'Item created successfully.' }
+    end
+  end
+
+  def check_show
+    return if authenticate_user
+    return unless @item.user_id.present? && @item.user_id != current_user.id
+
+    redirect_to items_path, flash: { alert: 'You are not authorized to view this item.' }
   end
 
   def generate_unique_id

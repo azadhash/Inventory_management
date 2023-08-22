@@ -1,16 +1,18 @@
 <%= render 'partials/search', search: search_users_path  %>
 <div class="d-flex justify-content-center gap-3">
   <%= render 'filter', filter: search_users_path %>
-  <%= form_tag(search_users_path, method: "get", class: "clear-filter-form") do %>
-    <div class="d-flex mt-3 mb-3">
-      <div class="align-self-end mt-4">
-        <div class="form-group">
-          <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+  <% if check_session %>
+    <%= form_tag(search_users_path, method: "get", class: "clear-filter-form") do %>
+      <div class="d-flex mt-3 mb-3">
+        <div class="align-self-end mt-4">
+          <div class="form-group">
+            <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
-    </div>
-    <%= hidden_field_tag :active, '' %>
-    <%= hidden_field_tag :filter, true %>
+      <%= hidden_field_tag :active, '' %>
+      <%= hidden_field_tag :filter, true %>
+    <% end %>
   <% end %>
 </div>
 <% unless @users.nil? %>

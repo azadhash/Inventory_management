@@ -101,3 +101,56 @@ td {
   max-height: 400px;
   overflow-y: auto;
 }
+.sort-icon{
+  width: 15px !important;
+}
+
+.working{
+  background-color: #56d114;
+  color: #ffffff;
+  border-radius: 20px;
+  width: 75%;
+  margin: auto;
+}
+.not-working{
+  background-color: #e90d0d;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 75%;
+  margin: auto;
+}
+.active{
+  background-color: #56d114;
+  color: #ffffff;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}
+.not-active{
+  background-color: #e90d0d;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}
+.high{
+  background-color: #e90d0d;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}
+.low{
+  background-color: #79c402;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}
+.medium{
+  background-color: #a83636;
+  color: #FFFFFF;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+}

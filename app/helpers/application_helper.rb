@@ -62,23 +62,36 @@ module ApplicationHelper
   end
 
   def delete_link(path)
-    link_to ('<i class="fa fa-trash" title="Delete Details"></i> Delete').html_safe,
+    link_to ('<i class="fa fa-trash" style="color: #e00b0b" title="Delete Details"></i>').html_safe,
               path,
               method: :delete,
               data: { confirm: "Are you sure?" },
-              class: 'btn btn-danger'
+              class: 'btn'
   end
+
   def edit_link(path)
-    link_to ('<i class="fa fa-edit" title="Edit Details"></i> Edit').html_safe,
+    link_to ('<i class="fa-solid fa-pen-to-square" style="color: #ff9500;" title="Edit Details"></i>').html_safe,
               path,
               method: :get,
-              class: 'btn btn-warning'
+              class: 'btn'
   end
+  
+  def show_link(path)
+    link_to ('<i class="fa-solid fa-eye" style="color: #0b7fe0;" title="Show Details"></i>').html_safe,
+              path,
+              method: :get,
+              class: 'btn'
+  end
+
   def render_notifications(user_id)
     notifications = Notification.unread(user_id)
     notifications.map do |notification|
       priority_class = 'text-'+ notification.priority
       content_tag(:li, notification.message, class: "notification-item #{priority_class}")
     end.join.html_safe
+  end
+
+  def check_session
+    session[:category_id].present? || session[:brand_id].present? || session[:status].present? || session[:active].present?
   end
 end

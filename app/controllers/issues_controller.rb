@@ -4,8 +4,8 @@
 class IssuesController < ApplicationController
   include IssuesHelper
   before_action :current_user?
-  before_action :user_type, except: %i[index create new search]
-  before_action :fetch_issue, only: %i[edit update destroy]
+  before_action :user_type, except: %i[index create new search show]
+  before_action :fetch_issue, only: %i[edit show update destroy]
   def index
     initialize_session
     session[:query] = nil
@@ -23,6 +23,7 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @issue.user_id = current_user.id
+    @issue.id = generate_complaint_id
     if @issue.save
       redirect_to issues_path, flash: { notice: 'Issue was raised successfully.' }
     else
@@ -57,6 +58,13 @@ class IssuesController < ApplicationController
 
   def fetch_issue
     @issue = Issue.find(params[:id])
+  end
+
+  def generate_complaint_id
+    loop do
+      random_id = SecureRandom.random_number(10_000)
+      return random_id if Issue.find_by(id: random_id).nil?
+    end
   end
 
   def issue_params

@@ -3,20 +3,14 @@
   <td><%= item.name %></td>
   <td><%= item.brand.name %></td>
   <td><%= item.category.name %></td>
-  <td><%= item.notes.blank? ? "---" : item.notes %></td>
-  <td><%= item.status ? 'Working' : 'Not Working' %></td>
   <td>
-    <% if item.documents.attached? %>
-      <% item.documents.each do |document| %>
-        <%= link_to "File", url_for(document), class: 'btn btn-primary btn-sm', target: '_blank' %>
-      <% end %>
-    <% else %>
-      No File
-    <% end %>
-  </td>
+    <div class="status-cell <%= item.status ? 'working' : 'not-working' %>">
+      <%= item.status ? 'Working' : 'Not Working' %>
+    </div>
+  </td>  
   <% if authenticate_user %>
-    <td><%= item.user ? item.user.email : "---" %></td>
-    <td class="d-flex gap-2">
+    <td class="d-flex gap-2 justify-content-center">
+      <%= show_link((item_path(item)))%>
       <%= edit_link(edit_item_path(item)) %>
       <%= delete_link(item_path(item)) %>
     </td>

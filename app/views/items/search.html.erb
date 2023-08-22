@@ -1,18 +1,20 @@
 <%= render 'partials/search', search: search_items_path  %>
 <div class="d-flex justify-content-center">
   <%= render 'filter' %>
-  <%= form_tag(search_items_path, method: "get", class: "clear-filter-form") do %>
-    <div class="d-flex mt-3 mb-3">
-      <div class="align-self-end mt-4">
-        <div class="form-group">
-          <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+  <% if check_session %>
+    <%= form_tag(search_items_path, method: "get", class: "clear-filter-form") do %>
+      <div class="d-flex mt-3 mb-3">
+        <div class="align-self-end mt-4">
+          <div class="form-group">
+            <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
+          </div>
         </div>
       </div>
-    </div>
-    <%= hidden_field_tag :category_id, '' %>
-    <%= hidden_field_tag :brand_id, '' %>
-    <%= hidden_field_tag :status, '' %>
-    <%= hidden_field_tag :filter, true %>
+      <%= hidden_field_tag :category_id, '' %>
+      <%= hidden_field_tag :brand_id, '' %>
+      <%= hidden_field_tag :status, '' %>
+      <%= hidden_field_tag :filter, true %>
+    <% end %>
   <% end %>
 </div>
 <% unless @items.nil? %>

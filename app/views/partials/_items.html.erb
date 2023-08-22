@@ -1,10 +1,7 @@
 <thead>
-  <tr class="table text-center">
+  <tr class="text-center">
     <%= render 'partials/user_items', sort: sort %>
-    <th scope="col">Notes</th>
-    <th scope="col">Files</th>
     <% if authenticate_user %>
-      <th scope="col">Email</th>
       <th scope="col">Actions</th>
     <% end %>
   </tr>

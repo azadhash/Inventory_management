@@ -13,8 +13,13 @@
       <tr class="text-center" data-users-id=<%= user.id %>>
         <td><%= link_to "#{user.name}", user_path(user), class: 'btn text-primary' %></td>
         <td><%= user.email %></td>
-        <td><%= user.active ? 'Yes' : 'No' %></td>
+        <td>
+          <div class="<%= user.active ? 'active' : 'not-active' %>">
+            <%= user.active ? 'Yes' : 'No' %>
+          </div>
+        </td> 
         <td class="d-flex gap-2 justify-content-center">
+          <%= show_link(user_path(user)) %>
           <%= edit_link(edit_user_path(user)) %>
           <%= delete_link(user_path(user)) %>
         </td>

@@ -50,30 +50,19 @@
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
-        <tr class="table text-center">
+        <tr class="text-center">
           <%= render 'partials/user_items',sort: user_path(@user) %>
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <%@items.each do |item| %>
-          <tr class="text-center" data-items-id=<%= item.id %>>
-            <td><%=link_to "#{item.uid}",item_path(item) %></td>
-            <td><%= item.name %></td>
-            <td><%= item.brand.name %></td>
-            <td><%= item.category.name %></td>
-            <td><%= item.status ? 'Working' : 'Not Working' %></td> 
-            <% if authenticate_user %>
-              <td class="d-flex gap-2 justify-content-center">
-                <%= edit_link(edit_item_path(item)) %>
-                <%= delete_link(item_path(item)) %>
-              </td>
-            <% end %>
-          </tr>
-        <%end%>
+      <tbody class="entities-list">
+        <% @items.each do |item| %>
+          <%= render 'items/list', item: item %>
+        <% end %>
       </tbody>
-    </table>
+    </table>  
   </div>
+  <%= render 'partials/paginate', obj: @items %>
 <% else %>
   <h4 class="text-center mb-3">No items are allocated</h4>
 <% end %>  

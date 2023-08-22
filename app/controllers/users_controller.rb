@@ -23,6 +23,7 @@ class UsersController < ApplicationController
     @items = @user.items
     sort_param = params[:sort_by]
     @items = sort_obj(sort_param, @items)
+    @items = @items.page(params[:page]).per(5)
   end
 
   def create
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.items.present? && @user.admin == !user_params[:admin]
+    if @user.items.present? && user_params[:admin] == 'true'
       redirect_to @user, flash: { alert: "User cannot be made admin as items are allocated to  #{@user.name}" }
     else
       update_user
@@ -55,7 +56,7 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_path, flash: { notice: 'User was successfully deleted.' }
   rescue ActiveRecord::InvalidForeignKey
-    redirect_to @user, flash: { alert: 'Some items are allocated to this user. User cannot be deleted.' }
+    redirect_to users_path, flash: { alert: 'Some items are allocated to this user. User cannot be deleted.' }
   end
 
   private

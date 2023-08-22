@@ -6,13 +6,14 @@ class ItemsController < ApplicationController
   before_action :current_user?
   before_action :user_type, except: %i[index show search]
   before_action :fetch_item, only: %i[show edit update destroy]
+  before_action :check_show, only: %i[show]
   def index
     initialize_session
     session[:query] = nil
     @items = if authenticate_user
-               Item.all
+               Item.includes(:brand, :category, :user).all
              else
-               current_user.items
+               current_user.items.includes(:brand, :category)
              end
     sort_param = params[:sort_by]
     @items = sort_obj(sort_param, @items)

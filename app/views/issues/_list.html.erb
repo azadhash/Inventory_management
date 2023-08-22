@@ -1,35 +1,34 @@
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>Item ID
-          <%= link_to url: sort, sort_by: "item_id_asc" do %>
-          <i class="fa fa-sort-asc" aria-hidden="true"></i>
+      <tr class="text-center">
+        <th>Complaint Id
+          <%= link_to url: sort, sort_by: "issue_id_asc" do %>
+            <% image_tag "up.png", class: "sort-icon" %>
           <% end %>
-          <%= link_to url: sort, sort_by: "item_id_desc" do %>
-          <i class="fa fa-sort-desc" aria-hidden="true"></i>
+          <%= link_to url: sort, sort_by: "issue_id_desc" do %>
+            <% image_tag "down.png", class: "sort-icon" %>
           <% end %>
         </th>
-        <th>Description</th>
+        <th>Item Id
+          <%= link_to url: sort, sort_by: "item_id_asc" do %>
+            <% image_tag "up.png", class: "sort-icon" %>
+          <% end %>
+          <%= link_to url: sort, sort_by: "item_id_desc" do %>
+            <% image_tag "down.png", class: "sort-icon" %>
+          <% end %>
+        </th>
         <th>Status</th>
         <% if authenticate_user %>
-          <th>User
-            <%= link_to url: sort, sort_by: "user_id_asc" do %>
-            <i class="fa fa-sort-asc" aria-hidden="true"></i>
-            <% end %>
-            <%= link_to url: sort, sort_by: "user_id_desc" do %>
-            <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            <% end %>
-          </th>
-          <th></th>
+          <th colspan="2">Actions</th>
         <% end %>
       </tr>
     </thead>
     <tbody>
       <% issues.each do |issue| %>
-        <tr>
+        <tr class="text-center">
+          <td><%= issue.id %></td>
           <td><%= issue.item.uid %></td>
-          <td class="description"><%= issue.description %></td>
           <td id="status-cell-<%= issue.id %>">
             <% if issue.status %>
               <span class="text-success">Resolved</span>
@@ -38,7 +37,6 @@
             <% end %>
           </td>
           <% if authenticate_user %>
-            <td><%= issue.user.email %></td>
             <td>
               <div class="d-inline">
                <%= form_with model: issue, url: issue_path(issue), method: :put, data: { remote: true , issue_id: issue.id }, authenticity_token: true do |form| %>

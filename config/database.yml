@@ -8,6 +8,8 @@ default: &default
   adapter: postgresql 
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  local: &local
+    application_timezone: 'Asia/Kolkata'
   # username: admin_inventory
   # password: azadsingh
   # host: localhost
