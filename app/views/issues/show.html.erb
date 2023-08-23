@@ -1,3 +1,5 @@
+<button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
+<h5 class="p-3 text-center">Issue Details</h5>
 <div class="col-lg-4 mt-4 m-auto w-30">
   <div class="card mb-4">
     <div class="card-body">
@@ -6,7 +8,7 @@
           <p class="mb-0">Complaint Id</p>
         </div>
         <div class="col-sm-9">
-          <p class="text-muted mb-0"><%= @issue.uid %></p>
+          <p class="text-muted mb-0"><%= @issue.id %></p>
         </div>
       </div>
       <hr>
@@ -37,53 +39,23 @@
         </div>
       </div>
       <hr>
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Notes</p>
-        </div>
-        <div class="col-sm-9">
-          <p class="text-muted mb-0"><%= @item.notes? ? @item.notes : '-----'  %></p>
-        </div>
-      </div>
       <hr>
       <div class="row">
         <div class="col-sm-3">
           <p class="mb-0">Employee</p>
         </div>
         <div class="col-sm-9">
-          <p class="text-muted mb-0"><%= @item.user.present? ? @item.user&.email : '-----' %></p>
+          <p class="text-muted mb-0"><%= @issue.user.present? ? @issue.user&.email : '-----' %></p>
         </div>
       </div>
       <hr>
       <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Files</p>
-        </div>
-        <div class="col-sm-9">
-          <p class="text-muted mb-0">
-            <% if @item.documents.attached? %>
-              <% @item.documents.each do |document| %>
-                <%= link_to document.filename, url_for(document), class: 'btn btn-primary btn-sm m-2', target: '_blank' %><br>
-              <% end %>
-            <% else %>
-              No File
-            <% end %>
-          </p>
-        </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-3">
-          <p class="mb-0">Actions</p>
-        </div>
-        <div class="col-sm-9">
+        <div class="col-md-4 m-auto">
           <p class="text-muted mb-0">
             <div>
               <% if authenticate_user %>
-                <%= link_to "Edit", edit_item_path(@item), class: 'btn btn-warning' %>
-                <%= link_to "Delete", item_path(@item), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+                <%= delete_link(issue_path(@issue)) %>
               <% end %>
-              <button class="btn btn-primary" onclick="goBack()">Back</button>
             </div>
           </p>
         </div>
@@ -91,8 +63,3 @@
     </div>
   </div>
 </div>
-<script>
-  function goBack() {
-    window.history.back();
-  }
-</script>

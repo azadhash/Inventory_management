@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark custom-bg-color">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
   <div class="container">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,51 +9,39 @@
         <ul class="navbar-nav">
           <% if authenticate_user %>
           <li class="nav-item">
-            <%= link_to "Users", users_path, class: 'nav-link text-light' %>
+            <%= link_to "Users", users_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Brands", brands_path, class: 'nav-link text-light' %>
+            <%= link_to "Brands", brands_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Categories",  categories_path, class: 'nav-link text-light' %>
+            <%= link_to "Categories",  categories_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Items", items_path, class: 'nav-link text-light' %>
+            <%= link_to "Items", items_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Issues", issues_path, class: 'nav-link text-light' %>
+            <%= link_to "Issues", issues_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Storage", storage_categories_path, class: 'nav-link text-light' %>
+            <%= link_to "Storage", storage_categories_path, class: 'nav-link' %>
           </li>
           <% else %>
           <li class="nav-item">
-            <%= link_to "Items", items_path, class: 'nav-link text-light' %>
+            <%= link_to "Items", items_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-            <%= link_to "Issues", issues_path, class: 'nav-link text-light' %>
+            <%= link_to "Issues", issues_path, class: 'nav-link' %>
           </li>
           <% end %>
           <li class="nav-item">
-            <%= link_to "Logout", logout_path, method: :delete, class: 'nav-link text-light' %>
+            <%= link_to "Logout", logout_path, method: :delete, class: 'nav-link' %>
           </li>
         </ul>
       </div>
-      <div class="user-info">
-      <p class="user-name">
-        <%= current_user.name.capitalize %>
-      </p>
-      <p class="user-type">  
-        <% if authenticate_user %>
-          Admin
-        <% else %>
-          Employee
-        <% end %>
-      </p>
-      </div>
       <div class="dropdown">
-        <a class="btn dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="modal" data-bs-target="#notificationModal" aria-expanded="false">
-          <i class="fa-regular fa-bell text-light"></i>
+        <a class="btn dropdown-toggle text-dark" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="modal" data-bs-target="#notificationModal" aria-expanded="false">
+          <i class="fa-regular fa-bell text-dark"></i>
           <span class="badge bg-danger" id="notificationCounter"><%= Notification.unread(current_user).count %></span>
         </a>
         <!-- Modal -->
@@ -80,7 +68,9 @@
                 <% end %>
               </div>
               <div class="modal-footer">
-               <%= button_to 'Mark All as Read', notifications_mark_read_path, remote: true, method: :patch, class: 'text-light btn custom-bg-color', id: 'markAllReadButton' %></li>
+               <%= button_to notifications_mark_read_path, remote: true, method: :patch, class: 'btn btn-sm add-btn', id: 'markAllReadButton' do %>
+                <i class="fa-solid fa-check-double"></i>Mark all read
+               <% end %></li>
               </div>
            </div>
          </div>

@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def extract_query(params)
-    query = params[:search_category].presence && params[:search_category][:query]
+    query = params[:search_category].presence && params[:search_category][:query] || params[:query]
     session[:query] = query unless query.nil?
     query || session[:query]
   end

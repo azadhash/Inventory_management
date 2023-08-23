@@ -1,3 +1,5 @@
+<button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
+<h5 class="p-3 text-center">User Details</h5>
 <div class="col-lg-4 mt-4 m-auto w-30">
   <div class="card mb-4">
     <div class="card-body">
@@ -38,17 +40,18 @@
       </div> 
       <hr>
       <div class="row">
-        <div class="col-sm-9">
-          <button class="btn btn-primary" onclick="window.history.back();">Back</button>
+        <div class="col-md-4 m-auto">
+          <%= edit_link (edit_user_path(@user)) %>
+          <%= delete_link (user_path(@user)) %>
         </div>
       </div>   
     </div>
   </div>
 </div>
 <% if @user.items.present? %>
-  <h4 class="text-center mb-3">Allocated items</h4>
+  <h5 class="text-center mb-3">Allocated items</h5>
   <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-striped">
       <thead>
         <tr class="text-center">
           <%= render 'partials/user_items',sort: user_path(@user) %>
@@ -64,5 +67,5 @@
   </div>
   <%= render 'partials/paginate', obj: @items %>
 <% else %>
-  <h4 class="text-center mb-3">No items are allocated</h4>
+  <h5 class="text-center mb-3">No items are allocated</h5>
 <% end %>  

@@ -1,8 +1,5 @@
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <h3 class="text-center mb-4 mt-3">Add Category Details</h3>
-        <%= render "form", category: @category %>
-      </div>
-    </div>
+    <button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
+    <h5 class="p-3 text-center">Add Category</h5>
+    <%= render "form", category: @category %>
   </div>

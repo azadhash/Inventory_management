@@ -1,5 +1,5 @@
 <%= form_with model: item do |form| %>
-  <div class="mx-auto col-4">
+  <div class="mx-auto col-6">
     <div>
       <%= form.label :name, class: 'form-label required'%>
       <%= form.text_field :name, class: 'form-control' %>
@@ -34,7 +34,7 @@
       <p class='text-danger'><%= show_errors(@item, :documents) %></p>
     </div>
     <div class="d-flex justify-content-center">
-      <%= form.submit class: 'btn btn-primary mt-3' %>
+      <%= form.submit class: 'btn add-btn mt-3' %>
     </div>
   </div>
 <% end %>

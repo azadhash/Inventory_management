@@ -1,11 +1,11 @@
 <%= javascript_include_tag 'storage' %>
-<h1>Storage</h1>
+<p class="text-lg mt-2">Storage</p><hr/>
 <%= form_tag('/fetch_data', remote: true) do %>
   <%= select_tag(:option, options_for_select(@categories.map { |category| [category.name, category.id] }), prompt: 'Select category',class:'form-select w-50 m-auto', id: 'category-select') %>
 <% end %>
 <div class="col-md-6 col-lg-3 m-auto mt-4">
   <div class="card">
-    <div class="card-body bg-warning h-100">
+    <div class="card-body h-100">
       <p class="card-title">Remaning quantity in storage</p>
       <div id="result-container" class= "text-dark">
       </div>

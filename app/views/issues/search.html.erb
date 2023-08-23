@@ -1,15 +1,12 @@
-<%= render 'partials/search', search: search_issues_path  %>
-<div class="d-flex justify-content-center gap-3">
-  <%= render 'filter' %>
+<div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
+  <%= render 'partials/search', search: search_issues_path %>
+  <%= render 'filter', filter: search_issues_path %>
   <% if check_session %>
-    <%= form_tag(search_issues_path, method: "get", class: "clear-filter-form") do %>
-      <div class="d-flex mt-3 mb-3">
-        <div class="align-self-end mt-4">
-          <div class="form-group">
-            <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
-          </div>
-        </div>
+    <%= form_tag(search_issues_path, method: "get", class: "clear-filter-form mt-2") do %>
+      <div class="form-group">
+        <%= submit_tag "Clear Filter", class: "btn btn-sm add-btn" %>
       </div>
+      <%= hidden_field_tag :query, '' %>   
       <%= hidden_field_tag :status, '' %>
       <%= hidden_field_tag :filter, true %>
     <% end %>
@@ -17,9 +14,9 @@
 </div>
 <% unless @issues.nil? %>
   <% if @issues.empty? %>
-    <h3 class="text-center mt-4">No Issue Found</h3>
+    <p class="text-center mt-4">No Issue Found</p>
   <% else %>
-    <h2>Search results</h2>
+    <span>Search results</span><hr/>
     <%= render 'list', issues: @issues, sort: search_issues_path %>
   <% end %>
 <% end %>

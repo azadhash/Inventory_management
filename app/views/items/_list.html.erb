@@ -1,5 +1,5 @@
 <tr class="text-center" data-items-id=<%= item.id %>>
-  <td><%=link_to "#{item.uid}",item_path(item) %></td>
+  <td><%=link_to "#{item.uid}",item_path(item), class: "btn text-primary" %></td>
   <td><%= item.name %></td>
   <td><%= item.brand.name %></td>
   <td><%= item.category.name %></td>

@@ -1,30 +1,23 @@
-<%= form_tag(search_items_path, method: "get", class: 'w-50',style: "margin-left: 5%;") do %>
-  <div class="d-flex gap-2 mt-3 mb-3">
-    <div class="col-md-3">
+<div class="dropdown">
+  <button class="btn  btn-sm filter-drop" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= image_tag "filter.png", class: "filter-icon", title: 'filter' %> Filter
+  </button>
+  <div class="dropdown-menu" aria-labelledby="filterDropdown">
+    <%= form_tag(search_items_path, method: "get", class: "dropdown-item") do %>
       <div class="form-group">
         <%= label_tag :category_id, "Category:" %>
         <%= select_tag :category_id, options_for_select([["All", ""]] + Category.all.map { |category| [category.name, category.id] }, session[:category_id]), class: "form-control" %>
       </div>
-    </div>
-    <div class="col-md-3">
       <div class="form-group">
         <%= label_tag :brand_id, "Brand:" %>
         <%= select_tag :brand_id, options_for_select([["All", ""]] + Brand.all.map { |brand| [brand.name, brand.id] }, session[:brand_id]), class: "form-control" %>
       </div>
-    </div>
-    <div class="col-md-3">
       <div class="form-group">
         <%= label_tag :status, "Status:" %>
         <%= select_tag :status, options_for_select([["All", ""], ["Working", "true"], ["Not Working", "false"]], session[:status]), class: "form-control" %>
       </div>
-    </div>
-    <div class="col-md-2 align-self-end">
-      <div class="form-group">
-        <%= submit_tag "Filter", class: "btn btn-primary" %>
-      </div>
-    </div>
+      <%= hidden_field_tag :filter, true %>
+      <%= submit_tag "Apply Filters", class: "btn btn-primary btn-sm mt-2" %>
+    <% end %>
   </div>
-  <%= hidden_field_tag :filter, true %>
-<% end %>
-
-
+</div>

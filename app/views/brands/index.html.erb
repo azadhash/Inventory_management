@@ -1,10 +1,14 @@
-<%= render 'partials/search', search_type: "Brands", search: search_brands_path %>
-<%= link_to "Add brand", new_brand_path, class: 'btn btn-lg text-light custom-bg-color   ' %>
-<div class="col-lg-3 w-50 m-auto">
+<div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
+  <%= render 'partials/search', search_type: "Brands", search: search_brands_path %>
+  <%= link_to  new_brand_path, class: 'btn add-btn btn-sm' do %>
+    <i class="fa-solid fa-plus fa-lg" style="color: #026c6da;"></i>Add Brand
+  <% end %>
+</div>
+<div class="col-lg-3 w-100 m-auto">
   <% if @brands.length == 0 %>
     <h3 class="text-center mt-4">No brand found</h3>
   <% else %>
-    <table class="table table-bordered table-striped">
+    <table class="table table-striped">
       <%= render 'partials/brands', sort: brands_path %>
       <tbody class="entities-list" id="brands-list"> 
         <% @brands.each do |brand| %>

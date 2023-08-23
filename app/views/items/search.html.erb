@@ -1,15 +1,12 @@
-<%= render 'partials/search', search: search_items_path  %>
-<div class="d-flex justify-content-center">
+<div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
+  <%= render 'partials/search', search: search_items_path  %>
   <%= render 'filter' %>
   <% if check_session %>
-    <%= form_tag(search_items_path, method: "get", class: "clear-filter-form") do %>
-      <div class="d-flex mt-3 mb-3">
-        <div class="align-self-end mt-4">
-          <div class="form-group">
-            <%= submit_tag "Clear Filter", class: "btn btn-primary" %>
-          </div>
-        </div>
+    <%= form_tag(search_items_path, method: "get", class: "clear-filter-form mt-2 ") do %>
+      <div class="form-group">
+        <%= submit_tag "Clear Filter", class: "btn btn-sm add-btn" %>
       </div>
+      <%= hidden_field_tag :query, '' %>
       <%= hidden_field_tag :category_id, '' %>
       <%= hidden_field_tag :brand_id, '' %>
       <%= hidden_field_tag :status, '' %>
@@ -17,13 +14,14 @@
     <% end %>
   <% end %>
 </div>
+
 <% unless @items.nil? %>
   <% if @items.empty? %>
-    <h3 class="text-center mt-4">No Item Found</h3>
+    <p class="text-center mt-4">No results found</p>
   <% else %>
-    <h2>Search results</h2>
+    <span>Search results</span><hr/>
     <div class="table-responsive">
-      <table class="table table-bordered table-striped">
+      <table class="table table-striped">
         <%= render 'partials/items', sort: search_items_path %>
         <tbody>
         <% @items.each do |item| %>

@@ -1,15 +1,17 @@
-<%= render 'partials/search', search: search_items_path  %>
-<div class="d-flex justify-content-center">
+<div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
+  <%= render 'partials/search', search: search_items_path  %>
   <%= render 'filter' %>
+  <% if authenticate_user %>
+    <%= link_to new_item_path, class: 'btn add-btn btn-sm' do%>
+      <i class="fa-solid fa-plus fa-lg" style="color: #026c6da;"></i>Add Item
+    <% end %>
+  <% end %>
 </div>
-<% if authenticate_user %>
-  <%= link_to "Add Item", new_item_path, class: 'btn btn-lg text-light custom-bg-color mt-2 mb-4'%>
-<% end %>
 <% if @items.length == 0 %>
   <h3 class="text-center mt-4">No items found</h3>
 <% else %>
   <div class="table-responsive">
-    <table class="table table-bordered table-striped items-list">
+    <table class="table table-striped items-list">
       <%= render 'partials/items', sort: items_path %>
       <tbody class="entities-list">
         <% @items.each do |item| %>

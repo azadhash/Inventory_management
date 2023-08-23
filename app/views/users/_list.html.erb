@@ -1,5 +1,5 @@
 <div class="table-responsive">  
-  <table class="table table-bordered table-striped">
+  <table class="table table-striped">
     <thead>
       <tr class="text-center">
         <%= render 'partials/sort', sort: search %>
@@ -14,7 +14,7 @@
         <td><%= link_to "#{user.name}", user_path(user), class: 'btn text-primary' %></td>
         <td><%= user.email %></td>
         <td>
-          <div class="<%= user.active ? 'active' : 'not-active' %>">
+          <div class="<%= user.active ? 'active-status' : 'not-active-status' %>">
             <%= user.active ? 'Yes' : 'No' %>
           </div>
         </td> 

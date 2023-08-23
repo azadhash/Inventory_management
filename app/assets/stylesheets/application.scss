@@ -119,38 +119,93 @@ td {
   width: 75%;
   margin: auto;
 }
-.active{
+.active-status{
   background-color: #56d114;
   color: #ffffff;
   border-radius: 20px;
-  width: 50%;
+  width: 60px;
   margin: auto;
 }
-.not-active{
+.not-active-status{
   background-color: #e90d0d;
   color: #FFFFFF;
   border-radius: 20px;
-  width: 50%;
+  width: 60px;
   margin: auto;
 }
 .high{
   background-color: #e90d0d;
   color: #FFFFFF;
   border-radius: 20px;
-  width: 50%;
+  width: 60px;
   margin: auto;
 }
 .low{
   background-color: #79c402;
   color: #FFFFFF;
   border-radius: 20px;
-  width: 50%;
+  width: 60px;
   margin: auto;
 }
 .medium{
   background-color: #a83636;
   color: #FFFFFF;
   border-radius: 20px;
-  width: 50%;
+  width: 60px;
   margin: auto;
+}
+table td{
+  font-size: 14px;
+  overflow: hidden;
+}
+.add-icon{
+  padding: 0;
+  margin: 0;
+  width: 40px;
+}
+.add-btn{
+  color: #0f78db !important;
+  margin: 5px !important;
+  border: 2px solid #26c6da !important;
+}
+.add-btn:hover{
+  color: #ffffff !important;
+  background-color: #0f78db !important;
+}
+.filter-icon{
+  padding: 0;
+  margin: 0;
+  width: 20px;
+}
+.filter-drop{
+  margin: 5px !important;
+  color: #0f78db !important;
+  border: 2px solid #26c6da !important;
+}
+.filter-drop:hover{
+  color: #ffffff !important;
+  background-color: #0f78db !important;
+}
+.dropdown-item {
+  background-color: transparent !important;
+  color: #000 !important;
+  transition: none !important;
+}
+
+.dropdown-item:hover {
+  background-color: transparent !important;
+  color: #000 !important;
+  transition: none !important;
+}
+
+.t-over{
+  overflow: hidden !important;
+}
+@media only screen and (max-width: 550px) {
+  *{
+    font-size: 12px !important;
+  }
+  table td{
+    font-size: 12px !important;
+  }
 }

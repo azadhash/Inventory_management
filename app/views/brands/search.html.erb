@@ -1,11 +1,13 @@
-<%= render 'partials/search', search: search_brands_path  %>
+<div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
+  <%= render 'partials/search', search_type: "Brands", search: search_brands_path %>
+</div>
 <% unless @brands.nil? %>
   <% if @brands.empty? %>
-    <h3 class="text-center mt-4">No brand found</h3>
+    <p class="text-center mt-4">No results found</p>
   <% else %>
-    <h2>Search results</h2>
-    <div class="col-lg-3 w-50 m-auto">
-    <table class="table table-bordered table-striped">
+    <span>Search results</span><hr/>
+    <div class="col-lg-3 w-100 m-auto">
+    <table class="table table-striped">
       <%= render 'partials/brands', sort: search_brands_path %>
       <tbody>
         <% @brands.each do |brand| %>
