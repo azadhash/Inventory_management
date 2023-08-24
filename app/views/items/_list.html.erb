@@ -7,9 +7,10 @@
     <div class="status-cell <%= item.status ? 'working' : 'not-working' %>">
       <%= item.status ? 'Working' : 'Not Working' %>
     </div>
-  </td>  
+  </td> 
+  <td><%= item.created_at.strftime('%B %d, %Y at %H:%M') %></td> 
   <% if authenticate_user %>
-    <td class="d-flex gap-2 justify-content-center">
+    <td>
       <%= show_link((item_path(item)))%>
       <%= edit_link(edit_item_path(item)) %>
       <%= delete_link(item_path(item)) %>

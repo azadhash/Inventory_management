@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   before_action :current_user?
   before_action :user_type
   before_action :fetch_user, only: %i[show edit update destroy]
+  before_action :check_user, only: %i[show]
   def index
     initialize_session
     session[:query] = nil

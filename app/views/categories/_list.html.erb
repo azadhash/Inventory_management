@@ -7,6 +7,7 @@
       <%= category.priority.capitalize %>
     </div>
   </td>
+  <td><%= category.created_at.strftime('%B %d, %Y at %H:%M') %></td> 
   <td class="d-flex gap-2 justify-content-center">
     <%= edit_link(edit_category_path(category)) %>
     <%= delete_link(category_path(category)) %>

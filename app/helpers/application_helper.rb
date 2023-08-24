@@ -20,6 +20,10 @@ module ApplicationHelper
       obj.order(name: :asc)
     when 'name_desc'
       obj.order(name: :desc)
+    when 'time_asc'
+      obj.order(created_at: :asc)
+    when 'time_desc'
+      obj.order(created_at: :desc)
     when 'user_name_asc'
       obj.joins(:user).order('users.name ASC')
     when 'user_name_desc'

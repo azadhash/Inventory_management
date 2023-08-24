@@ -1,40 +1,42 @@
-<h3 class="mb-4 mt-3">Welcome back <%= current_user.name %></h3>
-
-<% if authenticate_user %>
-<div class="container mt-3 mb-4">
-  <div class="row">
-    <div class="col-md-6 col-lg-3">
-      <div class="card bg-primary">
-        <div class="card-body">
-          <h5 class="card-title">Total Item</h5>
-          <p class="card-text"><%= Item.count %></p>
+<h5 class="p-3 text-center">Profile</h5>
+<div class="col-lg-4 mt-4 m-auto w-30">
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Name</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @user.name %></p>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-3 ">
-      <div class="card bg-warning">
-        <div class="card-body">
-          <h5 class="card-title">Total User</h5>
-          <p class="card-text"><%= User.count %></p>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Email</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @user.email %></p>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="card bg-info">
-        <div class="card-body">
-          <h5 class="card-title">Toatl Issue</h5>
-          <p class="card-text"><%= Issue.count %></p>
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">Active</p>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="card bg-success">
-        <div class="card-body">
-          <h5 class="card-title">Total Category</h5>
-          <p class="card-text"><%= Category.count %></p>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @user.active ? "Yes" : "No" %></p>
         </div>
-      </div>
+      </div> 
+      <hr>
+      <div class="row">
+        <div class="col-sm-3">
+          <p class="mb-0">User Type</p>
+        </div>
+        <div class="col-sm-9">
+          <p class="text-muted mb-0"><%= @user.admin ? "Admin" : "Employee  " %></p>
+        </div>
+      </div> 
     </div>
   </div>
 </div>
-<% end %>

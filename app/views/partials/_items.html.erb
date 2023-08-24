@@ -1,6 +1,7 @@
 <thead>
   <tr class="text-center">
     <%= render 'partials/user_items', sort: sort %>
+    <%= render 'partials/sort_created', sort: sort %>
     <% if authenticate_user %>
       <th scope="col">Actions</th>
     <% end %>

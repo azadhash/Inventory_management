@@ -18,10 +18,9 @@
             <% image_tag "down.png", class: "sort-icon" %>
           <% end %>
         </th>
+        <%= render 'partials/sort_created', sort: sort %>
         <th>Status</th>
-        <% if authenticate_user %>
-          <th colspan="2">Actions</th>
-        <% end %>
+        <th colspan="2">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +28,7 @@
         <tr class="text-center">
           <td><%= issue.id %></td>
           <td><%= issue.item.uid %></td>
+          <td><%= issue.created_at.strftime('%B %d, %Y at %H:%M') %></td> 
           <td id="status-cell-<%= issue.id %>">
             <% if issue.status %>
               <span class="text-success">Resolved</span>
@@ -36,8 +36,9 @@
               <span class="text-warning">Pending</span>
             <% end %>
           </td>
-          <% if authenticate_user %>
-            <td class="d-flex justify-content-center">
+          <td>
+            <%= show_link((issue_path(issue)))%>
+            <% if authenticate_user %>
               <div>
                 <%= form_with model: issue, url: issue_path(issue), method: :put, data: { remote: true , issue_id: issue.id }, authenticity_token: true do |form| %>
                   <%= hidden_field_tag 'issue[status]', !issue.status, data: { issue_id: issue.id } %>
@@ -46,10 +47,9 @@
                   <% end %>
                 <% end %>
               </div>
-              <%= show_link((issue_path(issue)))%>
               <%= delete_link(issue_path(issue)) %>
-            </td>
-          <% end %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

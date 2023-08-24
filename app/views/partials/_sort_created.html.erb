@@ -1,0 +1,8 @@
+<th scope="col">Created At 
+  <%= link_to url: sort, sort_by: "time_asc" do %>
+    <% image_tag "up.png", class: "sort-icon" %>
+  <% end %>
+  <%= link_to url: sort, sort_by: "time_desc" do %>
+    <% image_tag "down.png", class: "sort-icon" %>
+  <% end %>
+</th>

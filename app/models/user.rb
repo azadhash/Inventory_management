@@ -16,7 +16,6 @@ class User < ApplicationRecord
   settings do
     mappings dynamic: false do
       indexes :name, type: :text
-      indexes :id, type: :keyword
       indexes :email, type: :keyword
     end
   end
@@ -28,7 +27,6 @@ class User < ApplicationRecord
   # rubocop:disable Metrics/Style/HashSyntax
   def as_indexed_json(_options = {})
     {
-      id: id,
       name: name,
       email: email
     }
@@ -40,7 +38,7 @@ class User < ApplicationRecord
              "query": {
                "query_string": {
                  "query": "#{query}*",
-                 "fields": %w[id email name]
+                 "fields": %w[email name]
                }
              }
            })

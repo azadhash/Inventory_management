@@ -1,5 +1,6 @@
 <tr class="text-center" data-brands-id="<%= brand.id %>">
   <td class="brand-name"><%= brand.name %></td>
+  <td><%= brand.created_at.strftime('%B %d, %Y at %H:%M') %></td> 
   <td class="d-flex gap-2 justify-content-center">
     <%= edit_link(edit_brand_path(brand)) %>
     <%= delete_link(brand_path(brand)) %>

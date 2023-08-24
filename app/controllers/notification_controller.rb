@@ -6,4 +6,9 @@ class NotificationController < ApplicationController
   def mark_read
     current_user.notifications.delete_all
   end
+
+  def mark
+    notification = Notification.find(params[:id])
+    notification.update(read: true)
+  end
 end

@@ -54,23 +54,26 @@
               </div>
               <div class="modal-body" id="modalBody">
                 <% Notification.unread(current_user).reverse_each do |notification| %>
-                  <div class="notification-item">
-                    <div class="row notification-priority-<%= notification.priority %>">
-                      <div class="col-10 ">
+                  <div class="notification-item" id="notification-<%= notification.id %>">
+                    <div class="row notification-priority-<%= notification.priority %>" >
+                      <div class="col-10">
                         <div class="notification-content">
                           <p class="notification-text"><%= notification.message %></p>
                           <small class="text-muted">Sent on <%= notification.created_at.strftime('%B %d, %Y at %H:%M') %></small>
+                          <%= button_to notifications_mark_path(id: notification.id), remote: true, method: :patch, class: 'btn btn-sm add-btn mark-read-button',id:"mark_#{notification.id}", data: { notification_id: notification.id } do %>
+                            <i class="fa-solid fa-check"></i> Mark read
+                          <% end %>
                         </div>
                       </div>
-                    </div>
                     <hr>
+                    </div>
                   </div>
                 <% end %>
               </div>
               <div class="modal-footer">
                <%= button_to notifications_mark_read_path, remote: true, method: :patch, class: 'btn btn-sm add-btn', id: 'markAllReadButton' do %>
                 <i class="fa-solid fa-check-double"></i>Mark all read
-               <% end %></li>
+               <% end %>
               </div>
            </div>
          </div>

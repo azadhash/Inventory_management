@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/authenticate', to: 'sessions#authenticate'
   get '/categories/fetch', to: 'categories#fetch_data'
   patch '/notifications/mark_read', to: 'notification#mark_read'
+  patch '/notifications/mark/:id', to: 'notification#mark', as: :notifications_mark
 
   resources :users do
     collection do
