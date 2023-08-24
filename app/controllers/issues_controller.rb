@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
   include IssuesHelper
   before_action :current_user?
   before_action :user_type, except: %i[index create new search show]
-  before_action :fetch_issue, only: %i[edit show update destroy]
+  before_action :fetch_issue, only: %i[show update destroy]
   def index
     initialize_session
     session[:query] = nil
@@ -36,9 +36,9 @@ class IssuesController < ApplicationController
   def update
     if @issue.update(issue_params)
       send_mail_and_notification if @issue.status
-      redirect_to issues_path
+      redirect_to @issue, flash: { notice: 'Issue resolved' }
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to @issue, flash: { notice: 'Issue not resolved' }
     end
   end
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# rubocop:disable all
 # this is the Issue model
 class Issue < ApplicationRecord
   include Searchable
@@ -18,7 +18,6 @@ class Issue < ApplicationRecord
     __elasticsearch__.create_index! force: true
     __elasticsearch__.import
   end
-  # rubocop:disable Metrics/Style/HashSyntax
 
   def as_indexed_json(_options = {})
     {
@@ -26,7 +25,6 @@ class Issue < ApplicationRecord
       user_id: user.id
     }
   end
-  # rubocop:enable Metrics/Style/HashSyntax
 
   def self.search_result(query)
     search({

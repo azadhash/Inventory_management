@@ -41,8 +41,8 @@ item6 = Item.create(uid: '567', name: 'Item 6', status: false, brand: brand5, ca
 item7 = Item.create(uid: '5627', name: 'Item 7', status: true, brand: brand6, category: category3, user: user3)
 item8 = Item.create(uid: '5627', name: 'Item 8', status: false, brand: brand6, category: category4, user: nil)
 # Create Issues
-issue1 = Issue.create(description: 'Issue_1', status: false, user: user2, item: item1)
-issue2 = Issue.create(description: 'Issue_2', status: false, user: user2, item: item2)
-issue3 = Issue.create(description: 'Issue_3', status: false, user: user3, item: item3)
-issue4 = Issue.create(description: 'Issue_4', status: false, user: user4, item: item4)
-issue5 = Issue.create(description: 'Issue_5', status: false, user: user4, item: item5)
+issue1 = Issue.create(id: '1207', description: 'it is not working ', status: false, user: user2, item: item1)
+issue2 = Issue.create(id: '1107', description: 'buttons ar not working', status: false, user: user2, item: item2)
+issue3 = Issue.create(id: '1307', description: 'Issue_3', status: false, user: user3, item: item3)
+issue4 = Issue.create(id: '1267', description: 'Issue_4', status: false, user: user4, item: item4)
+issue5 = Issue.create(id: '1457', description: 'Issue_5', status: false, user: user4, item: item5)

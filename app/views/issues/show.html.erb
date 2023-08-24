@@ -1,6 +1,6 @@
 <button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
 <h5 class="p-3 text-center">Issue Details</h5>
-<div class="col-lg-4 mt-4 m-auto w-30">
+<div class="col-lg-5 mt-4 m-auto w-30">
   <div class="card mb-4">
     <div class="card-body">
       <div class="row">
@@ -50,14 +50,18 @@
       </div>
       <hr>
       <div class="row">
-        <div class="col-md-4 m-auto">
-          <p class="text-muted mb-0">
+        <div class="d-flex justify-content-center">
+          <% if authenticate_user %>
+            <%= delete_link(issue_path(@issue)) %>
             <div>
-              <% if authenticate_user %>
-                <%= delete_link(issue_path(@issue)) %>
+              <%= form_for(@issue, url: issue_path(@issue), method: :put) do |form| %>
+                <% if !@issue.status %>
+                  <%= form.hidden_field :status, value: true %>
+                  <%= form.submit 'Mark as Resolved', class: 'btn btn-sm btn-info', data: { confirm: 'Are you sure you want to mark this issue as resolved?' } %>
+                <% end %>
               <% end %>
             </div>
-          </p>
+          <% end %>
         </div>
       </div>
     </div>
