@@ -5,6 +5,7 @@
 Rails.application.routes.draw do
   root 'sessions#new'
   get '/dashboard', to: 'homes#welcome'
+  get '/profile', to: 'homes#profile'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/auth/:provider/callback', to: 'sessions#omniauth'
