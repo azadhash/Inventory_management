@@ -1,2 +1,3 @@
+<%= link_to 'Back', request.referer || root_path, class: 'btn btn-sm add-btn' %>
 <h5 class="text-center mt-3">Raise issue</h5>
 <%= render "form" , issue: @issue %>

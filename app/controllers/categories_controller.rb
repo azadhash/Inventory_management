@@ -3,7 +3,7 @@
 # this is the Categories controller
 class CategoriesController < ApplicationController
   before_action :current_user?
-  before_action :user_type
+  before_action :admin?
   before_action :fetch_category, only: %i[edit update destroy]
   def index
     session[:query] = nil

@@ -15,7 +15,7 @@
    <%= form.select(:active, options_for_select([['Yes', true],['No', false]], user.active),{},class: 'form-select') %>
   </div>
    <div>
-    <%= form.label :admin,'User Type' ,class: 'form-label mt-3 required' %>
+    <%= form.label :admin,'Role' ,class: 'form-label mt-3 required' %>
     <%= form.select(:admin, options_for_select([['Admin', true],['Employee', false]], user.admin),{},class: 'form-select' )%>
   </div>
 

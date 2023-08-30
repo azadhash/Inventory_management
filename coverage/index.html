@@ -1961,7 +1961,7 @@
 
             
 
-            <code class="ruby">  def user_type</code>
+            <code class="ruby">  def admin?</code>
           </li>
         </div>
       
@@ -2520,7 +2520,7 @@
 
             
 
-            <code class="ruby">  before_action :user_type</code>
+            <code class="ruby">  before_action :admin?</code>
           </li>
         </div>
       
@@ -3211,7 +3211,7 @@
 
             
 
-            <code class="ruby">  before_action :user_type</code>
+            <code class="ruby">  before_action :admin?</code>
           </li>
         </div>
       
@@ -4142,7 +4142,7 @@
 
             
 
-            <code class="ruby">  before_action :user_type, except: %i[index create new search]</code>
+            <code class="ruby">  before_action :admin?, except: %i[index create new search]</code>
           </li>
         </div>
       
@@ -4932,7 +4932,7 @@
 
             
 
-            <code class="ruby">  before_action :user_type, except: %i[index show search]</code>
+            <code class="ruby">  before_action :admin?, except: %i[index show search]</code>
           </li>
         </div>
       
@@ -6686,7 +6686,7 @@
 
             
 
-            <code class="ruby">  before_action :user_type</code>
+            <code class="ruby">  before_action :admin?</code>
           </li>
         </div>
       

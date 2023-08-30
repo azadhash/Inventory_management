@@ -8,6 +8,10 @@
         <%= label_tag :active, "Active:" %>
         <%= select_tag :active, options_for_select([["All", ""], ["Yes", "true"], ["No", "false"]], session[:active]), class: "form-control" %>
       </div>
+      <div class="form-group">
+        <%= label_tag :role, "Role:" %>
+        <%= select_tag :role, options_for_select([["All", ""], ["Admin", "true"], ["Employee", "false"]], session[:role]), class: "form-control" %>
+      </div>     
       <%= hidden_field_tag :filter, true %>
       <%= submit_tag "Apply Filters", class: "btn btn-primary btn-sm mt-2" %>
     <% end %>

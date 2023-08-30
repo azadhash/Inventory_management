@@ -4,7 +4,7 @@
 class ItemsController < ApplicationController
   include ItemsHelper
   before_action :current_user?
-  before_action :user_type, except: %i[index show search]
+  before_action :admin?, except: %i[index show search]
   before_action :fetch_item, only: %i[show edit update destroy]
   before_action :check_show, only: %i[show]
   def index
@@ -60,6 +60,8 @@ class ItemsController < ApplicationController
 
   def destroy
     if !@item.user_id?
+      @category = @item.category
+      @category.update(required_quantity: @category.required_quantity + 1)
       redirect_to items_path, flash: { notice: 'Item was successfully deleted.' } if @item.destroy
     else
       redirect_to items_path, flash: { alert: 'We can not delete this item as item is allocated to a user.' }

@@ -1,5 +1,6 @@
 <div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
   <%= render 'partials/search', search: search_categories_path %>
+  <%= render 'filter', filter: categories_path %>
   <%= link_to  new_category_path, class: 'btn add-btn btn-sm' do %>
     <i class="fa-solid fa-plus fa-lg" style="color: #026c6da;"></i>Add Category
   <% end %>

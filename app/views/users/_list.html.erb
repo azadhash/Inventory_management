@@ -4,6 +4,7 @@
       <tr class="text-center">
         <%= render 'partials/sort', sort: search %>
         <th scope="col">Email</th>
+        <th scope="col">Role</th>
         <th scope="col">Active</th>
         <%= render 'partials/sort_created', sort: search %>
         <th scope="col">Actions</th>
@@ -14,6 +15,11 @@
       <tr class="text-center" data-users-id=<%= user.id %>>
         <td><%= link_to "#{user.name}", user_path(user), class: 'btn text-primary' %></td>
         <td><%= user.email %></td>
+        <td>
+          <div class="<%= user.admin ? 'admin' : 'employee' %>">
+            <%= user.admin ? 'Admin' : 'Employee' %>
+          </div>
+        </td>
         <td>
           <div class="<%= user.active ? 'active-status' : 'not-active-status' %>">
             <%= user.active ? 'Yes' : 'No' %>

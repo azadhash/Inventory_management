@@ -32,13 +32,13 @@ user3 = User.create(name: 'User_3', email: 'user3@example.com', active: true, ad
 user4 = User.create(name: 'User_4', email: 'user4@example.com', active: true, admin: false)
 
 # Create Items
-item1 = Item.create(uid: '5672', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
+item1 = Item.create(uid: '52', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
 item2 = Item.create(uid: '7292', name: 'Item 2', status: false, brand: brand2, category: category2, user: user2)
 item3 = Item.create(uid: '1234', name: 'Item 3', status: true, brand: brand3, category: category3, user: nil)
 item4 = Item.create(uid: '578', name: 'Item 4', status: false, brand: brand3, category: category2, user: nil)
 item5 = Item.create(uid: '568', name: 'Item 5', status: true, brand: brand4, category: category1, user: user4)
 item6 = Item.create(uid: '567', name: 'Item 6', status: false, brand: brand5, category: category4, user: user4)
-item7 = Item.create(uid: '5627', name: 'Item 7', status: true, brand: brand6, category: category3, user: user3)
+item7 = Item.create(uid: '5697', name: 'Item 7', status: true, brand: brand6, category: category3, user: user3)
 item8 = Item.create(uid: '5627', name: 'Item 8', status: false, brand: brand6, category: category4, user: nil)
 # Create Issues
 issue1 = Issue.create(id: '1207', description: 'it is not working ', status: false, user: user2, item: item1)

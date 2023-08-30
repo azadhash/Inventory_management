@@ -1,5 +1,16 @@
 <div class="container mt-4 mb-4 d-flex justify-content-center align-items-center">
   <%= render 'partials/search', search: search_categories_path  %>
+  <%= render 'filter', filter: search_categories_path %>
+  <% if check_session %>
+    <%= form_tag(search_categories_path, method: "get", class: "clear-filter-form mt-2") do %>
+      <div class="form-group">
+        <%= submit_tag "Clear Filter", class: "btn btn-sm add-btn" %>
+      </div>
+      <%= hidden_field_tag :query, '' %>
+      <%= hidden_field_tag :priority, '' %>
+      <%= hidden_field_tag :filter, true %>
+    <% end %>
+  <% end %>
 </div>
 <% unless @categories.nil? %>
   <% if @categories.empty? %>

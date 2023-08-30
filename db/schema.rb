@@ -1,4 +1,3 @@
-# rubocop:disable all
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_03_073735) do
+ActiveRecord::Schema.define(version: 2023_08_29_054327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +47,7 @@ ActiveRecord::Schema.define(version: 2023_08_03_073735) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_brands_on_name", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2023_08_03_073735) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "priority"
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "issues", force: :cascade do |t|
@@ -82,6 +83,8 @@ ActiveRecord::Schema.define(version: 2023_08_03_073735) do
     t.bigint "uid"
     t.index ["brand_id"], name: "index_items_on_brand_id"
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["name"], name: "index_items_on_name", unique: true
+    t.index ["uid"], name: "index_items_on_uid", unique: true
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -102,6 +105,7 @@ ActiveRecord::Schema.define(version: 2023_08_03_073735) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

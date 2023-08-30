@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       get :storage
     end
   end
-  resources :issues do
+  resources :issues, except: %i[destroy edit] do
     collection do
       get :search
     end

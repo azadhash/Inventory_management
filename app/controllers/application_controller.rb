@@ -3,6 +3,8 @@
 # This is the application controller
 class ApplicationController < ActionController::Base
   include ApplicationHelper
+  include SearchFilterHelper
+  include SortHelper
   rescue_from ActiveRecord::RecordNotFound, with: :not_found_method
 
   def not_found_method
@@ -21,46 +23,10 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path, flash: { alert: 'You are already logged in' }
   end
 
-  def user_type
+  def admin?
     return if authenticate_user
 
-    redirect_to dashboard_path, flash: { alert: 'You are not an admin' }
+    redirect_to dashboard_path, flash: { alert: "You don't have access to this page" }
   end
 
-  def initialize_session_param(key)
-    session[key] = params[key].presence || nil
-  end
-
-  def initialize_session
-    initialize_session_param(:category_id)
-    initialize_session_param(:brand_id)
-    initialize_session_param(:status)
-    initialize_session_param(:active)
-  end
-
-  def search_obj(params, model)
-    query = extract_query(params)
-    results = perform_search(query, model)
-    results = apply_filters(results, params)
-    sort_results(results, params[:sort_by])
-  end
-
-  def extract_query(params)
-    query = params[:search_category].presence && params[:search_category][:query] || params[:query]
-    session[:query] = query unless query.nil?
-    query || session[:query]
-  end
-
-  def perform_search(query, model)
-    query.present? ? model.search_result(query.strip).records : model.all
-  end
-
-  def apply_filters(results, params)
-    initialize_session if params[:filter]
-    filter(results)
-  end
-
-  def sort_results(results, sort_param)
-    sort_obj(sort_param, results)
-  end
 end

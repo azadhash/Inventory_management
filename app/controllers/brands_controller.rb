@@ -3,7 +3,7 @@
 # this is the Brands controller
 class BrandsController < ApplicationController
   before_action :current_user?
-  before_action :user_type
+  before_action :admin?
   before_action :fetch_brand, only: %i[edit update destroy]
   def index
     session[:query] = nil

@@ -1,4 +1,4 @@
-<button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
+<%= link_to 'Back', request.referer || root_path, class: 'btn btn-sm add-btn' %>
 <h5 class="p-3 text-center">User Details</h5>
 <div class="col-lg-4 mt-4 m-auto w-30">
   <div class="card mb-4">
@@ -32,7 +32,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <p class="mb-0">User Type</p>
+          <p class="mb-0">Role</p>
         </div>
         <div class="col-sm-9">
           <p class="text-muted mb-0"><%= @user.admin ? "Admin" : "Employee  " %></p>
@@ -55,7 +55,6 @@
       <thead>
         <tr class="text-center">
           <%= render 'partials/user_items',sort: user_path(@user) %>
-          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody class="entities-list">

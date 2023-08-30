@@ -1,4 +1,4 @@
-<button class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left-long fa-lg"></i> Back</button>
+<%= link_to 'Back', request.referer || root_path, class: 'btn btn-sm add-btn' %>
 <h5 class="p-3 text-center">Issue Details</h5>
 <div class="col-lg-5 mt-4 m-auto w-30">
   <div class="card mb-4">
@@ -39,7 +39,6 @@
         </div>
       </div>
       <hr>
-      <hr>
       <div class="row">
         <div class="col-sm-3">
           <p class="mb-0">Employee</p>
@@ -52,7 +51,6 @@
       <div class="row">
         <div class="d-flex justify-content-center">
           <% if authenticate_user %>
-            <%= delete_link(issue_path(@issue)) %>
             <div>
               <%= form_for(@issue, url: issue_path(@issue), method: :put) do |form| %>
                 <% if !@issue.status %>

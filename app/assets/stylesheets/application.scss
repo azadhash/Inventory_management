@@ -194,10 +194,31 @@ table td{
   color: #000 !important;
   transition: none !important;
 }
-
+.admin{
+  background-color: #14d1d1;
+  color: #000000;
+  border-radius: 20px;
+  width: 80px;
+  margin: auto;
+}
+.employee{
+  background-color: #c1e90d;
+  color: #0c0c0c;
+  border-radius: 20px;
+  width: 80px;
+  margin: auto;
+}
 .t-over{
   overflow: hidden !important;
 }
+
+.card-dashboard{
+  color: #0f78db !important;
+  margin: 5px !important;
+  background-color: #e3f2fd !important;
+  border: 2px solid #26c6da !important;
+}
+
 @media only screen and (max-width: 550px) {
   *{
     font-size: 12px !important;

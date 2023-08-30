@@ -9,11 +9,11 @@
     </div>
   </td> 
   <td><%= item.created_at.strftime('%B %d, %Y at %H:%M') %></td> 
-  <% if authenticate_user %>
-    <td>
-      <%= show_link((item_path(item)))%>
+  <td>
+    <%= show_link((item_path(item)))%>
+    <% if authenticate_user %>
       <%= edit_link(edit_item_path(item)) %>
-      <%= delete_link(item_path(item)) %>
-    </td>
-  <% end %>
+      <%= delete_link(item_path(item)) if !item.user %>
+    <% end %>
+  </td>
 </tr>
