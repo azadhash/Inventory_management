@@ -28,5 +28,4 @@ class ApplicationController < ActionController::Base
 
     redirect_to dashboard_path, flash: { alert: "You don't have access to this page" }
   end
-
 end

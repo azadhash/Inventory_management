@@ -15,6 +15,11 @@ RSpec.describe Brand, type: :model do
       expect(brand).not_to be_valid
     end
 
+    it 'is valid if name length is less than 50 characters' do
+      brand.name = 'a' * 49
+      expect(brand).to be_valid
+    end
+
     it 'is not valid if name length exceeds 50 characters' do
       brand.name = 'a' * 51
       expect(brand).not_to be_valid
@@ -25,6 +30,13 @@ RSpec.describe Brand, type: :model do
 
       brand.name = 'test model'
       expect(brand).not_to be_valid
+    end
+
+    it 'is valid with different case-insensitive name' do
+      create(:brand, name: 'Test Model')
+
+      brand.name = 'secest model'
+      expect(brand).to be_valid
     end
   end
 
