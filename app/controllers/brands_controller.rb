@@ -10,7 +10,6 @@ class BrandsController < ApplicationController
     @brands = Brand.all
     sort_param = params[:sort_by]
     @brands = sort_obj(sort_param, @brands)
-    @brand = Brand.new
     @brands = @brands.page(params[:page]).per(5)
   end
 

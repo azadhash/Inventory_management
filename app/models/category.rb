@@ -13,7 +13,7 @@ class Category < ApplicationRecord
   validates :buffer_quantity, presence: { message: 'Please write the number of buffer quantity' },
                               numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :priority, presence: { message: 'Please select the priority' }
-  validate :buffer_quantity_less_than_or_equal_to_required_quantity, on: :create
+  validate :validate_buffer, on: :create
   validate :check_buffer_quantity, on: :update
 
   settings do
@@ -24,7 +24,7 @@ class Category < ApplicationRecord
     end
   end
 
-  def buffer_quantity_less_than_or_equal_to_required_quantity
+  def validate_buffer
     return if required_quantity.blank? || buffer_quantity.blank? || buffer_quantity <= required_quantity
 
     errors.add(:buffer_quantity, 'Buffer quantity should be less than or equal to required quantity')
