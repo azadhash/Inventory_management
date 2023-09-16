@@ -32,7 +32,7 @@ user3 = User.create(name: 'User_3', email: 'user3@example.com', active: true, ad
 user4 = User.create(name: 'User_4', email: 'user4@example.com', active: true, admin: false)
 
 # Create Items
-item1 = Item.create(uid: '52', name: 'Item 1', status: true, brand: brand1, category: category1, user: nil)
+item1 = Item.create(uid: '52', name: 'Item 1', status: true, brand: brand1, category: category1, user: user2)
 item2 = Item.create(uid: '7292', name: 'Item 2', status: false, brand: brand2, category: category2, user: user2)
 item3 = Item.create(uid: '1234', name: 'Item 3', status: true, brand: brand3, category: category3, user: nil)
 item4 = Item.create(uid: '578', name: 'Item 4', status: false, brand: brand3, category: category2, user: nil)
@@ -43,6 +43,6 @@ item8 = Item.create(uid: '5627', name: 'Item 8', status: false, brand: brand6, c
 # Create Issues
 issue1 = Issue.create(id: '1207', description: 'it is not working ', status: false, user: user2, item: item1)
 issue2 = Issue.create(id: '1107', description: 'buttons ar not working', status: false, user: user2, item: item2)
-issue3 = Issue.create(id: '1307', description: 'Issue_3', status: false, user: user3, item: item3)
-issue4 = Issue.create(id: '1267', description: 'Issue_4', status: false, user: user4, item: item4)
+issue3 = Issue.create(id: '1307', description: 'Issue_5 not working', status: false, user: user4, item: item5)
+issue4 = Issue.create(id: '1267', description: 'Issue_4', status: false, user: user3, item: item7)
 issue5 = Issue.create(id: '1457', description: 'Issue_5', status: false, user: user4, item: item5)

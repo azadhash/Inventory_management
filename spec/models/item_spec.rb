@@ -40,7 +40,8 @@ RSpec.describe Item, type: :model do
     it 'is valid with valid attributes' do
       brand = create(:brand)
       category = create(:category)
-      item = build(:item, brand: brand, category: category)
+      user = create(:user)
+      item = build(:item, brand: brand, category: category, user: user)
       expect(item).to be_valid
     end
 
@@ -73,7 +74,13 @@ RSpec.describe Item, type: :model do
       item.user = nil
       expect(item).to be_valid
     end
-
+    it 'is not valid with wrong user' do
+      brand = create(:brand)
+      category = create(:category)
+      item = build(:item, brand: brand, category: category)
+      item.user_id = 234
+      expect(item).not_to be_valid
+    end
     it 'is not valid with notes exceeding 100 characters' do
       item.notes = 'a' * 101
       expect(item).not_to be_valid
