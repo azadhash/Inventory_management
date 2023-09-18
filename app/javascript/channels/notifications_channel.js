@@ -33,9 +33,6 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
     notificationItem.innerHTML = notificationContent;
     modalBody.appendChild(notificationItem);
 
-    const markReadButton = notificationItem.querySelector(`#mark_${notification.id}`);
-    markReadButton.addEventListener('click', handleMarkReadButtonClick);
-
     var counterElement = document.getElementById('notificationCounter');
     var counter = parseInt(counterElement.textContent);
     counter += 1;
@@ -45,22 +42,38 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
 
 
 const handleMarkReadButtonClick = function(event) {
-  var notification_id = this.getAttribute('data-notification_id');
-  let notification = "notification-" + notification_id;
-  const notificationDiv = document.getElementById(notification);
-  
-  if (notificationDiv) {
-    const form = this.closest('form');
-    if (form) {
-      form.submit();
+  var notificationId = this.getAttribute('data-notification_id');
+
+  $.ajax({
+    url: "/notifications/mark/" + notificationId,
+    method: "PATCH",
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function(response) {
+      let notification = "notification-" + notificationId;
+      const notificationDiv = document.getElementById(notification);
+
+      if (notificationDiv) {
+        notificationDiv.remove();
+        var counterElement = document.getElementById('notificationCounter');
+        var counter = parseInt(counterElement.textContent);
+        counter -= 1;
+        counterElement.textContent = counter;
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error("AJAX Error:", error);
     }
-    notificationDiv.remove();
-    var counterElement = document.getElementById('notificationCounter');
-    var counter = parseInt(counterElement.textContent);
-    counter -= 1;
-    counterElement.textContent = counter;
-  }
-  
+  });
+
   event.preventDefault();
 };
+document.addEventListener('click', function(event) {
+  if (event.target && event.target.matches('.mark-read-button')) {
+    handleMarkReadButtonClick.call(event.target, event);
+  }
+});
+
+
 

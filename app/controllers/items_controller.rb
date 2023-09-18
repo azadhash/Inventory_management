@@ -43,25 +43,15 @@ class ItemsController < ApplicationController
   def update
     @category = @item.category
     if @item.update(item_params)
-      check_catgeory
+      send_notification
       redirect_to @item, flash: { notice: 'Item was successfully updated.' }
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def check_catgeory
-    if @category.id != @item.category_id
-      update_category
-    else
-      send_notification
-    end
-  end
-
   def destroy
     if !@item.user_id?
-      @category = @item.category
-      @category.update(required_quantity: @category.required_quantity + 1)
       redirect_to items_path, flash: { notice: 'Item was successfully deleted.' } if @item.destroy
     else
       redirect_to items_path, flash: { alert: 'We can not delete this item as item is allocated to a user.' }

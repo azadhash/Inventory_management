@@ -62,10 +62,10 @@
                       <div class="col-10">
                         <div class="notification-content">
                           <p class="notification-text"><%= notification.message %></p>
-                          <small class="text-muted">Sent on <%= notification.created_at.strftime('%B %d, %Y at %H:%M') %></small>
-                          <%= button_to notifications_mark_path(id: notification.id), remote: true, method: :patch, class: 'btn btn-sm add-btn mark-read-button',id:"mark_#{notification.id}", data: { notification_id: notification.id } do %>
+                          <small class="text-muted">Sent on <%= notification.created_at.strftime('%B %d, %Y at %H:%M') %></small><br>
+                          <button class="btn btn-sm add-btn mark-read-button" id="mark_<%= notification.id %>" data-notification_id="<%= notification.id %>">
                             <i class="fa-solid fa-check"></i> Mark read
-                          <% end %>
+                          </button>
                         </div>
                       </div>
                     <hr>

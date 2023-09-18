@@ -58,7 +58,7 @@ class CategoriesController < ApplicationController
 
   def fetch_data
     category = Category.find(params[:category_id])
-    storage = category.items.where(user: nil).count + category.required_quantity
+    storage = category.count_user_id_nil
     render json: { storage: }
   end
 
