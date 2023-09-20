@@ -7,6 +7,7 @@ module SearchFilterHelper
   end
 
   def initialize_session
+    session[:back] = 'item'
     initialize_session_param(:category_id)
     initialize_session_param(:brand_id)
     initialize_session_param(:status)

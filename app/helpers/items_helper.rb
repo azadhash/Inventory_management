@@ -5,16 +5,16 @@ module ItemsHelper
   def create_item
     @item.uid = generate_unique_id
     @item.save
-    check_user
+    check_user('created')
   end
 
   def send_notification
     category = @item.category
     item_count = category.count_user_id_nil
-    expected_buffer_quantity = category.expected_buffer
-    msg = "In #{category.name.capitalize} category, items required is less than expected buffer by
-            #{expected_buffer_quantity - item_count}"
-    return unless item_count < expected_buffer_quantity
+    buffer_quantity = category.buffer_quantity
+    msg = "In #{category.name.capitalize} category, the number of items
+           is below the expected buffer quantity by #{buffer_quantity - item_count}."
+    return unless item_count < buffer_quantity
 
     sent_notification_to_admin(category.priority, msg)
   end
@@ -32,12 +32,13 @@ module ItemsHelper
     @items = @items.where(user_id: current_user.id)
   end
 
-  def check_user
+  def check_user(action)
     if @item.user_id.present?
       send_notification
       redirect_to @item, flash: { notice: "#{@item.category.name} successfully allocated to #{@item.user.name}" }
     else
-      redirect_to @item, flash: { notice: 'Item created successfully.' }
+      flash_message = action == 'created' ? 'Item created successfully.' : 'Item updated successfully.'
+      redirect_to @item, flash: { notice: flash_message }
     end
   end
 
@@ -53,5 +54,9 @@ module ItemsHelper
       random_id = SecureRandom.random_number(10_000)
       return random_id if Item.find_by(id: random_id).nil?
     end
+  end
+
+  def back_btn
+    session[:back] == 'user' ? user_path(@item.user) : items_path
   end
 end

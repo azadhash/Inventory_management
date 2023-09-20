@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    session[:back] = 'user'
     @items = @user.items
     sort_param = params[:sort_by]
     @items = sort_obj(sort_param, @items)

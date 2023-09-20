@@ -43,8 +43,7 @@ class ItemsController < ApplicationController
   def update
     @category = @item.category
     if @item.update(item_params)
-      send_notification
-      redirect_to @item, flash: { notice: 'Item was successfully updated.' }
+      check_user('updated')
     else
       render :edit, status: :unprocessable_entity
     end

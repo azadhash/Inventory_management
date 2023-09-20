@@ -59,9 +59,5 @@ class Category < ApplicationRecord
     items.where(user_id: nil).count
   end
 
-  def expected_buffer
-    required_quantity + buffer_quantity
-  end
-
   index_data
 end
