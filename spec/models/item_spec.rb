@@ -80,6 +80,7 @@ RSpec.describe Item, type: :model do
       item = build(:item, brand: brand, category: category)
       item.user_id = 234
       expect(item).not_to be_valid
+      expect(item.errors[:user_id]).to include('is not a valid user')
     end
     it 'is not valid with notes exceeding 100 characters' do
       item.notes = 'a' * 101
