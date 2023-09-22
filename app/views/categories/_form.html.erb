@@ -16,6 +16,11 @@
       <p class='text-danger'><%= show_errors(@category, :buffer_quantity) %></p> 
     </div>
     <div>
+      <%= form.label :expected_buffer, class: 'form-label required' %>
+      <%= form.text_field :expected_buffer, class: 'form-control' %>
+      <p class='text-danger'><%= show_errors(@category, :expected_buffer) %></p> 
+    </div>
+    <div>
       <%= form.label :priority, class: 'form-label required' %>
       <%= form.select :priority, options_for_select(Category.priorities.keys, category.priority), { prompt: 'Select priority' }, { class: 'form-select mb-3' } %>
       <p class='text-danger'><%= show_errors(@category, :priority) %></p> 

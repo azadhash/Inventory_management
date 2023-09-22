@@ -3,18 +3,24 @@
 # this is the items helper
 module ItemsHelper
   def create_item
-    @item.uid = generate_unique_id
-    @item.save
-    check_user('created')
+    category = @item.category
+    if category.present? && category.items.count < category.total_items
+      @item.uid = generate_unique_id
+      @item.save
+      check_user('created')
+    else
+      flash.now[:alert] = "Cannot create new item. We don't need more item in #{@item.category.name} category."
+      render :new
+    end
   end
 
   def send_notification
     category = @item.category
-    item_count = category.count_user_id_nil
-    buffer_quantity = category.buffer_quantity
+    item_count = category.count_allocated_items
+    buffer_quantity = category.buffer_quantity + category.required_quantity - category.expected_buffer
     msg = "In #{category.name.capitalize} category, the number of items
-           is below the expected buffer quantity by #{buffer_quantity - item_count}."
-    return unless item_count < buffer_quantity
+           is below the expected buffer quantity by #{item_count - buffer_quantity}."
+    return unless item_count > buffer_quantity
 
     sent_notification_to_admin(category.priority, msg)
   end

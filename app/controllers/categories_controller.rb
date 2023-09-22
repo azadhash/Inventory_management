@@ -58,7 +58,7 @@ class CategoriesController < ApplicationController
 
   def fetch_data
     category = Category.find(params[:category_id])
-    storage = category.count_user_id_nil
+    storage = category.storage
     render json: { storage: }
   end
 
@@ -69,6 +69,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :required_quantity, :buffer_quantity, :priority)
+    params.require(:category).permit(:name, :required_quantity, :buffer_quantity, :expected_buffer, :priority)
   end
 end
