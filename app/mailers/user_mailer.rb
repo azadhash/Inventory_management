@@ -2,16 +2,16 @@
 
 # this is the UserMailer
 class UserMailer < ApplicationMailer
-  default from: 'workazadsingh@gmail.com'
+  default from: email_address_with_name('workazadsingh@gmail.com', 'Azad Singh')
 
   def welcome_email(user)
     @user = user
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    mail(to: email_address_with_name(@user.email, @user.name), subject: 'Login Link')
   end
 
   def issue_status_email(issue)
     @issue = issue
     @user = @issue.user
-    mail(to: @user.email, subject: 'Issue Status')
+    mail(to: email_address_with_name(@user.email, @user.name), subject: 'Issue resloved')
   end
 end

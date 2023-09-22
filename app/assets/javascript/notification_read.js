@@ -1,7 +1,6 @@
 $(document).ready(function() {
   $(".mark-read-button").on("click", function() {
     var notificationId = $(this).data("notification_id");
-    console.log(notificationId);
     var buttonElement = $(this);
 
     $.ajax({

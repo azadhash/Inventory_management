@@ -13,7 +13,6 @@ consumer.subscriptions.create({ channel: "NotificationsChannel" }, {
     const notificationItem = document.createElement('div');
     notificationItem.className = 'notification-item';
     const notification = data.notification;
-    
     const notificationContent = `
       <div class="notification-item" id="notification-${notification.id}">
         <div class="row notification-priority-${notification.priority}">

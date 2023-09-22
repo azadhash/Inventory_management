@@ -1,8 +1,8 @@
 <th scope="col">Id
-  <%= link_to url: sort, sort_by: "uid_asc", class: "btn btn-link btn-sm" do %>
+  <%= link_to url: sort, sort_by: "uid_asc" do %>
     <% image_tag "up.png", class: "sort-icon" %>
   <% end %>
-  <%= link_to url: sort, sort_by: "uid_desc", class: "btn btn-link btn-sm" do %>
+  <%= link_to url: sort, sort_by: "uid_desc" do %>
     <% image_tag "down.png", class: "sort-icon" %>
   <% end %>
 </th>
@@ -20,10 +20,10 @@
       Brand Name
     </div>
     <div class="btn-group d-flex">
-      <%= link_to url: sort, sort_by: "brand_asc", class: "btn btn-link btn-sm" do %>
+      <%= link_to url: sort, sort_by: "brand_asc" do %>
         <% image_tag "up.png", class: "sort-icon" %>
       <% end %>
-      <%= link_to url: sort, sort_by: "brand_desc", class: "btn btn-link btn-sm" do %>
+      <%= link_to url: sort, sort_by: "brand_desc" do %>
         <% image_tag "down.png", class: "sort-icon" %>
       <% end %>
     </div>
@@ -35,10 +35,10 @@
       Category Name
     </div>
     <div class="btn-group d-flex">
-      <%= link_to url: sort, sort_by: "category_asc", class: "btn btn-link btn-sm" do %>
+      <%= link_to url: sort, sort_by: "category_asc" do %>
         <% image_tag "up.png", class: "sort-icon" %>
       <% end %>
-      <%= link_to url: sort, sort_by: "category_desc", class: "btn btn-link btn-sm" do %>
+      <%= link_to url: sort, sort_by: "category_desc" do %>
         <% image_tag "down.png", class: "sort-icon" %>
       <% end %>
     </div>

@@ -20,10 +20,10 @@ brand5 = Brand.create(name: 'Asus')
 brand6 = Brand.create(name: 'Acer')
 
 # Create Categories
-category1 = Category.create(name: 'Laptop', required_quantity: 10, buffer_quantity: 1, priority: 'high')
-category2 = Category.create(name: 'Mouse', required_quantity: 8, buffer_quantity: 1, priority: 'medium')
-category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quantity: 1, priority: 'low')
-category4 = Category.create(name: 'Monitor', required_quantity: 3, buffer_quantity: 1, priority: 'high')
+category1 = Category.create(name: 'Laptop', required_quantity: 10, buffer_quantity: 5, expected_buffer: 2, priority: 'high')
+category2 = Category.create(name: 'Mouse', required_quantity: 8, buffer_quantity: 4, expected_buffer: 3, priority: 'medium')
+category3 = Category.create(name: 'Keyboard', required_quantity: 5, buffer_quantity: 2, expected_buffer: 1, priority: 'low')
+category4 = Category.create(name: 'Monitor', required_quantity: 3, buffer_quantity: 2,  expected_buffer: 1, priority: 'high')
 
 # Create Users
 user1 = User.create(name: 'User_1', email: 'user1@example.com', active: true, admin: true)
