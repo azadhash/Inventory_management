@@ -2,7 +2,7 @@
   <%= render 'partials/search', search: search_items_path  %>
   <%= render 'filter' %>
   <% if authenticate_user %>
-    <%= link_to new_item_path, class: 'btn add-btn btn-sm' do%>
+    <%= link_to new_item_path, class: 'btn add-btn btn-sm' do %>
       <i class="fa-solid fa-plus fa-lg" style="color: #026c6da;"></i>Add Item
     <% end %>
   <% end %>

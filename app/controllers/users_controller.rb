@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def show
     session[:back] = 'user'
-    @items = @user.items
+    @items = @user.items.includes(:brand, :category)
     sort_param = params[:sort_by]
     @items = sort_obj(sort_param, @items)
     @items = @items.page(params[:page]).per(5)

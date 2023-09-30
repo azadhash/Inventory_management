@@ -28,7 +28,7 @@
     <% type.limit(limit).each do |type_name| %>
       <tr class="table-info">
         <td><%= type_name.id %></td>
-        <% if type == Issue%>
+        <% if type == Issue %>
           <td><%= type_name.description %></td>
         <% else %>
           <td><%= type_name.name %></td>

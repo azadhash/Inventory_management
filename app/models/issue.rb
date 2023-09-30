@@ -13,7 +13,6 @@ class Issue < ApplicationRecord
       indexes :description, type: :text
       indexes :id, type: :keyword
       indexes :item_id, type: :keyword
-      indexes :user_id, type: :keyword
     end
   end
   def self.index_data
@@ -26,7 +25,6 @@ class Issue < ApplicationRecord
       id: id,
       description: description,
       item_id: item.uid,
-      user_id: user.id
     }
   end
 
@@ -35,7 +33,7 @@ class Issue < ApplicationRecord
              "query": {
                "query_string": {
                  "query": "*#{query}*",
-                 "fields": %w[id description item_id user_id]
+                 "fields": %w[id description item_id]
                }
              }
            })

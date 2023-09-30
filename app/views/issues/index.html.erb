@@ -2,7 +2,7 @@
   <%= render 'partials/search', search: search_issues_path %>
   <%= render 'filter' %>
   <% if !authenticate_user %>
-    <%= link_to new_issue_path, class: 'btn add-btn btn-sm' do%>
+    <%= link_to new_issue_path, class: 'btn add-btn btn-sm' do %>
       <i class="fa-solid fa-plus fa-lg" style="color: #026c6da;"></i>Raise Issue
     <% end %>
   <% end %>

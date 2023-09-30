@@ -6,7 +6,6 @@
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
         <%= form_with url:login_path do |form| %>
-          
           <div class="form-outline mb-4">
             <%= form.label :email, class: 'form-label required'%>
             <%= form.email_field :email, class: 'form-control form-control-lg', placeholder: 'Enter your email to login', required: true %>
@@ -14,12 +13,12 @@
           <div class="invalid-feedback">Please enter a valid email address.</div>
           <%= form.submit 'Login', class:'btn btn-primary btn-lg btn-block custom-bg-color w-100' %> 
         <% end %> 
-          <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-          </div>
-          <%= button_to '/auth/google_oauth2', data: { "turbo": false }, class: 'btn btn-primary btn-lg btn-block custom-bg-color w-100' do %>
-            <i class="fa-brands fa-google me-2" style="color: #ffffff;"></i> Continue with google
-          <% end %>
+        <div class="divider d-flex align-items-center my-4">
+          <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+        </div>
+        <%= button_to '/auth/google_oauth2', data: { "turbo": false }, class: 'btn btn-primary btn-lg btn-block custom-bg-color w-100' do %>
+          <i class="fa-brands fa-google me-2" style="color: #ffffff;"></i> Continue with google
+        <% end %>
       </div>
     </div>
   </div>

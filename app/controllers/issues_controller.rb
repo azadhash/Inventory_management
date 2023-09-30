@@ -9,7 +9,7 @@ class IssuesController < ApplicationController
   def index
     initialize_session
     session[:query] = nil
-    @issues = Issue.all
+    @issues = Issue.includes(:item).all
     fetch_issues_of_employee
     sort_param = params[:sort_by]
     @issues = sort_obj(sort_param, @issues)
