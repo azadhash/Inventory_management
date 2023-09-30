@@ -7,7 +7,7 @@ module IssuesHelper
     user = @issue.user
     notification = Notification.create(recipient: user, priority: 'low',
                                        message: "Your Issue with the Item #{@issue.item.name}
-                                                having issue id #{@issue.id} is resolved")
+                                                    having issue id #{@issue.id} is resolved")
     ActionCable.server.broadcast("NotificationsChannel_#{user.id}", { notification: })
   end
 
