@@ -50,6 +50,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'validates presence, length, format, and uniqueness of email' do
+      user1 = create(:user, email: 'john@example.com')
       user2 = User.new(email: 'john@example.com',name: 'aads')
       expect(user2).not_to be_valid
 
